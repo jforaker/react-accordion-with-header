@@ -19,7 +19,7 @@ module.exports = {
 	},
 
 	output: {
-		filename: 'dist/react-accordion-with-header.js',
+		filename: 'lib/index.js',
 		libraryTarget: 'umd',
 		library: 'ReactAccordionWithHeader'
 	},

@@ -4,3 +4,5 @@ tools
 /.babelrc
 /.eslintrc
 /.editorconfig
+.idea/
+/.idea/

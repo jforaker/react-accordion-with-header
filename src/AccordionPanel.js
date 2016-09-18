@@ -24,12 +24,7 @@ export default class AccordionPanel extends Component {
 			style: this.props.style
 		};
 
-		return className(
-      'react-accordion-with-header-item',
-      this.props.className,
-      {'react-accordion-with-header-item-expanded': this.props.isExpanded},
-      this.props.expandedClassName && {[this.props.expandedClassName]: this.props.isExpanded}
-    );
+		return properties;
 	}
 
 	render() {
