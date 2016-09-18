@@ -7,7 +7,7 @@
     "url": "git+https://github.com/jforaker/react-accordion-with-header.git"
   },
   "homepage": "https://github.com/jforaker/react-accordion-with-header",
-  "main": "dist/react-accordion-with-header.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "test",
     "start": "npm run lint & npm run server",
