@@ -1,4 +1,4 @@
-import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} from '../src';
+import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} from '../src/index';
 
 import React from 'react';
 import {render} from 'react-dom';
