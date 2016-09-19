@@ -4,7 +4,6 @@
 
 import React, { Component, cloneElement, Children } from 'react';
 import classNames from 'classnames';
-import { arrayify, dedupeArr } from './utils';
 
 export default class AccordionNode extends Component {
 

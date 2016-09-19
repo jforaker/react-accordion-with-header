@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import className from 'classnames';
 
 const defaultStyles = {
   overflow: 'hidden',

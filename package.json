@@ -14,6 +14,8 @@
     "server": "./node_modules/.bin/babel-node tools/server.js",
     "lint": "node_modules/.bin/eslint src tools scripts",
     "lint:watch": "npm run lint -- --watch",
+    "demo": "webpack-dev-server --config ./tools/webpack.config.demo.js",
+    "bundle-demo": "webpack --config ./tools/webpack.config.demo.js",
     "bundle-dist": "webpack --config ./tools/webpack.config.dist.js"
   },
   "dependencies": {
@@ -34,6 +36,7 @@
     "eslint-plugin-react": "^6.2.0",
     "express": "^4.14.0",
     "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.22.0",
     "install": "^0.8.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
@@ -44,6 +47,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.7.0",
+    "webpack-dev-server": "^1.16.1",
     "webpack-hot-middleware": "^2.12.2"
   }
 }
