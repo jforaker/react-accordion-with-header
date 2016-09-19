@@ -4,7 +4,6 @@
 
 import React, { Component, cloneElement, Children } from 'react';
 import classNames from 'classnames';
-import uuid from 'uuid';
 import { arrayify, dedupeArr } from './utils';
 
 export default class AccordionNode extends Component {
@@ -17,10 +16,6 @@ export default class AccordionNode extends Component {
     this.state = {
       expanded: false
     };
-  }
-
-  componentWillMount() {
-    this.uuid = uuid.v4();
   }
 
   handleSelect(key, e) {

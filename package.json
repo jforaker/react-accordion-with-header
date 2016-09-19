@@ -17,8 +17,7 @@
     "bundle-dist": "webpack --config ./tools/webpack.config.dist.js"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
-    "uuid": "^2.0.2"
+    "classnames": "^2.2.5"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
