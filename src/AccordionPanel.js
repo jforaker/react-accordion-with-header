@@ -1,42 +1,55 @@
 import React, {Component} from 'react';
 import className from 'classnames';
 
+const defaultStyles = {
+  overflow: 'hidden',
+  border: '1px solid green'
+};
+
 export default class AccordionPanel extends Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			maxHeight: props.expanded ? 'none' : 0,
-			overflow: props.expanded ? 'visible' : 'hidden',
-			duration: 300
-		};
-	}
+  constructor(props) {
+    super(props);
 
-	getExpanded() {
-		var properties = {
-			className: className(
-				'react-accordion-with-header-item',
-				this.props.className,
-				{'react-accordion-with-header-item-expanded': this.props.isExpanded},
-				this.props.expandedClassName && {[this.props.expandedClassName]: this.props.isExpanded}
-			),
-			role: 'tabpanel',
-			style: this.props.style
-		};
+    this.renderChildren = this.renderChildren.bind(this);
 
-		return properties;
-	}
+    this.state = {
+      originalHeight: 0
+    };
+  }
 
-	render() {
+  componentDidMount() {
+    React.Children.forEach(this.props.children, (child) => {
+      const { clientHeight } = this.refs[`item-${child.props.key}`];
+      this.setState({
+        originalHeight: clientHeight
+      })
+    });
+  }
 
-		const style = {
-			maxHeight: 200,
-			display: this.props.isExpanded ? 'block' : 'none'
-		};
+  renderChildren() {
+    if (!this.props.children) {
+      throw new Error('AccordionPanel must have at least one child!');
+    }
+    return React.Children.map(this.props.children, (child) => {
+      return React.cloneElement(child, {
+        ref: `item-${child.props.key}`
+      });
+    });
+  }
 
-		console.log('AccordionPanel this.props.isExpanded', this.props.isExpanded);
+  render() {
 
+    const style = {
+      transition: `all ${this.props.speed || 250}ms ease-in-out`,
+      maxHeight: this.props.isExpanded ? this.state.originalHeight : 0,
+      opacity: this.props.isExpanded ? 1 : 0
+    };
 
-		return <div {...this.getExpanded()} className="accordion-panel" style={style}>{this.props.children}</div>;
-	}
+    return (
+      <div className="accordion-panel" style={{...defaultStyles, ...style}}>
+        {this.renderChildren()}
+      </div>
+    );
+  }
 }

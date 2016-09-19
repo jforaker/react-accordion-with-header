@@ -1,43 +1,64 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
+
+const getAlignment = (str) => {
+  let align = {
+    'left': 'flex-start',
+    'right': 'flex-end',
+    'center': 'center',
+    'default': 'flex-start'
+  };
+  return align[str] || align['default'];
+};
 
 export default class AccordionHeader extends Component {
 
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.renderChildren = this.renderChildren.bind(this);
+  }
 
-		// let activeItems = arrayify(props.activeItems);
-		//
-		// // can't have multiple active items, just use the first one
-		// if (!props.allowMultiple) activeItems = [activeItems[0]]
-		//
-		// this.state = {
-		// 	isExpanded: this
-		// };
-	}
+  handleClick(ev) {
+    ev.preventDefault();
+    this.props.onSelect();
+  }
 
-	handleClick (ev) {
-		ev.preventDefault();
-		this.props.handleCLickState();
-	}
+  renderChildren() {
+    if (this.props.title) {
+      return <h1>{this.props.title}</h1>;
+    }
+    if (!this.props.children && !this.props.title) {
+      throw new Error('AccordionHeader must have a title or at least one child!');
+    }
+    return this.props.children;
+  }
 
-	render() {
+  render() {
 
-		var style = {
-			cursor: 'pointer',
-			margin: 0,
-			color: this.props.titleColor || 'red'
-		};
+    console.log('getAlignment(this.props.titleAlign) ', getAlignment(this.props.titleAlign));
 
-		console.log('AccordionHeader this.props.isExpanded', this.props.isExpanded);
+    var style = {
+      cursor: 'pointer',
+      color: this.props.titleColor || 'red',
+      display: '-webkit-flex',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: getAlignment(this.props.titleAlign),
+    };
 
+    const defaultStyle = {};
 
-		return (
-			<div className="accordion-header"
-				 onClick={this.handleClick.bind(this)}
-				 style={style}>
-				{this.props.children}
-			</div>
-		);
-	}
+    console.log('AccordionHeader this.props', this.props);
+
+    return (
+      <div className={classNames('accordion-header', this.props.className, {'is-Expando': this.props.isExpanded})}
+           onClick={this.handleClick}
+           style={{...defaultStyle, ...style}}>
+        {this.renderChildren()}
+      </div>
+    );
+  }
 }
 

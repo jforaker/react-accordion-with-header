@@ -2,59 +2,54 @@
  * Created by jakeforaker on 9/17/16.
  */
 
-import React, { Component } from 'react';
-import className from 'classnames';
-// import uuid from 'uuid';
+import React, { Component, cloneElement, Children } from 'react';
+import classNames from 'classnames';
+import uuid from 'uuid';
 import { arrayify, dedupeArr } from './utils';
 
 export default class AccordionNode extends Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			maxHeight: props.expanded ? 'none' : 0,
-			overflow: props.expanded ? 'visible' : 'hidden',
-			duration: 300,
-			expanded: false
-		};
-	}
+  constructor(props, context) {
+    super(props, context);
 
-	componentWillMount() {
-		// this.uuid = uuid.v4();
-	}
+    this.handleSelect = this.handleSelect.bind(this);
 
-	renderNodeItems (props) {
+    this.state = {
+      expanded: false
+    };
+  }
+
+  componentWillMount() {
+    this.uuid = uuid.v4();
+  }
+
+  handleSelect(key, e) {
+    e.preventDefault();
+
+    if (this.props.onSelect) {
+      this.props.onSelect(key, e);
+    }
+  }
+
+	renderNodeItems () {
 		if (!this.props.children) {
-			return null;
+      console.warn('AccordionNode component has no items');
+      return null;
 		}
 
-		const children = arrayify(this.props.children);
-
-		return children.map((item, index) => {
-			//render the AccordionNode
-			const el = React.cloneElement(item, {
-				className: className('accordion-node', this.props.className),
-				key: index,
-				ref: `accordion-node-${ index === 0 ? 'header' : 'panel' }`,
-				// identifier: this.uuid,
-				handleCLickState: (item) => this.handleCLick(item),
+		return Children.map(this.props.children, (item, index) => {
+		  //render the <AccordionHeader /> and <AccordionPanel />
+      return cloneElement(item, {
+				className: classNames(`accordion-node-${ index === 0 ? 'header' : 'panel' }`, this.props.className),
+        onSelect: () => this.setState({expanded: !this.state.expanded}),
 				isExpanded: this.state.expanded
 			});
-			return el;
 		});
 	}
 
-	handleCLick (foo) {
-		console.log('foo ', foo);
-		this.setState({expanded: !this.state.expanded});
-		console.log('this.state ', this.state);
-	}
-
 	render() {
-
-		console.log('this.props  NODE_____', this.props);
-		return (
-			<div className={className('accordion-node', this.props.className)}>
+    return (
+			<div className={classNames('accordion-node', this.props.className)} style={{border:'1px solid'}}>
 				{this.renderNodeItems()}
 			</div>
 		);

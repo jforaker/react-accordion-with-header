@@ -1,25 +1,29 @@
-/* eslint-disable */
-
 import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} from '../src';
 
 import React from 'react';
 import {render} from 'react-dom';
 
-let guid = 0;
 
 render(
-	<AccordionWithHeader>
-		{[1, 2, 3, 4, 5].map(function (item, i) {
-			guid++;
+	<AccordionWithHeader allowMultiple={false}>
+		{React.Children.map([1, 2, 3, 4, 5], (item)  => {
+		  //use React.Children.map so we dont have specify key on AccordionNode
 			return (
-				<AccordionNode key={guid} className="custom-classname" trigger={'foo'}>
+				<AccordionNode className="custom-classname" trigger={'foo'}>
 
-					<AccordionHeader>
+					<AccordionHeader className="header-foobar" title="Foo" titleAlign="right">
+            {/*
+            title: string
+            titleAlign: String: "left, center, right"
+            */}
 						<div className="foob-by-user">AccordionHeader {item}</div>
-					</AccordionHeader>
+            <div className="foob-by-user">AccordionHeader {item}</div>
+            <div className="foob-by-user">AccordionHeader {item}</div>
 
-					<AccordionPanel title={'Item' + item} titleColor="blue" expanded="false">
-						<div>
+          </AccordionHeader>
+
+					<AccordionPanel>
+						<div style={{height:120}}>
 							{'Item ' + item + ' content'}
 						</div>
 					</AccordionPanel>

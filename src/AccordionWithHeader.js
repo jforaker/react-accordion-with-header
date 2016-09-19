@@ -1,26 +1,35 @@
-import React, { Component } from 'react';
+import React, {Component, Children, cloneElement} from 'react';
+import classNames from 'classnames';
 
-const arrayify = obj => [].concat(obj);
+const propTypes = {
+  allowMultiple: React.PropTypes.bool
+};
 
-// removes duplicate from array
-const dedupeArr = arr => arr.filter((item, index, inputArray) => {
-	return inputArray.indexOf(item) === index;
-});
+const defaultProps = {
+  allowMultiple: false,
+};
 
 export default class AccordionWithHeader extends Component {
 
-	constructor(props) {
-		super(props);
-	}
+  constructor(props) {
+    super(props);
 
-	render() {
-		return (
-			<div className={this.props.className || 'accordion-with-header-container'}
-				 role="tablist"
-				 style={this.props.style}>
-				{this.props.children}
-			</div>
-		);
-	}
+    this.state = {
+      allowMultiple: props.allowMultiple || defaultProps.allowMultiple,
+    };
+  }
+
+  render() {
+    console.log('this.props  MAIN', this.props);
+    return (
+      <div
+        className={classNames('accordion-with-header-container', this.props.className)}
+        style={this.props.style}>
+        {this.props.children}
+      </div>
+    );
+  }
 }
 
+AccordionWithHeader.propTypes = propTypes;
+AccordionWithHeader.defaultProps = defaultProps;
