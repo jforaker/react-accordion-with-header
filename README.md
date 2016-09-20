@@ -21,30 +21,31 @@ import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } f
 
 	render: function () {
 		return (
-			<AccordionWithHeader>
-				{[1, 2, 3, 4].map((item, i) => {
-					return (
-						<AccordionNode key={i} className="foobar-node">
-							<AccordionHeader className="foobar-header"
-											 title={null}
-											 titleColor="#607D8B"
-											 horizontalAlignment="centerSpaceAround"
-											 verticalAlignment="center">
-								<h5>Some title</h5>
-								<div>
-									<div>Something else</div>
-								</div>
-								<h5>A third item</h5>
-							</AccordionHeader>
-							<AccordionPanel>
-                <div style={{height: 75, textAlign: 'center'}}>
+      <AccordionWithHeader>
+        {[1, 2, 3, 4].map((item, i) => {
+          return (
+            <AccordionNode key={i} className="foobar-node">
+              
+              <AccordionHeader className="foobar-header"
+                               title={null}
+                               titleColor="#607D8B"
+                               horizontalAlignment="centerSpaceAround"
+                               verticalAlignment="center">
+                <h5>Some title</h5>
+                <div>Something else</div>
+                <h5>A third item</h5>
+              </AccordionHeader>
+              
+              <AccordionPanel>
+                <div>
                   <h2>Important information!</h2>
                 </div>
-							</AccordionPanel>
-						</AccordionNode>
-					);
-				})}
-			</AccordionWithHeader>
+              </AccordionPanel>
+              
+            </AccordionNode>
+          );
+        })}
+      </AccordionWithHeader>
 		);
 	}
 
