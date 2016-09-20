@@ -1,6 +1,6 @@
-### (work in progress)
 
-# [DEMO](https://jforaker.github.io/react-accordion-with-header/demo/)
+# You've got 5 seconds... and 3 are up.
+##[Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
 
 React accordion component with flexbox header 
 
