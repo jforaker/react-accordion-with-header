@@ -1,5 +1,5 @@
 
-# You've got 5 seconds... and 3 are up.
+# "You've got 5 seconds... and 3 are up." - *Steven Seagall*
 ##[Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
 
 React accordion component with flexbox header 
