@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import React from 'react';
 import {render} from 'react-dom';
 import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} from '../src/index';
