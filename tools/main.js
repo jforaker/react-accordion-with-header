@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } from '../src/index';
+import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} from '../src/index';
 
 const quotes = [
   'This maniac should be wearing a number, not a badge.',
@@ -43,7 +43,7 @@ render(
               <img src={`http://www.stevensegallery.com/500/50${i + (Math.floor(Math.random() * 5) + 1)}`}/>
             </div>
           </AccordionPanel>
-          
+
         </AccordionNode>
       );
     })}

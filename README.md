@@ -15,17 +15,22 @@ npm install react-accordion-with-header
 Then:
 
 ```javascript
-import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } from 'react-accordion-with-header-test-foo-bar';
+import {
+    AccordionWithHeader,
+    AccordionNode,
+    AccordionHeader,
+    AccordionPanel
+} from 'react-accordion-with-header';
 
 …
 
-	render: function () {
-		return (
+  render() {
+    return (
       <AccordionWithHeader>
         {[1, 2, 3, 4].map((item, i) => {
           return (
             <AccordionNode key={i} className="foobar-node">
-              
+
               <AccordionHeader className="foobar-header"
                                title={null}
                                titleColor="#607D8B"
@@ -35,19 +40,19 @@ import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } f
                 <div>Something else</div>
                 <h5>A third item</h5>
               </AccordionHeader>
-              
+
               <AccordionPanel>
                 <div>
                   <h2>Important information!</h2>
                 </div>
               </AccordionPanel>
-              
+
             </AccordionNode>
           );
         })}
       </AccordionWithHeader>
-		);
-	}
+    );
+  }
 
 …
 
