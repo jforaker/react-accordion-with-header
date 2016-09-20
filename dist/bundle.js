@@ -61,20 +61,7 @@
 	
 	var _index = __webpack_require__(173);
 	
-	var _reactSkycons = __webpack_require__(179);
-	
-	var _reactSkycons2 = _interopRequireDefault(_reactSkycons);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Demo = _react2.default.createClass({
-	  displayName: 'Demo',
-	
-	
-	  render: function render() {
-	    return _react2.default.createElement(_reactSkycons2.default, { color: 'black', icon: 'PARTLY_CLOUDY_DAY' });
-	  }
-	});
 	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _index.AccordionWithHeader,
@@ -93,23 +80,22 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'AccordionHeader ',
+	          'Some Header for item #',
 	          item
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { style: { width: 200 } },
+	          null,
 	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/100/10' + (i + (Math.floor(Math.random() * 5) + 1)) })
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'AccordionHeader ',
-	          item
+	          'Another heading item'
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { style: { width: 200 } },
+	          null,
 	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/100/10' + (i + (Math.floor(Math.random() * 5) + 1)) })
 	        )
 	      ),
@@ -118,8 +104,19 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { style: { height: 120 } },
-	          'Item ' + item + ' content'
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { style: { outline: '10px solid yellow', height: 75, textAlign: 'center' } },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Some important stuff for #',
+	              item,
+	              '!'
+	            )
+	          ),
+	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/500/50' + (i + (Math.floor(Math.random() * 5) + 1)) })
 	        )
 	      )
 	    );
@@ -1123,14 +1120,6 @@
 	  var source = null;
 	
 	  if (config != null) {
-	    if (process.env.NODE_ENV !== 'production') {
-	      process.env.NODE_ENV !== 'production' ? warning(
-	      /* eslint-disable no-proto */
-	      config.__proto__ == null || config.__proto__ === Object.prototype,
-	      /* eslint-enable no-proto */
-	      'React.createElement(...): Expected props argument to be a plain object. ' + 'Properties defined in its prototype chain will be ignored.') : void 0;
-	    }
-	
 	    if (hasValidRef(config)) {
 	      ref = config.ref;
 	    }
@@ -1231,14 +1220,6 @@
 	  var owner = element._owner;
 	
 	  if (config != null) {
-	    if (process.env.NODE_ENV !== 'production') {
-	      process.env.NODE_ENV !== 'production' ? warning(
-	      /* eslint-disable no-proto */
-	      config.__proto__ == null || config.__proto__ === Object.prototype,
-	      /* eslint-enable no-proto */
-	      'React.cloneElement(...): Expected props argument to be a plain object. ' + 'Properties defined in its prototype chain will be ignored.') : void 0;
-	    }
-	
 	    if (hasValidRef(config)) {
 	      // Silently steal the ref from the parent.
 	      ref = config.ref;
@@ -4272,7 +4253,7 @@
 	
 	'use strict';
 	
-	module.exports = '15.3.1';
+	module.exports = '15.3.2';
 
 /***/ },
 /* 34 */
@@ -5254,8 +5235,10 @@
 	function getFallbackBeforeInputChars(topLevelType, nativeEvent) {
 	  // If we are currently composing (IME) and using a fallback to do so,
 	  // try to extract the composed characters from the fallback object.
+	  // If composition event is available, we extract a string only at
+	  // compositionevent, otherwise extract it at fallback events.
 	  if (currentComposition) {
-	    if (topLevelType === topLevelTypes.topCompositionEnd || isFallbackCompositionEnd(topLevelType, nativeEvent)) {
+	    if (topLevelType === topLevelTypes.topCompositionEnd || !canUseCompositionEvent && isFallbackCompositionEnd(topLevelType, nativeEvent)) {
 	      var chars = currentComposition.getData();
 	      FallbackCompositionState.release(currentComposition);
 	      currentComposition = null;
@@ -6864,7 +6847,8 @@
 	
 	    if (event.preventDefault) {
 	      event.preventDefault();
-	    } else {
+	    } else if (typeof event.returnValue !== 'unknown') {
+	      // eslint-disable-line valid-typeof
 	      event.returnValue = false;
 	    }
 	    this.isDefaultPrevented = emptyFunction.thatReturnsTrue;
@@ -7121,7 +7105,7 @@
 	var doesChangeEventBubble = false;
 	if (ExecutionEnvironment.canUseDOM) {
 	  // See `handleChange` comment below
-	  doesChangeEventBubble = isEventSupported('change') && (!('documentMode' in document) || document.documentMode > 8);
+	  doesChangeEventBubble = isEventSupported('change') && (!document.documentMode || document.documentMode > 8);
 	}
 	
 	function manualDispatchChangeEvent(nativeEvent) {
@@ -7187,7 +7171,7 @@
 	  // deleting text, so we ignore its input events.
 	  // IE10+ fire input events to often, such when a placeholder
 	  // changes or when an input with a placeholder is focused.
-	  isInputEventSupported = isEventSupported('input') && (!('documentMode' in document) || document.documentMode > 11);
+	  isInputEventSupported = isEventSupported('input') && (!document.documentMode || document.documentMode > 11);
 	}
 	
 	/**
@@ -8416,12 +8400,6 @@
 	    endLifeCycleTimer(debugID, timerType);
 	    emitEvent('onEndLifeCycleTimer', debugID, timerType);
 	  },
-	  onError: function (debugID) {
-	    if (currentTimerDebugID != null) {
-	      endLifeCycleTimer(currentTimerDebugID, currentTimerType);
-	    }
-	    emitEvent('onError', debugID);
-	  },
 	  onBeginProcessingChildContext: function () {
 	    emitEvent('onBeginProcessingChildContext');
 	  },
@@ -9495,6 +9473,8 @@
 	    allowFullScreen: HAS_BOOLEAN_VALUE,
 	    allowTransparency: 0,
 	    alt: 0,
+	    // specifies target context for links with `preload` type
+	    as: 0,
 	    async: HAS_BOOLEAN_VALUE,
 	    autoComplete: 0,
 	    // autoFocus is polyfilled/normalized by AutoFocusUtils
@@ -9575,6 +9555,7 @@
 	    optimum: 0,
 	    pattern: 0,
 	    placeholder: 0,
+	    playsInline: HAS_BOOLEAN_VALUE,
 	    poster: 0,
 	    preload: 0,
 	    profile: 0,
@@ -10097,9 +10078,9 @@
 	  if (node.namespaceURI === DOMNamespaces.svg && !('innerHTML' in node)) {
 	    reusableSVGContainer = reusableSVGContainer || document.createElement('div');
 	    reusableSVGContainer.innerHTML = '<svg>' + html + '</svg>';
-	    var newNodes = reusableSVGContainer.firstChild.childNodes;
-	    for (var i = 0; i < newNodes.length; i++) {
-	      node.appendChild(newNodes[i]);
+	    var svgNode = reusableSVGContainer.firstChild;
+	    while (svgNode.firstChild) {
+	      node.appendChild(svgNode.firstChild);
 	    }
 	  } else {
 	    node.innerHTML = html;
@@ -11027,9 +11008,9 @@
 	  ReactDOMOption.postMountWrapper(inst);
 	}
 	
-	var setContentChildForInstrumentation = emptyFunction;
+	var setAndValidateContentChildDev = emptyFunction;
 	if (process.env.NODE_ENV !== 'production') {
-	  setContentChildForInstrumentation = function (content) {
+	  setAndValidateContentChildDev = function (content) {
 	    var hasExistingContent = this._contentDebugID != null;
 	    var debugID = this._debugID;
 	    // This ID represents the inlined child that has no backing instance:
@@ -11043,6 +11024,7 @@
 	      return;
 	    }
 	
+	    validateDOMNesting(null, String(content), this, this._ancestorInfo);
 	    this._contentDebugID = contentDebugID;
 	    if (hasExistingContent) {
 	      ReactInstrumentation.debugTool.onBeforeUpdateComponent(contentDebugID, content);
@@ -11217,7 +11199,7 @@
 	  this._flags = 0;
 	  if (process.env.NODE_ENV !== 'production') {
 	    this._ancestorInfo = null;
-	    setContentChildForInstrumentation.call(this, null);
+	    setAndValidateContentChildDev.call(this, null);
 	  }
 	}
 	
@@ -11317,7 +11299,7 @@
 	      if (parentInfo) {
 	        // parentInfo should always be present except for the top-level
 	        // component when server rendering
-	        validateDOMNesting(this._tag, this, parentInfo);
+	        validateDOMNesting(this._tag, null, this, parentInfo);
 	      }
 	      this._ancestorInfo = validateDOMNesting.updatedAncestorInfo(parentInfo, this._tag, this);
 	    }
@@ -11486,7 +11468,7 @@
 	        // TODO: Validate that text is allowed as a child of this node
 	        ret = escapeTextContentForBrowser(contentToUse);
 	        if (process.env.NODE_ENV !== 'production') {
-	          setContentChildForInstrumentation.call(this, contentToUse);
+	          setAndValidateContentChildDev.call(this, contentToUse);
 	        }
 	      } else if (childrenToUse != null) {
 	        var mountImages = this.mountChildren(childrenToUse, transaction, context);
@@ -11523,7 +11505,7 @@
 	      if (contentToUse != null) {
 	        // TODO: Validate that text is allowed as a child of this node
 	        if (process.env.NODE_ENV !== 'production') {
-	          setContentChildForInstrumentation.call(this, contentToUse);
+	          setAndValidateContentChildDev.call(this, contentToUse);
 	        }
 	        DOMLazyTree.queueText(lazyTree, contentToUse);
 	      } else if (childrenToUse != null) {
@@ -11755,7 +11737,7 @@
 	      if (lastContent !== nextContent) {
 	        this.updateTextContent('' + nextContent);
 	        if (process.env.NODE_ENV !== 'production') {
-	          setContentChildForInstrumentation.call(this, nextContent);
+	          setAndValidateContentChildDev.call(this, nextContent);
 	        }
 	      }
 	    } else if (nextHtml != null) {
@@ -11767,7 +11749,7 @@
 	      }
 	    } else if (nextChildren != null) {
 	      if (process.env.NODE_ENV !== 'production') {
-	        setContentChildForInstrumentation.call(this, null);
+	        setAndValidateContentChildDev.call(this, null);
 	      }
 	
 	      this.updateChildren(nextChildren, transaction, context);
@@ -11822,7 +11804,7 @@
 	    this._wrapperState = null;
 	
 	    if (process.env.NODE_ENV !== 'production') {
-	      setContentChildForInstrumentation.call(this, null);
+	      setAndValidateContentChildDev.call(this, null);
 	    }
 	  },
 	
@@ -13095,6 +13077,19 @@
 	  },
 	
 	  /**
+	   * Protect against document.createEvent() returning null
+	   * Some popup blocker extensions appear to do this:
+	   * https://github.com/facebook/react/issues/6887
+	   */
+	  supportsEventPageXY: function () {
+	    if (!document.createEvent) {
+	      return false;
+	    }
+	    var ev = document.createEvent('MouseEvent');
+	    return ev != null && 'pageX' in ev;
+	  },
+	
+	  /**
 	   * Listens to window scroll and resize events. We cache scroll values so that
 	   * application code can access them without triggering reflows.
 	   *
@@ -13107,7 +13102,7 @@
 	   */
 	  ensureScrollValueMonitoring: function () {
 	    if (hasEventPageXY === undefined) {
-	      hasEventPageXY = document.createEvent && 'pageX' in document.createEvent('MouseEvent');
+	      hasEventPageXY = ReactBrowserEventEmitter.supportsEventPageXY();
 	    }
 	    if (!hasEventPageXY && !isMonitoringScrollValue) {
 	      var refresh = ViewportMetrics.refreshScrollValues;
@@ -13393,7 +13388,7 @@
 	
 	function isControlled(props) {
 	  var usesChecked = props.type === 'checkbox' || props.type === 'radio';
-	  return usesChecked ? props.checked !== undefined : props.value !== undefined;
+	  return usesChecked ? props.checked != null : props.value != null;
 	}
 	
 	/**
@@ -15166,34 +15161,29 @@
 	  }
 	}
 	
-	function invokeComponentDidMountWithTimer() {
-	  var publicInstance = this._instance;
-	  if (this._debugID !== 0) {
-	    ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'componentDidMount');
-	  }
-	  publicInstance.componentDidMount();
-	  if (this._debugID !== 0) {
-	    ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'componentDidMount');
-	  }
-	}
-	
-	function invokeComponentDidUpdateWithTimer(prevProps, prevState, prevContext) {
-	  var publicInstance = this._instance;
-	  if (this._debugID !== 0) {
-	    ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'componentDidUpdate');
-	  }
-	  publicInstance.componentDidUpdate(prevProps, prevState, prevContext);
-	  if (this._debugID !== 0) {
-	    ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'componentDidUpdate');
-	  }
-	}
-	
 	function shouldConstruct(Component) {
 	  return !!(Component.prototype && Component.prototype.isReactComponent);
 	}
 	
 	function isPureComponent(Component) {
 	  return !!(Component.prototype && Component.prototype.isPureReactComponent);
+	}
+	
+	// Separated into a function to contain deoptimizations caused by try/finally.
+	function measureLifeCyclePerf(fn, debugID, timerType) {
+	  if (debugID === 0) {
+	    // Top-level wrappers (see ReactMount) and empty components (see
+	    // ReactDOMEmptyComponent) are invisible to hooks and devtools.
+	    // Both are implementation details that should go away in the future.
+	    return fn();
+	  }
+	
+	  ReactInstrumentation.debugTool.onBeginLifeCycleTimer(debugID, timerType);
+	  try {
+	    return fn();
+	  } finally {
+	    ReactInstrumentation.debugTool.onEndLifeCycleTimer(debugID, timerType);
+	  }
 	}
 	
 	/**
@@ -15287,6 +15277,8 @@
 	   * @internal
 	   */
 	  mountComponent: function (transaction, hostParent, hostContainerInfo, context) {
+	    var _this = this;
+	
 	    this._context = context;
 	    this._mountOrder = nextMountID++;
 	    this._hostParent = hostParent;
@@ -15376,7 +15368,11 @@
 	
 	    if (inst.componentDidMount) {
 	      if (process.env.NODE_ENV !== 'production') {
-	        transaction.getReactMountReady().enqueue(invokeComponentDidMountWithTimer, this);
+	        transaction.getReactMountReady().enqueue(function () {
+	          measureLifeCyclePerf(function () {
+	            return inst.componentDidMount();
+	          }, _this._debugID, 'componentDidMount');
+	        });
 	      } else {
 	        transaction.getReactMountReady().enqueue(inst.componentDidMount, inst);
 	      }
@@ -15400,35 +15396,26 @@
 	
 	  _constructComponentWithoutOwner: function (doConstruct, publicProps, publicContext, updateQueue) {
 	    var Component = this._currentElement.type;
-	    var instanceOrElement;
+	
 	    if (doConstruct) {
 	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'ctor');
-	        }
-	      }
-	      instanceOrElement = new Component(publicProps, publicContext, updateQueue);
-	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'ctor');
-	        }
-	      }
-	    } else {
-	      // This can still be an instance in case of factory components
-	      // but we'll count this as time spent rendering as the more common case.
-	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'render');
-	        }
-	      }
-	      instanceOrElement = Component(publicProps, publicContext, updateQueue);
-	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'render');
-	        }
+	        return measureLifeCyclePerf(function () {
+	          return new Component(publicProps, publicContext, updateQueue);
+	        }, this._debugID, 'ctor');
+	      } else {
+	        return new Component(publicProps, publicContext, updateQueue);
 	      }
 	    }
-	    return instanceOrElement;
+	
+	    // This can still be an instance in case of factory components
+	    // but we'll count this as time spent rendering as the more common case.
+	    if (process.env.NODE_ENV !== 'production') {
+	      return measureLifeCyclePerf(function () {
+	        return Component(publicProps, publicContext, updateQueue);
+	      }, this._debugID, 'render');
+	    } else {
+	      return Component(publicProps, publicContext, updateQueue);
+	    }
 	  },
 	
 	  performInitialMountWithErrorHandling: function (renderedElement, hostParent, hostContainerInfo, transaction, context) {
@@ -15437,11 +15424,6 @@
 	    try {
 	      markup = this.performInitialMount(renderedElement, hostParent, hostContainerInfo, transaction, context);
 	    } catch (e) {
-	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onError();
-	        }
-	      }
 	      // Roll back to checkpoint, handle error (which may add items to the transaction), and take a new checkpoint
 	      transaction.rollback(checkpoint);
 	      this._instance.unstable_handleError(e);
@@ -15462,17 +15444,19 @@
 	
 	  performInitialMount: function (renderedElement, hostParent, hostContainerInfo, transaction, context) {
 	    var inst = this._instance;
+	
+	    var debugID = 0;
+	    if (process.env.NODE_ENV !== 'production') {
+	      debugID = this._debugID;
+	    }
+	
 	    if (inst.componentWillMount) {
 	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'componentWillMount');
-	        }
-	      }
-	      inst.componentWillMount();
-	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'componentWillMount');
-	        }
+	        measureLifeCyclePerf(function () {
+	          return inst.componentWillMount();
+	        }, debugID, 'componentWillMount');
+	      } else {
+	        inst.componentWillMount();
 	      }
 	      // When mounting, calls to `setState` by `componentWillMount` will set
 	      // `this._pendingStateQueue` without triggering a re-render.
@@ -15492,15 +15476,12 @@
 	    );
 	    this._renderedComponent = child;
 	
-	    var selfDebugID = 0;
-	    if (process.env.NODE_ENV !== 'production') {
-	      selfDebugID = this._debugID;
-	    }
-	    var markup = ReactReconciler.mountComponent(child, transaction, hostParent, hostContainerInfo, this._processChildContext(context), selfDebugID);
+	    var markup = ReactReconciler.mountComponent(child, transaction, hostParent, hostContainerInfo, this._processChildContext(context), debugID);
 	
 	    if (process.env.NODE_ENV !== 'production') {
-	      if (this._debugID !== 0) {
-	        ReactInstrumentation.debugTool.onSetChildren(this._debugID, child._debugID !== 0 ? [child._debugID] : []);
+	      if (debugID !== 0) {
+	        var childDebugIDs = child._debugID !== 0 ? [child._debugID] : [];
+	        ReactInstrumentation.debugTool.onSetChildren(debugID, childDebugIDs);
 	      }
 	    }
 	
@@ -15521,24 +15502,22 @@
 	    if (!this._renderedComponent) {
 	      return;
 	    }
+	
 	    var inst = this._instance;
 	
 	    if (inst.componentWillUnmount && !inst._calledComponentWillUnmount) {
 	      inst._calledComponentWillUnmount = true;
-	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'componentWillUnmount');
-	        }
-	      }
+	
 	      if (safely) {
 	        var name = this.getName() + '.componentWillUnmount()';
 	        ReactErrorUtils.invokeGuardedCallback(name, inst.componentWillUnmount.bind(inst));
 	      } else {
-	        inst.componentWillUnmount();
-	      }
-	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'componentWillUnmount');
+	        if (process.env.NODE_ENV !== 'production') {
+	          measureLifeCyclePerf(function () {
+	            return inst.componentWillUnmount();
+	          }, this._debugID, 'componentWillUnmount');
+	        } else {
+	          inst.componentWillUnmount();
 	        }
 	      }
 	    }
@@ -15625,13 +15604,21 @@
 	  _processChildContext: function (currentContext) {
 	    var Component = this._currentElement.type;
 	    var inst = this._instance;
-	    if (process.env.NODE_ENV !== 'production') {
-	      ReactInstrumentation.debugTool.onBeginProcessingChildContext();
+	    var childContext;
+	
+	    if (inst.getChildContext) {
+	      if (process.env.NODE_ENV !== 'production') {
+	        ReactInstrumentation.debugTool.onBeginProcessingChildContext();
+	        try {
+	          childContext = inst.getChildContext();
+	        } finally {
+	          ReactInstrumentation.debugTool.onEndProcessingChildContext();
+	        }
+	      } else {
+	        childContext = inst.getChildContext();
+	      }
 	    }
-	    var childContext = inst.getChildContext && inst.getChildContext();
-	    if (process.env.NODE_ENV !== 'production') {
-	      ReactInstrumentation.debugTool.onEndProcessingChildContext();
-	    }
+	
 	    if (childContext) {
 	      !(typeof Component.childContextTypes === 'object') ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.getChildContext(): childContextTypes must be defined in order to use getChildContext().', this.getName() || 'ReactCompositeComponent') : _prodInvariant('107', this.getName() || 'ReactCompositeComponent') : void 0;
 	      if (process.env.NODE_ENV !== 'production') {
@@ -15726,15 +15713,11 @@
 	    // immediately reconciled instead of waiting for the next batch.
 	    if (willReceive && inst.componentWillReceiveProps) {
 	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'componentWillReceiveProps');
-	        }
-	      }
-	      inst.componentWillReceiveProps(nextProps, nextContext);
-	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'componentWillReceiveProps');
-	        }
+	        measureLifeCyclePerf(function () {
+	          return inst.componentWillReceiveProps(nextProps, nextContext);
+	        }, this._debugID, 'componentWillReceiveProps');
+	      } else {
+	        inst.componentWillReceiveProps(nextProps, nextContext);
 	      }
 	    }
 	
@@ -15744,15 +15727,11 @@
 	    if (!this._pendingForceUpdate) {
 	      if (inst.shouldComponentUpdate) {
 	        if (process.env.NODE_ENV !== 'production') {
-	          if (this._debugID !== 0) {
-	            ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'shouldComponentUpdate');
-	          }
-	        }
-	        shouldUpdate = inst.shouldComponentUpdate(nextProps, nextState, nextContext);
-	        if (process.env.NODE_ENV !== 'production') {
-	          if (this._debugID !== 0) {
-	            ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'shouldComponentUpdate');
-	          }
+	          shouldUpdate = measureLifeCyclePerf(function () {
+	            return inst.shouldComponentUpdate(nextProps, nextState, nextContext);
+	          }, this._debugID, 'shouldComponentUpdate');
+	        } else {
+	          shouldUpdate = inst.shouldComponentUpdate(nextProps, nextState, nextContext);
 	        }
 	      } else {
 	        if (this._compositeType === CompositeTypes.PureClass) {
@@ -15818,6 +15797,8 @@
 	   * @private
 	   */
 	  _performComponentUpdate: function (nextElement, nextProps, nextState, nextContext, transaction, unmaskedContext) {
+	    var _this2 = this;
+	
 	    var inst = this._instance;
 	
 	    var hasComponentDidUpdate = Boolean(inst.componentDidUpdate);
@@ -15832,15 +15813,11 @@
 	
 	    if (inst.componentWillUpdate) {
 	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'componentWillUpdate');
-	        }
-	      }
-	      inst.componentWillUpdate(nextProps, nextState, nextContext);
-	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'componentWillUpdate');
-	        }
+	        measureLifeCyclePerf(function () {
+	          return inst.componentWillUpdate(nextProps, nextState, nextContext);
+	        }, this._debugID, 'componentWillUpdate');
+	      } else {
+	        inst.componentWillUpdate(nextProps, nextState, nextContext);
 	      }
 	    }
 	
@@ -15854,7 +15831,9 @@
 	
 	    if (hasComponentDidUpdate) {
 	      if (process.env.NODE_ENV !== 'production') {
-	        transaction.getReactMountReady().enqueue(invokeComponentDidUpdateWithTimer.bind(this, prevProps, prevState, prevContext), this);
+	        transaction.getReactMountReady().enqueue(function () {
+	          measureLifeCyclePerf(inst.componentDidUpdate.bind(inst, prevProps, prevState, prevContext), _this2._debugID, 'componentDidUpdate');
+	        });
 	      } else {
 	        transaction.getReactMountReady().enqueue(inst.componentDidUpdate.bind(inst, prevProps, prevState, prevContext), inst);
 	      }
@@ -15871,6 +15850,12 @@
 	    var prevComponentInstance = this._renderedComponent;
 	    var prevRenderedElement = prevComponentInstance._currentElement;
 	    var nextRenderedElement = this._renderValidatedComponent();
+	
+	    var debugID = 0;
+	    if (process.env.NODE_ENV !== 'production') {
+	      debugID = this._debugID;
+	    }
+	
 	    if (shouldUpdateReactComponent(prevRenderedElement, nextRenderedElement)) {
 	      ReactReconciler.receiveComponent(prevComponentInstance, nextRenderedElement, transaction, this._processChildContext(context));
 	    } else {
@@ -15883,15 +15868,12 @@
 	      );
 	      this._renderedComponent = child;
 	
-	      var selfDebugID = 0;
-	      if (process.env.NODE_ENV !== 'production') {
-	        selfDebugID = this._debugID;
-	      }
-	      var nextMarkup = ReactReconciler.mountComponent(child, transaction, this._hostParent, this._hostContainerInfo, this._processChildContext(context), selfDebugID);
+	      var nextMarkup = ReactReconciler.mountComponent(child, transaction, this._hostParent, this._hostContainerInfo, this._processChildContext(context), debugID);
 	
 	      if (process.env.NODE_ENV !== 'production') {
-	        if (this._debugID !== 0) {
-	          ReactInstrumentation.debugTool.onSetChildren(this._debugID, child._debugID !== 0 ? [child._debugID] : []);
+	        if (debugID !== 0) {
+	          var childDebugIDs = child._debugID !== 0 ? [child._debugID] : [];
+	          ReactInstrumentation.debugTool.onSetChildren(debugID, childDebugIDs);
 	        }
 	      }
 	
@@ -15913,17 +15895,14 @@
 	   */
 	  _renderValidatedComponentWithoutOwnerOrContext: function () {
 	    var inst = this._instance;
+	    var renderedComponent;
 	
 	    if (process.env.NODE_ENV !== 'production') {
-	      if (this._debugID !== 0) {
-	        ReactInstrumentation.debugTool.onBeginLifeCycleTimer(this._debugID, 'render');
-	      }
-	    }
-	    var renderedComponent = inst.render();
-	    if (process.env.NODE_ENV !== 'production') {
-	      if (this._debugID !== 0) {
-	        ReactInstrumentation.debugTool.onEndLifeCycleTimer(this._debugID, 'render');
-	      }
+	      renderedComponent = measureLifeCyclePerf(function () {
+	        return inst.render();
+	      }, this._debugID, 'render');
+	    } else {
+	      renderedComponent = inst.render();
 	    }
 	
 	    if (process.env.NODE_ENV !== 'production') {
@@ -15974,7 +15953,7 @@
 	    var publicComponentInstance = component.getPublicInstance();
 	    if (process.env.NODE_ENV !== 'production') {
 	      var componentName = component && component.getName ? component.getName() : 'a component';
-	      process.env.NODE_ENV !== 'production' ? warning(publicComponentInstance != null, 'Stateless function components cannot be given refs ' + '(See ref "%s" in %s created by %s). ' + 'Attempts to access this ref will fail.', ref, componentName, this.getName()) : void 0;
+	      process.env.NODE_ENV !== 'production' ? warning(publicComponentInstance != null || component._compositeType !== CompositeTypes.StatelessFunctional, 'Stateless function components cannot be given refs ' + '(See ref "%s" in %s created by %s). ' + 'Attempts to access this ref will fail.', ref, componentName, this.getName()) : void 0;
 	    }
 	    var refs = inst.refs === emptyObject ? inst.refs = {} : inst.refs;
 	    refs[ref] = publicComponentInstance;
@@ -17165,10 +17144,15 @@
 	
 	  var didWarn = {};
 	
-	  validateDOMNesting = function (childTag, childInstance, ancestorInfo) {
+	  validateDOMNesting = function (childTag, childText, childInstance, ancestorInfo) {
 	    ancestorInfo = ancestorInfo || emptyAncestorInfo;
 	    var parentInfo = ancestorInfo.current;
 	    var parentTag = parentInfo && parentInfo.tag;
+	
+	    if (childText != null) {
+	      process.env.NODE_ENV !== 'production' ? warning(childTag == null, 'validateDOMNesting: when childText is passed, childTag should be null') : void 0;
+	      childTag = '#text';
+	    }
 	
 	    var invalidParent = isTagValidWithParent(childTag, parentTag) ? null : parentInfo;
 	    var invalidAncestor = invalidParent ? null : findInvalidAncestorForTag(childTag, ancestorInfo);
@@ -17217,7 +17201,15 @@
 	      didWarn[warnKey] = true;
 	
 	      var tagDisplayName = childTag;
-	      if (childTag !== '#text') {
+	      var whitespaceInfo = '';
+	      if (childTag === '#text') {
+	        if (/\S/.test(childText)) {
+	          tagDisplayName = 'Text nodes';
+	        } else {
+	          tagDisplayName = 'Whitespace text nodes';
+	          whitespaceInfo = ' Make sure you don\'t have any extra whitespace between tags on ' + 'each line of your source code.';
+	        }
+	      } else {
 	        tagDisplayName = '<' + childTag + '>';
 	      }
 	
@@ -17226,7 +17218,7 @@
 	        if (ancestorTag === 'table' && childTag === 'tr') {
 	          info += ' Add a <tbody> to your code to match the DOM tree generated by ' + 'the browser.';
 	        }
-	        process.env.NODE_ENV !== 'production' ? warning(false, 'validateDOMNesting(...): %s cannot appear as a child of <%s>. ' + 'See %s.%s', tagDisplayName, ancestorTag, ownerInfo, info) : void 0;
+	        process.env.NODE_ENV !== 'production' ? warning(false, 'validateDOMNesting(...): %s cannot appear as a child of <%s>.%s ' + 'See %s.%s', tagDisplayName, ancestorTag, whitespaceInfo, ownerInfo, info) : void 0;
 	      } else {
 	        process.env.NODE_ENV !== 'production' ? warning(false, 'validateDOMNesting(...): %s cannot appear as a descendant of ' + '<%s>. See %s.', tagDisplayName, ancestorTag, ownerInfo) : void 0;
 	      }
@@ -17533,7 +17525,7 @@
 	      if (parentInfo) {
 	        // parentInfo should always be present except for the top-level
 	        // component when server rendering
-	        validateDOMNesting('#text', this, parentInfo);
+	        validateDOMNesting(null, this._stringText, this, parentInfo);
 	      }
 	    }
 	
@@ -19126,7 +19118,7 @@
 	      bubbled: keyOf({ onSelect: null }),
 	      captured: keyOf({ onSelectCapture: null })
 	    },
-	    dependencies: [topLevelTypes.topBlur, topLevelTypes.topContextMenu, topLevelTypes.topFocus, topLevelTypes.topKeyDown, topLevelTypes.topMouseDown, topLevelTypes.topMouseUp, topLevelTypes.topSelectionChange]
+	    dependencies: [topLevelTypes.topBlur, topLevelTypes.topContextMenu, topLevelTypes.topFocus, topLevelTypes.topKeyDown, topLevelTypes.topKeyUp, topLevelTypes.topMouseDown, topLevelTypes.topMouseUp, topLevelTypes.topSelectionChange]
 	  }
 	};
 	
@@ -21712,6 +21704,10 @@
 	  return align[str] || align['default'];
 	};
 	
+	var defaultStyle = {
+	  padding: 10
+	};
+	
 	var AccordionHeader = function (_Component) {
 	  _inherits(AccordionHeader, _Component);
 	
@@ -21757,10 +21753,6 @@
 	        display: '-webkit-flex'
 	      }, _defineProperty(_style, 'display', 'flex'), _defineProperty(_style, 'flexDirection', 'row'), _defineProperty(_style, 'alignItems', getVerticalAlignment(this.props.verticalAlignment)), _defineProperty(_style, 'justifyContent', getHorizontalAlignment(this.props.horizontalAlignment)), _style);
 	
-	      var defaultStyle = { padding: 10 };
-	
-	      console.log('AccordionHeader this.props', this.props);
-	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: (0, _classnames2.default)('accordion-header', this.props.className, { 'is-Expando': this.props.isExpanded }),
@@ -21794,6 +21786,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDom = __webpack_require__(35);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21803,8 +21799,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var defaultStyles = {
-	  overflow: 'hidden',
-	  border: '1px solid green'
+	  overflow: 'hidden', //IMPORTANT!!!
+	  padding: 10
 	};
 	
 	var AccordionPanel = function (_Component) {
@@ -21816,9 +21812,12 @@
 	    var _this = _possibleConstructorReturn(this, (AccordionPanel.__proto__ || Object.getPrototypeOf(AccordionPanel)).call(this, props));
 	
 	    _this.renderChildren = _this.renderChildren.bind(_this);
+	    _this.preloadImages = _this.preloadImages.bind(_this);
+	    _this.calcHeight = _this.calcHeight.bind(_this);
 	
 	    _this.state = {
-	      originalHeight: 0
+	      originalHeight: 0,
+	      isExpanded: false
 	    };
 	    return _this;
 	  }
@@ -21826,12 +21825,46 @@
 	  _createClass(AccordionPanel, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var bodyNode = _reactDom2.default.findDOMNode(this.refs.accordionPanel);
+	      var images = bodyNode.querySelectorAll('img');
+	
+	      if (images.length > 0) {
+	        this.preloadImages(bodyNode, images);
+	      } else {
+	        this.calcHeight();
+	      }
+	    }
+	
+	    // Wait for images to load before calculating height of element
+	
+	  }, {
+	    key: 'preloadImages',
+	    value: function preloadImages(node) {
 	      var _this2 = this;
 	
-	      _react2.default.Children.forEach(this.props.children, function (child) {
-	        var clientHeight = _this2.refs['item-' + child.props.key].clientHeight;
+	      var images = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
 	
-	        _this2.setState({
+	      var imagesLoaded = 0;
+	      var imgLoaded = function imgLoaded() {
+	        imagesLoaded++;
+	        if (imagesLoaded === images.length) _this2.calcHeight();
+	      };
+	
+	      for (var i = 0; i < images.length; i += 1) {
+	        var img = new Image();
+	        img.src = images[i].src;
+	        img.onload = img.onerror = imgLoaded;
+	      }
+	    }
+	  }, {
+	    key: 'calcHeight',
+	    value: function calcHeight() {
+	      var _this3 = this;
+	
+	      _react.Children.forEach(this.props.children, function (child) {
+	        var clientHeight = _this3.refs['item-' + child.props.key].clientHeight;
+	
+	        _this3.setState({
 	          originalHeight: clientHeight
 	        });
 	      });
@@ -21842,8 +21875,11 @@
 	      if (!this.props.children) {
 	        throw new Error('AccordionPanel must have at least one child!');
 	      }
-	      return _react2.default.Children.map(this.props.children, function (child) {
-	        return _react2.default.cloneElement(child, {
+	      return _react.Children.map(this.props.children, function (child) {
+	        /***************************************************************
+	         create a ref so we calculate its height on componentDidMount()
+	         ***************************************************************/
+	        return (0, _react.cloneElement)(child, {
 	          ref: 'item-' + child.props.key
 	        });
 	      });
@@ -21860,7 +21896,7 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'accordion-panel', style: _extends({}, defaultStyles, style) },
+	        { ref: 'accordionPanel', className: 'accordion-panel', style: _extends({}, defaultStyles, style) },
 	        this.renderChildren()
 	      );
 	    }
@@ -21901,6 +21937,11 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by jakeforaker on 9/17/16.
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 	
+	var defaultStyles = {
+	  border: '1px solid #607D8B',
+	  borderRadius: 5
+	};
+	
 	var AccordionNode = function (_Component) {
 	  _inherits(AccordionNode, _Component);
 	
@@ -21910,7 +21951,6 @@
 	    var _this = _possibleConstructorReturn(this, (AccordionNode.__proto__ || Object.getPrototypeOf(AccordionNode)).call(this, props, context));
 	
 	    _this.handleSelect = _this.handleSelect.bind(_this);
-	
 	    _this.state = {
 	      expanded: false
 	    };
@@ -21921,7 +21961,6 @@
 	    key: 'handleSelect',
 	    value: function handleSelect(key, e) {
 	      e.preventDefault();
-	
 	      if (this.props.onSelect) {
 	        this.props.onSelect(key, e);
 	      }
@@ -21932,12 +21971,14 @@
 	      var _this2 = this;
 	
 	      if (!this.props.children) {
-	        console.warn('AccordionNode component has no items');
+	        console.warn('AccordionNode component has no inner items!');
 	        return null;
 	      }
 	
 	      return _react.Children.map(this.props.children, function (item, index) {
-	        //render the <AccordionHeader /> and <AccordionPanel />
+	        /***************************************************************
+	         lets render the <AccordionHeader /> and <AccordionPanel />
+	         ***************************************************************/
 	        return (0, _react.cloneElement)(item, {
 	          className: (0, _classnames2.default)('accordion-node-' + (index === 0 ? 'header' : 'panel'), _this2.props.className),
 	          onSelect: function onSelect() {
@@ -21952,7 +21993,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: (0, _classnames2.default)('accordion-node', this.props.className), style: { border: '1px solid' } },
+	        { className: (0, _classnames2.default)('accordion-node', this.props.className), style: defaultStyles },
 	        this.renderNodeItems()
 	      );
 	    }
@@ -21962,856 +22003,6 @@
 	}(_react.Component);
 	
 	exports.default = AccordionNode;
-
-/***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(35);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Skycons = __webpack_require__(180)(window);
-	
-	var ReactSkycons = function (_Component) {
-	  _inherits(ReactSkycons, _Component);
-	
-	  function ReactSkycons(props) {
-	    _classCallCheck(this, ReactSkycons);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ReactSkycons).call(this, props));
-	
-	    _this.state = {
-	      skycons: new Skycons({ 'color': _this.props.color })
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(ReactSkycons, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.state.skycons.add(_reactDom2.default.findDOMNode(this), Skycons[this.props.icon]);
-	
-	      if (this.props.autoplay) {
-	        this.state.skycons.play();
-	      }
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.state.skycons.set(_reactDom2.default.findDOMNode(this), Skycons[nextProps.icon]);
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      this.state.skycons.pause();
-	      this.state.skycons.remove(_reactDom2.default.findDOMNode(this));
-	    }
-	  }, {
-	    key: 'play',
-	    value: function play() {
-	      this.state.skycons.play();
-	    }
-	  }, {
-	    key: 'pause',
-	    value: function pause() {
-	      this.state.skycons.pause();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var props = {};
-	
-	      var defaultStyle = {
-	        width: '100%',
-	        height: '100%'
-	      };
-	
-	      for (var prop in this.props) {
-	        props[prop] = this.props[prop];
-	      }
-	
-	      delete props.autoplay;
-	
-	      return _react2.default.createElement('canvas', _extends({ style: defaultStyle }, props));
-	    }
-	  }]);
-	
-	  return ReactSkycons;
-	}(_react.Component);
-	
-	ReactSkycons.defaultProps = {
-	  color: null,
-	  autoplay: true
-	};
-	
-	ReactSkycons.propTypes = {
-	  color: _react.PropTypes.string,
-	  autoplay: _react.PropTypes.bool,
-	  icon: _react.PropTypes.oneOf(['CLEAR_DAY', 'CLEAR_NIGHT', 'PARTLY_CLOUDY_DAY', 'PARTLY_CLOUDY_NIGHT', 'CLOUDY', 'RAIN', 'SLEET', 'SNOW', 'WIND', 'FOG'])
-	};
-	
-	exports.default = ReactSkycons;
-
-
-/***/ },
-/* 180 */
-/***/ function(module, exports) {
-
-	/* jshint browser:true, node:true */
-	"use strict";
-	
-	module.exports = function(global) {
-	
-	  /* Set up a RequestAnimationFrame shim so we can animate efficiently FOR
-	   * GREAT JUSTICE. */
-	  var requestInterval, cancelInterval;
-	
-	  (function() {
-	    var raf = global.requestAnimationFrame       ||
-	              global.webkitRequestAnimationFrame ||
-	              global.mozRequestAnimationFrame    ||
-	              global.oRequestAnimationFrame      ||
-	              global.msRequestAnimationFrame     ,
-	        caf = global.cancelAnimationFrame        ||
-	              global.webkitCancelAnimationFrame  ||
-	              global.mozCancelAnimationFrame     ||
-	              global.oCancelAnimationFrame       ||
-	              global.msCancelAnimationFrame      ;
-	
-	    if(raf && caf) {
-	      requestInterval = function(fn, delay) {
-	        var handle = {value: null};
-	
-	        function loop() {
-	          handle.value = raf(loop);
-	          fn();
-	        }
-	
-	        loop();
-	        return handle;
-	      };
-	
-	      cancelInterval = function(handle) {
-	        caf(handle.value);
-	      };
-	    }
-	
-	    else {
-	      requestInterval = setInterval;
-	      cancelInterval = clearInterval;
-	    }
-	  }());
-	
-	  /* Catmull-rom spline stuffs. */
-	  /*
-	  function upsample(n, spline) {
-	    var polyline = [],
-	        len = spline.length,
-	        bx  = spline[0],
-	        by  = spline[1],
-	        cx  = spline[2],
-	        cy  = spline[3],
-	        dx  = spline[4],
-	        dy  = spline[5],
-	        i, j, ax, ay, px, qx, rx, sx, py, qy, ry, sy, t;
-	
-	    for(i = 6; i !== spline.length; i += 2) {
-	      ax = bx;
-	      bx = cx;
-	      cx = dx;
-	      dx = spline[i    ];
-	      px = -0.5 * ax + 1.5 * bx - 1.5 * cx + 0.5 * dx;
-	      qx =        ax - 2.5 * bx + 2.0 * cx - 0.5 * dx;
-	      rx = -0.5 * ax            + 0.5 * cx           ;
-	      sx =                   bx                      ;
-	
-	      ay = by;
-	      by = cy;
-	      cy = dy;
-	      dy = spline[i + 1];
-	      py = -0.5 * ay + 1.5 * by - 1.5 * cy + 0.5 * dy;
-	      qy =        ay - 2.5 * by + 2.0 * cy - 0.5 * dy;
-	      ry = -0.5 * ay            + 0.5 * cy           ;
-	      sy =                   by                      ;
-	
-	      for(j = 0; j !== n; ++j) {
-	        t = j / n;
-	
-	        polyline.push(
-	          ((px * t + qx) * t + rx) * t + sx,
-	          ((py * t + qy) * t + ry) * t + sy
-	        );
-	      }
-	    }
-	
-	    polyline.push(
-	      px + qx + rx + sx,
-	      py + qy + ry + sy
-	    );
-	
-	    return polyline;
-	  }
-	
-	  function downsample(n, polyline) {
-	    var len = 0,
-	        i, dx, dy;
-	
-	    for(i = 2; i !== polyline.length; i += 2) {
-	      dx = polyline[i    ] - polyline[i - 2];
-	      dy = polyline[i + 1] - polyline[i - 1];
-	      len += Math.sqrt(dx * dx + dy * dy);
-	    }
-	
-	    len /= n;
-	
-	    var small = [],
-	        target = len,
-	        min = 0,
-	        max, t;
-	
-	    small.push(polyline[0], polyline[1]);
-	
-	    for(i = 2; i !== polyline.length; i += 2) {
-	      dx = polyline[i    ] - polyline[i - 2];
-	      dy = polyline[i + 1] - polyline[i - 1];
-	      max = min + Math.sqrt(dx * dx + dy * dy);
-	
-	      if(max > target) {
-	        t = (target - min) / (max - min);
-	
-	        small.push(
-	          polyline[i - 2] + dx * t,
-	          polyline[i - 1] + dy * t
-	        );
-	
-	        target += len;
-	      }
-	
-	      min = max;
-	    }
-	
-	    small.push(polyline[polyline.length - 2], polyline[polyline.length - 1]);
-	
-	    return small;
-	  }
-	  */
-	
-	  /* Define skycon things. */
-	  /* FIXME: I'm *really really* sorry that this code is so gross. Really, I am.
-	   * I'll try to clean it up eventually! Promise! */
-	  var KEYFRAME = 500,
-	      STROKE = 0.08,
-	      TAU = 2.0 * Math.PI,
-	      TWO_OVER_SQRT_2 = 2.0 / Math.sqrt(2);
-	
-	  function circle(ctx, x, y, r) {
-	    ctx.beginPath();
-	    ctx.arc(x, y, r, 0, TAU, false);
-	    ctx.fill();
-	  }
-	
-	  function line(ctx, ax, ay, bx, by) {
-	    ctx.beginPath();
-	    ctx.moveTo(ax, ay);
-	    ctx.lineTo(bx, by);
-	    ctx.stroke();
-	  }
-	
-	  function puff(ctx, t, cx, cy, rx, ry, rmin, rmax) {
-	    var c = Math.cos(t * TAU),
-	        s = Math.sin(t * TAU);
-	
-	    rmax -= rmin;
-	
-	    circle(
-	      ctx,
-	      cx - s * rx,
-	      cy + c * ry + rmax * 0.5,
-	      rmin + (1 - c * 0.5) * rmax
-	    );
-	  }
-	
-	  function puffs(ctx, t, cx, cy, rx, ry, rmin, rmax) {
-	    var i;
-	
-	    for(i = 5; i--; )
-	      puff(ctx, t + i / 5, cx, cy, rx, ry, rmin, rmax);
-	  }
-	
-	  function cloud(ctx, t, cx, cy, cw, s, color) {
-	    t /= 30000;
-	
-	    var a = cw * 0.21,
-	        b = cw * 0.12,
-	        c = cw * 0.24,
-	        d = cw * 0.28;
-	
-	    ctx.fillStyle = color;
-	    puffs(ctx, t, cx, cy, a, b, c, d);
-	
-	    ctx.globalCompositeOperation = 'destination-out';
-	    puffs(ctx, t, cx, cy, a, b, c - s, d - s);
-	    ctx.globalCompositeOperation = 'source-over';
-	  }
-	
-	  function sun(ctx, t, cx, cy, cw, s, color) {
-	    t /= 120000;
-	
-	    var a = cw * 0.25 - s * 0.5,
-	        b = cw * 0.32 + s * 0.5,
-	        c = cw * 0.50 - s * 0.5,
-	        i, p, cos, sin;
-	
-	    ctx.strokeStyle = color;
-	    ctx.lineWidth = s;
-	    ctx.lineCap = "round";
-	    ctx.lineJoin = "round";
-	
-	    ctx.beginPath();
-	    ctx.arc(cx, cy, a, 0, TAU, false);
-	    ctx.stroke();
-	
-	    for(i = 8; i--; ) {
-	      p = (t + i / 8) * TAU;
-	      cos = Math.cos(p);
-	      sin = Math.sin(p);
-	      line(ctx, cx + cos * b, cy + sin * b, cx + cos * c, cy + sin * c);
-	    }
-	  }
-	
-	  function moon(ctx, t, cx, cy, cw, s, color) {
-	    t /= 15000;
-	
-	    var a = cw * 0.29 - s * 0.5,
-	        b = cw * 0.05,
-	        c = Math.cos(t * TAU),
-	        p = c * TAU / -16;
-	
-	    ctx.strokeStyle = color;
-	    ctx.lineWidth = s;
-	    ctx.lineCap = "round";
-	    ctx.lineJoin = "round";
-	
-	    cx += c * b;
-	
-	    ctx.beginPath();
-	    ctx.arc(cx, cy, a, p + TAU / 8, p + TAU * 7 / 8, false);
-	    ctx.arc(cx + Math.cos(p) * a * TWO_OVER_SQRT_2, cy + Math.sin(p) * a * TWO_OVER_SQRT_2, a, p + TAU * 5 / 8, p + TAU * 3 / 8, true);
-	    ctx.closePath();
-	    ctx.stroke();
-	  }
-	
-	  function rain(ctx, t, cx, cy, cw, s, color) {
-	    t /= 1350;
-	
-	    var a = cw * 0.16,
-	        b = TAU * 11 / 12,
-	        c = TAU *  7 / 12,
-	        i, p, x, y;
-	
-	    ctx.fillStyle = color;
-	
-	    for(i = 4; i--; ) {
-	      p = (t + i / 4) % 1;
-	      x = cx + ((i - 1.5) / 1.5) * (i === 1 || i === 2 ? -1 : 1) * a;
-	      y = cy + p * p * cw;
-	      ctx.beginPath();
-	      ctx.moveTo(x, y - s * 1.5);
-	      ctx.arc(x, y, s * 0.75, b, c, false);
-	      ctx.fill();
-	    }
-	  }
-	
-	  function sleet(ctx, t, cx, cy, cw, s, color) {
-	    t /= 750;
-	
-	    var a = cw * 0.1875,
-	        b = TAU * 11 / 12,
-	        c = TAU *  7 / 12,
-	        i, p, x, y;
-	
-	    ctx.strokeStyle = color;
-	    ctx.lineWidth = s * 0.5;
-	    ctx.lineCap = "round";
-	    ctx.lineJoin = "round";
-	
-	    for(i = 4; i--; ) {
-	      p = (t + i / 4) % 1;
-	      x = Math.floor(cx + ((i - 1.5) / 1.5) * (i === 1 || i === 2 ? -1 : 1) * a) + 0.5;
-	      y = cy + p * cw;
-	      line(ctx, x, y - s * 1.5, x, y + s * 1.5);
-	    }
-	  }
-	
-	  function snow(ctx, t, cx, cy, cw, s, color) {
-	    t /= 3000;
-	
-	    var a  = cw * 0.16,
-	        b  = s * 0.75,
-	        u  = t * TAU * 0.7,
-	        ux = Math.cos(u) * b,
-	        uy = Math.sin(u) * b,
-	        v  = u + TAU / 3,
-	        vx = Math.cos(v) * b,
-	        vy = Math.sin(v) * b,
-	        w  = u + TAU * 2 / 3,
-	        wx = Math.cos(w) * b,
-	        wy = Math.sin(w) * b,
-	        i, p, x, y;
-	
-	    ctx.strokeStyle = color;
-	    ctx.lineWidth = s * 0.5;
-	    ctx.lineCap = "round";
-	    ctx.lineJoin = "round";
-	
-	    for(i = 4; i--; ) {
-	      p = (t + i / 4) % 1;
-	      x = cx + Math.sin((p + i / 4) * TAU) * a;
-	      y = cy + p * cw;
-	
-	      line(ctx, x - ux, y - uy, x + ux, y + uy);
-	      line(ctx, x - vx, y - vy, x + vx, y + vy);
-	      line(ctx, x - wx, y - wy, x + wx, y + wy);
-	    }
-	  }
-	
-	  function fogbank(ctx, t, cx, cy, cw, s, color) {
-	    t /= 30000;
-	
-	    var a = cw * 0.21,
-	        b = cw * 0.06,
-	        c = cw * 0.21,
-	        d = cw * 0.28;
-	
-	    ctx.fillStyle = color;
-	    puffs(ctx, t, cx, cy, a, b, c, d);
-	
-	    ctx.globalCompositeOperation = 'destination-out';
-	    puffs(ctx, t, cx, cy, a, b, c - s, d - s);
-	    ctx.globalCompositeOperation = 'source-over';
-	  }
-	
-	  /*
-	  var WIND_PATHS = [
-	        downsample(63, upsample(8, [
-	          -1.00, -0.28,
-	          -0.75, -0.18,
-	          -0.50,  0.12,
-	          -0.20,  0.12,
-	          -0.04, -0.04,
-	          -0.07, -0.18,
-	          -0.19, -0.18,
-	          -0.23, -0.05,
-	          -0.12,  0.11,
-	           0.02,  0.16,
-	           0.20,  0.15,
-	           0.50,  0.07,
-	           0.75,  0.18,
-	           1.00,  0.28
-	        ])),
-	        downsample(31, upsample(16, [
-	          -1.00, -0.10,
-	          -0.75,  0.00,
-	          -0.50,  0.10,
-	          -0.25,  0.14,
-	           0.00,  0.10,
-	           0.25,  0.00,
-	           0.50, -0.10,
-	           0.75, -0.14,
-	           1.00, -0.10
-	        ]))
-	      ];
-	  */
-	
-	  var WIND_PATHS = [
-	        [
-	          -0.7500, -0.1800, -0.7219, -0.1527, -0.6971, -0.1225,
-	          -0.6739, -0.0910, -0.6516, -0.0588, -0.6298, -0.0262,
-	          -0.6083,  0.0065, -0.5868,  0.0396, -0.5643,  0.0731,
-	          -0.5372,  0.1041, -0.5033,  0.1259, -0.4662,  0.1406,
-	          -0.4275,  0.1493, -0.3881,  0.1530, -0.3487,  0.1526,
-	          -0.3095,  0.1488, -0.2708,  0.1421, -0.2319,  0.1342,
-	          -0.1943,  0.1217, -0.1600,  0.1025, -0.1290,  0.0785,
-	          -0.1012,  0.0509, -0.0764,  0.0206, -0.0547, -0.0120,
-	          -0.0378, -0.0472, -0.0324, -0.0857, -0.0389, -0.1241,
-	          -0.0546, -0.1599, -0.0814, -0.1876, -0.1193, -0.1964,
-	          -0.1582, -0.1935, -0.1931, -0.1769, -0.2157, -0.1453,
-	          -0.2290, -0.1085, -0.2327, -0.0697, -0.2240, -0.0317,
-	          -0.2064,  0.0033, -0.1853,  0.0362, -0.1613,  0.0672,
-	          -0.1350,  0.0961, -0.1051,  0.1213, -0.0706,  0.1397,
-	          -0.0332,  0.1512,  0.0053,  0.1580,  0.0442,  0.1624,
-	           0.0833,  0.1636,  0.1224,  0.1615,  0.1613,  0.1565,
-	           0.1999,  0.1500,  0.2378,  0.1402,  0.2749,  0.1279,
-	           0.3118,  0.1147,  0.3487,  0.1015,  0.3858,  0.0892,
-	           0.4236,  0.0787,  0.4621,  0.0715,  0.5012,  0.0702,
-	           0.5398,  0.0766,  0.5768,  0.0890,  0.6123,  0.1055,
-	           0.6466,  0.1244,  0.6805,  0.1440,  0.7147,  0.1630,
-	           0.7500,  0.1800
-	        ],
-	        [
-	          -0.7500,  0.0000, -0.7033,  0.0195, -0.6569,  0.0399,
-	          -0.6104,  0.0600, -0.5634,  0.0789, -0.5155,  0.0954,
-	          -0.4667,  0.1089, -0.4174,  0.1206, -0.3676,  0.1299,
-	          -0.3174,  0.1365, -0.2669,  0.1398, -0.2162,  0.1391,
-	          -0.1658,  0.1347, -0.1157,  0.1271, -0.0661,  0.1169,
-	          -0.0170,  0.1046,  0.0316,  0.0903,  0.0791,  0.0728,
-	           0.1259,  0.0534,  0.1723,  0.0331,  0.2188,  0.0129,
-	           0.2656, -0.0064,  0.3122, -0.0263,  0.3586, -0.0466,
-	           0.4052, -0.0665,  0.4525, -0.0847,  0.5007, -0.1002,
-	           0.5497, -0.1130,  0.5991, -0.1240,  0.6491, -0.1325,
-	           0.6994, -0.1380,  0.7500, -0.1400
-	        ]
-	      ],
-	      WIND_OFFSETS = [
-	        {start: 0.36, end: 0.11},
-	        {start: 0.56, end: 0.16}
-	      ];
-	
-	  function leaf(ctx, t, x, y, cw, s, color) {
-	    var a = cw / 8,
-	        b = a / 3,
-	        c = 2 * b,
-	        d = (t % 1) * TAU,
-	        e = Math.cos(d),
-	        f = Math.sin(d);
-	
-	    ctx.fillStyle = color;
-	    ctx.strokeStyle = color;
-	    ctx.lineWidth = s;
-	    ctx.lineCap = "round";
-	    ctx.lineJoin = "round";
-	
-	    ctx.beginPath();
-	    ctx.arc(x        , y        , a, d          , d + Math.PI, false);
-	    ctx.arc(x - b * e, y - b * f, c, d + Math.PI, d          , false);
-	    ctx.arc(x + c * e, y + c * f, b, d + Math.PI, d          , true );
-	    ctx.globalCompositeOperation = 'destination-out';
-	    ctx.fill();
-	    ctx.globalCompositeOperation = 'source-over';
-	    ctx.stroke();
-	  }
-	
-	  function swoosh(ctx, t, cx, cy, cw, s, index, total, color) {
-	    t /= 2500;
-	
-	    var path = WIND_PATHS[index],
-	        a = (t + index - WIND_OFFSETS[index].start) % total,
-	        c = (t + index - WIND_OFFSETS[index].end  ) % total,
-	        e = (t + index                            ) % total,
-	        b, d, f, i;
-	
-	    ctx.strokeStyle = color;
-	    ctx.lineWidth = s;
-	    ctx.lineCap = "round";
-	    ctx.lineJoin = "round";
-	
-	    if(a < 1) {
-	      ctx.beginPath();
-	
-	      a *= path.length / 2 - 1;
-	      b  = Math.floor(a);
-	      a -= b;
-	      b *= 2;
-	      b += 2;
-	
-	      ctx.moveTo(
-	        cx + (path[b - 2] * (1 - a) + path[b    ] * a) * cw,
-	        cy + (path[b - 1] * (1 - a) + path[b + 1] * a) * cw
-	      );
-	
-	      if(c < 1) {
-	        c *= path.length / 2 - 1;
-	        d  = Math.floor(c);
-	        c -= d;
-	        d *= 2;
-	        d += 2;
-	
-	        for(i = b; i !== d; i += 2)
-	          ctx.lineTo(cx + path[i] * cw, cy + path[i + 1] * cw);
-	
-	        ctx.lineTo(
-	          cx + (path[d - 2] * (1 - c) + path[d    ] * c) * cw,
-	          cy + (path[d - 1] * (1 - c) + path[d + 1] * c) * cw
-	        );
-	      }
-	
-	      else
-	        for(i = b; i !== path.length; i += 2)
-	          ctx.lineTo(cx + path[i] * cw, cy + path[i + 1] * cw);
-	
-	      ctx.stroke();
-	    }
-	
-	    else if(c < 1) {
-	      ctx.beginPath();
-	
-	      c *= path.length / 2 - 1;
-	      d  = Math.floor(c);
-	      c -= d;
-	      d *= 2;
-	      d += 2;
-	
-	      ctx.moveTo(cx + path[0] * cw, cy + path[1] * cw);
-	
-	      for(i = 2; i !== d; i += 2)
-	        ctx.lineTo(cx + path[i] * cw, cy + path[i + 1] * cw);
-	
-	      ctx.lineTo(
-	        cx + (path[d - 2] * (1 - c) + path[d    ] * c) * cw,
-	        cy + (path[d - 1] * (1 - c) + path[d + 1] * c) * cw
-	      );
-	
-	      ctx.stroke();
-	    }
-	
-	    if(e < 1) {
-	      e *= path.length / 2 - 1;
-	      f  = Math.floor(e);
-	      e -= f;
-	      f *= 2;
-	      f += 2;
-	
-	      leaf(
-	        ctx,
-	        t,
-	        cx + (path[f - 2] * (1 - e) + path[f    ] * e) * cw,
-	        cy + (path[f - 1] * (1 - e) + path[f + 1] * e) * cw,
-	        cw,
-	        s,
-	        color
-	      );
-	    }
-	  }
-	
-	  var Skycons = function(opts) {
-	        this.list        = [];
-	        this.interval    = null;
-	        this.color       = opts && opts.color ? opts.color : "black";
-	        this.resizeClear = !!(opts && opts.resizeClear);
-	      };
-	
-	  Skycons.CLEAR_DAY = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h);
-	
-	    sun(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color);
-	  };
-	
-	  Skycons.CLEAR_NIGHT = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h);
-	
-	    moon(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color);
-	  };
-	
-	  Skycons.PARTLY_CLOUDY_DAY = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h);
-	
-	    sun(ctx, t, w * 0.625, h * 0.375, s * 0.75, s * STROKE, color);
-	    cloud(ctx, t, w * 0.375, h * 0.625, s * 0.75, s * STROKE, color);
-	  };
-	
-	  Skycons.PARTLY_CLOUDY_NIGHT = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h);
-	
-	    moon(ctx, t, w * 0.667, h * 0.375, s * 0.75, s * STROKE, color);
-	    cloud(ctx, t, w * 0.375, h * 0.625, s * 0.75, s * STROKE, color);
-	  };
-	
-	  Skycons.CLOUDY = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h);
-	
-	    cloud(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color);
-	  };
-	
-	  Skycons.RAIN = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h);
-	
-	    rain(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
-	    cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
-	  };
-	
-	  Skycons.SLEET = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h);
-	
-	    sleet(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
-	    cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
-	  };
-	
-	  Skycons.SNOW = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h);
-	
-	    snow(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
-	    cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color);
-	  };
-	
-	  Skycons.WIND = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h);
-	
-	    swoosh(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, 0, 2, color);
-	    swoosh(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, 1, 2, color);
-	  };
-	
-	  Skycons.FOG = function(ctx, t, color) {
-	    var w = ctx.canvas.width,
-	        h = ctx.canvas.height,
-	        s = Math.min(w, h),
-	        k = s * STROKE;
-	
-	    fogbank(ctx, t, w * 0.5, h * 0.32, s * 0.75, k, color);
-	
-	    t /= 5000;
-	
-	    var a = Math.cos((t       ) * TAU) * s * 0.02,
-	        b = Math.cos((t + 0.25) * TAU) * s * 0.02,
-	        c = Math.cos((t + 0.50) * TAU) * s * 0.02,
-	        d = Math.cos((t + 0.75) * TAU) * s * 0.02,
-	        n = h * 0.936,
-	        e = Math.floor(n - k * 0.5) + 0.5,
-	        f = Math.floor(n - k * 2.5) + 0.5;
-	
-	    ctx.strokeStyle = color;
-	    ctx.lineWidth = k;
-	    ctx.lineCap = "round";
-	    ctx.lineJoin = "round";
-	
-	    line(ctx, a + w * 0.2 + k * 0.5, e, b + w * 0.8 - k * 0.5, e);
-	    line(ctx, c + w * 0.2 + k * 0.5, f, d + w * 0.8 - k * 0.5, f);
-	  };
-	
-	  Skycons.prototype = {
-	    _determineDrawingFunction: function(draw) {
-	      if(typeof draw === "string")
-	        draw = Skycons[draw.toUpperCase().replace(/-/g, "_")] || null;
-	
-	      return draw;
-	    },
-	    add: function(el, draw) {
-	      var obj;
-	
-	      if(typeof el === "string")
-	        el = document.getElementById(el);
-	
-	      // Does nothing if canvas name doesn't exists
-	      if(el === null)
-	        return;
-	
-	      draw = this._determineDrawingFunction(draw);
-	
-	      // Does nothing if the draw function isn't actually a function
-	      if(typeof draw !== "function")
-	        return;
-	
-	      obj = {
-	        element: el,
-	        context: el.getContext("2d"),
-	        drawing: draw
-	      };
-	
-	      this.list.push(obj);
-	      this.draw(obj, KEYFRAME);
-	    },
-	    set: function(el, draw) {
-	      var i;
-	
-	      if(typeof el === "string")
-	        el = document.getElementById(el);
-	
-	      for(i = this.list.length; i--; )
-	        if(this.list[i].element === el) {
-	          this.list[i].drawing = this._determineDrawingFunction(draw);
-	          this.draw(this.list[i], KEYFRAME);
-	          return;
-	        }
-	
-	      this.add(el, draw);
-	    },
-	    remove: function(el) {
-	      var i;
-	
-	      if(typeof el === "string")
-	        el = document.getElementById(el);
-	
-	      for(i = this.list.length; i--; )
-	        if(this.list[i].element === el) {
-	          this.list.splice(i, 1);
-	          return;
-	        }
-	    },
-	    draw: function(obj, time) {
-	      var canvas = obj.context.canvas;
-	
-	      if(this.resizeClear)
-	        canvas.width = canvas.width;
-	
-	      else
-	        obj.context.clearRect(0, 0, canvas.width, canvas.height);
-	
-	      obj.drawing(obj.context, time, this.color);
-	    },
-	    play: function() {
-	      var self = this;
-	
-	      this.pause();
-	      this.interval = requestInterval(function() {
-	        var now = Date.now(),
-	            i;
-	
-	        for(i = self.list.length; i--; )
-	          self.draw(self.list[i], now);
-	      }, 1000 / 60);
-	    },
-	    pause: function() {
-	      var i;
-	
-	      if(this.interval) {
-	        cancelInterval(this.interval);
-	        this.interval = null;
-	      }
-	    }
-	  };
-	  return Skycons;
-	};
-
 
 /***/ }
 /******/ ]);

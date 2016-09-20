@@ -16,7 +16,7 @@
     "lint:watch": "npm run lint -- --watch",
     "demo": "webpack-dev-server --config ./tools/webpack.config.demo.js",
     "bundle-demo": "webpack --config ./tools/webpack.config.demo.js",
-    "bundle-dist": "webpack --config ./tools/webpack.config.dist.js"
+    "bundle-lib": "webpack --config ./tools/webpack.config.dist.js"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
