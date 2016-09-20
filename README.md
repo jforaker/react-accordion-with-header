@@ -9,7 +9,7 @@ React accordion component with flexbox header
 Install via NPM:
 
 ```
-npm install react-accordion-with-header-test-foo-bar
+npm install react-accordion-with-header
 ```
 
 Then:
@@ -24,7 +24,7 @@ import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } f
 			<AccordionWithHeader>
 				{[1, 2, 3, 4].map((item, i) => {
 					return (
-						<AccordionNode key={i} className="custom-classname">
+						<AccordionNode key={i} className="foobar-node">
 							<AccordionHeader className="foobar-header"
 											 title={null}
 											 titleColor="#607D8B"
@@ -37,11 +37,9 @@ import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } f
 								<h5>A third item</h5>
 							</AccordionHeader>
 							<AccordionPanel>
-								<div>
-									<div style={{outline: '10px solid yellow', height: 75, textAlign: 'center'}}>
-										<h2>Important information!</h2>
-									</div>
-								</div>
+                <div style={{height: 75, textAlign: 'center'}}>
+                  <h2>Important information!</h2>
+                </div>
 							</AccordionPanel>
 						</AccordionNode>
 					);
@@ -53,3 +51,24 @@ import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } f
 …
 
 ```
+
+
+## options / PropTypes
+
+#### AccordionNode
+| Property | Type | Description | Default |
+|:---|:---|:---|:---|
+| className | `String` | Custom classname applied to root item div | `accordion-node` |
+
+
+#### AccordionHeader
+| Property | Type | Description | Default |
+|:---|:---|:---|:---|
+| title | `String` | For simple headers, a title will render an `<h1>` and disallow child elements | `null` |
+| titleColor | `String` | some valid CSS color or rgb or hex | `black` |
+| horizontalAlignment | `String` | One of: 'centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'. Maps to corresponding flex-box CSS property | `left` |
+| verticalAlignment | `String` | One of: 'top', 'center', 'bottom' | `center` |
+| className | `String` | Custom classname applied to root div | `accordion-header` |
+| style | `Object` | Inline styles applied to root div | `null` |
+
+

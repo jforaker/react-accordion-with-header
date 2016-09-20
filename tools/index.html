@@ -3,9 +3,52 @@
 
 <head>
   <title>React-accordion-with-header</title>
+  <link href='http://fonts.googleapis.com/css?family=OpenSans:400,700' rel='stylesheet' type='text/css'>
+  <style>
+    *,
+    *:after,
+    *:before {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'OpenSans', sans-serif;
+      background: lightgray;
+      margin: 0 25px 50px;
+    }
+    #h {
+      color: #fff;
+      background-color: #3398a9;
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 50px;
+    }
+    blockquote {
+      display: inline-block;
+      padding-bottom: 20px;
+    }
+    .accordion-node {
+      background: white;
+    }
+  </style>
 </head>
 
 <body>
+  <div id="h">
+    <img src="http://www.stevensegallery.com/100/100">
+    <blockquote>"I'm gunna to take you to the bank senator Trent, the blood bank."</blockquote>
+    <hr />
+    <h1 style="font-size: 3.25rem;">
+      React-accordion-with-header
+    </h1>
+    <h2>
+      React accordion component with flexbox based header
+    </h2>
+  </div>
+
+  <div>
+    <h3>Example <code>horizontalAlignment</code> options:</h3>
+  </div>
+
   <div id="app"></div>
   <script src="/bundle.js"></script>
 </body>

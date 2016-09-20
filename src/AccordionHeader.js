@@ -54,7 +54,7 @@ export default class AccordionHeader extends Component {
 
     var style = {
       cursor: 'pointer',
-      color: this.props.titleColor || 'red',
+      color: this.props.titleColor || 'black',
       display: '-webkit-flex',
       display: 'flex',
       flexDirection: 'row',

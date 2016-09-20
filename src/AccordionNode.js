@@ -40,7 +40,7 @@ export default class AccordionNode extends Component {
       return cloneElement(item, {
 				className: classNames(`accordion-node-${ index === 0 ? 'header' : 'panel' }`, this.props.className),
         onSelect: () => this.setState({expanded: !this.state.expanded}),
-				isExpanded: this.state.expanded
+				isExpanded: this.state.expanded //make this.props.isExpanded available in children
 			});
 		});
 	}

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 const defaultStyles = {
   overflow: 'hidden',  //IMPORTANT!!!
-  padding: 10
+  padding: 0
 };
 
 export default class AccordionPanel extends Component {
@@ -16,8 +16,7 @@ export default class AccordionPanel extends Component {
     this.calcHeight = this.calcHeight.bind(this);
 
     this.state = {
-      originalHeight: 0,
-      isExpanded: false
+      originalHeight: 0
     };
   }
 
