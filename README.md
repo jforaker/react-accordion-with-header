@@ -38,6 +38,7 @@ import {
                                titleColor="#607D8B"
                                horizontalAlignment="centerSpaceAround"
                                verticalAlignment="center">
+                {/* elements below will render in the header, aligned flexbox style */}
                 <h5>Some title</h5>
                 <div>Something else</div>
                 <h5>A third item</h5>
