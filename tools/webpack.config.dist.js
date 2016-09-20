@@ -8,7 +8,7 @@ var webpack = require('webpack');
 module.exports = {
 	entry: './src/index.js',
 
-	module: {
+  module: {
 		loaders: [
 			{
 				test: /\.jsx?$/,
@@ -19,8 +19,8 @@ module.exports = {
 	},
 
 	externals: {
-		'react': 'React',
-		'react-dom': 'ReactDOM',
+    'react': 'react',
+    'react-dom': 'react-dom'
 	},
 
 	output: {
