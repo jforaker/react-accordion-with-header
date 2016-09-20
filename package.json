@@ -6,7 +6,8 @@
     "type": "git",
     "url": "git+https://github.com/jforaker/react-accordion-with-header.git"
   },
-  "homepage": "https://github.com/jforaker/react-accordion-with-header",
+  "description": "React accordion component with flexbox header",
+  "homepage": "https://jforaker.github.io/react-accordion-with-header/",
   "main": "lib/index.js",
   "scripts": {
     "test": "test",
