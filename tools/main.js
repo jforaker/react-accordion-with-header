@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} from '../src/index';
+import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } from '../src/index';
 
 render(
   <AccordionWithHeader allowMultiple={false}>

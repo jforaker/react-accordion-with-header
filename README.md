@@ -32,7 +32,7 @@ import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } f
 											 verticalAlignment="center">
 								<h5>Some title</h5>
 								<div>
-									<div style={{width: 200}}>Something else</div>
+									<div>Something else</div>
 								</div>
 								<h5>A third item</h5>
 							</AccordionHeader>
