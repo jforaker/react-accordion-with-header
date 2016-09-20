@@ -4,6 +4,8 @@
 
 React accordion component with flexbox header 
 
+![Steven](https://d17oy1vhnax1f7.cloudfront.net/items/2E3v430p1B2z351E3F0a/Screen%20Recording%202016-09-20%20at%2003.10%20PM.gif)
+
 ## Usage
 
 Install via NPM:
