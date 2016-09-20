@@ -1,8 +1,12 @@
+/**
+ * Development server
+ */
+
 import webpack from 'webpack';
 
 export default {
   debug: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   noInfo: false,
   colors: true,
   entry: [

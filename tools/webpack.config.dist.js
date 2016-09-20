@@ -1,3 +1,8 @@
+/**
+ * For creating an installable bundle via
+ * npm install react-accordion-with-header --save
+ */
+
 var webpack = require('webpack');
 
 module.exports = {

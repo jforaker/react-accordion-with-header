@@ -18,9 +18,6 @@
     "bundle-demo": "webpack --config ./tools/webpack.config.demo.js",
     "bundle-dist": "webpack --config ./tools/webpack.config.dist.js"
   },
-  "dependencies": {
-    "classnames": "^2.2.5"
-  },
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "babel-core": "^6.14.0",
@@ -31,6 +28,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
+    "classnames": "^2.2.5",
     "css-loader": "^0.25.0",
     "eslint": "^3.5.0",
     "eslint-plugin-react": "^6.2.0",
@@ -41,8 +39,8 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "npm": "^3.10.7",
-    "react": "^15.3.1",
-    "react-dom": "^15.3.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",

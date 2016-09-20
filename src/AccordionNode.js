@@ -5,13 +5,16 @@
 import React, { Component, cloneElement, Children } from 'react';
 import classNames from 'classnames';
 
+const defaultStyles = {
+  border: '1px solid #607D8B',
+  borderRadius: 5
+};
+
 export default class AccordionNode extends Component {
 
   constructor(props, context) {
     super(props, context);
-
     this.handleSelect = this.handleSelect.bind(this);
-
     this.state = {
       expanded: false
     };
@@ -19,7 +22,6 @@ export default class AccordionNode extends Component {
 
   handleSelect(key, e) {
     e.preventDefault();
-
     if (this.props.onSelect) {
       this.props.onSelect(key, e);
     }
@@ -27,12 +29,14 @@ export default class AccordionNode extends Component {
 
 	renderNodeItems () {
 		if (!this.props.children) {
-      console.warn('AccordionNode component has no items');
+      console.warn('AccordionNode component has no inner items!');
       return null;
 		}
 
 		return Children.map(this.props.children, (item, index) => {
-		  //render the <AccordionHeader /> and <AccordionPanel />
+      /***************************************************************
+       lets render the <AccordionHeader /> and <AccordionPanel />
+       ***************************************************************/
       return cloneElement(item, {
 				className: classNames(`accordion-node-${ index === 0 ? 'header' : 'panel' }`, this.props.className),
         onSelect: () => this.setState({expanded: !this.state.expanded}),
@@ -43,7 +47,7 @@ export default class AccordionNode extends Component {
 
 	render() {
     return (
-			<div className={classNames('accordion-node', this.props.className)} style={{border:'1px solid'}}>
+			<div className={classNames('accordion-node', this.props.className)} style={defaultStyles}>
 				{this.renderNodeItems()}
 			</div>
 		);

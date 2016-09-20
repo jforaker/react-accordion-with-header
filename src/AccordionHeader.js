@@ -23,6 +23,10 @@ const getVerticalAlignment = (str) => {
   return align[str] || align['default'];
 };
 
+const defaultStyle = {
+  padding: 10
+};
+
 export default class AccordionHeader extends Component {
 
   constructor(props) {
@@ -57,10 +61,6 @@ export default class AccordionHeader extends Component {
       alignItems: getVerticalAlignment(this.props.verticalAlignment),//'center, top, bottom',
       justifyContent: getHorizontalAlignment(this.props.horizontalAlignment),
     };
-
-    const defaultStyle = {padding: 10};
-
-    console.log('AccordionHeader this.props', this.props);
 
     return (
       <div className={classNames('accordion-header', this.props.className, {'is-Expando': this.props.isExpanded})}

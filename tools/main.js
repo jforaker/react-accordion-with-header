@@ -2,18 +2,6 @@ import React from 'react';
 import {render} from 'react-dom';
 import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} from '../src/index';
 
-import Skycons from 'react-skycons';
-
-var Demo = React.createClass({
-
-  render: function () {
-    return (
-      <Skycons color="black" icon="PARTLY_CLOUDY_DAY"/>
-    );
-  }
-});
-
-
 render(
   <AccordionWithHeader allowMultiple={false}>
     {React.Children.map([1, 2, 3, 4], (item, i) => {
@@ -33,23 +21,24 @@ render(
              verticalAlignment: String: "top, center, bottom"
              */}
 
-            <div>AccordionHeader {item}</div>
-            <div style={{width: 200}}>
+            <div>Some Header for item #{item}</div>
+            <div>
               <img src={`http://www.stevensegallery.com/100/10${i + (Math.floor(Math.random() * 5) + 1)}`}/>
             </div>
-            <div>AccordionHeader {item}</div>
-            <div style={{width: 200}}>
+            <div>Another heading item</div>
+            <div>
               <img src={`http://www.stevensegallery.com/100/10${i + (Math.floor(Math.random() * 5) + 1)}`} />
             </div>
 
           </AccordionHeader>
 
           <AccordionPanel>
-            <div style={{height: 120}}>
-              {'Item ' + item + ' content'}
-
+            <div>
+              <div style={{outline:'10px solid yellow', height: 75, textAlign:'center'}}>
+                <h2>Some important stuff for #{item}!</h2>
+              </div>
+              <img src={`http://www.stevensegallery.com/500/50${i + (Math.floor(Math.random() * 5) + 1)}`}/>
             </div>
-
           </AccordionPanel>
 
         </AccordionNode>
