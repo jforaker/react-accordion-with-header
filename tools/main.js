@@ -4,10 +4,9 @@ import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} fro
 
 render(
   <AccordionWithHeader allowMultiple={false}>
-    {React.Children.map([1, 2, 3, 4], (item, i) => {
-      //use React.Children.map so we dont have specify key on AccordionNode
+    {[1, 2, 3, 4].map((item, i) => {
       return (
-        <AccordionNode className="custom-classname" trigger={'foo'}>
+        <AccordionNode className="custom-classname">
 
           <AccordionHeader className="foobar-header"
                            title={null}
