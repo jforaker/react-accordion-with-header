@@ -41,7 +41,7 @@ module.exports = {
 
   output: {
     filename: 'bundle.js',
-    path: './dist'
+    path: './demo'
   },
 
   resolve: {
@@ -56,6 +56,6 @@ module.exports = {
   ],
 
   devServer: {
-    contentBase: './dist'
+    contentBase: './demo'
   }
 };

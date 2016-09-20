@@ -63,35 +63,39 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var quotes = ['This maniac should be wearing a number, not a badge.', 'So, what are you, like some special forces guy?', 'The jury decided. I presided.', 'Assumption is the mother of all f*ck-ups!', 'You\'ve got 5 seconds... and 3 are up.'];
+	
+	var alignment = ['centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'];
+	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _index.AccordionWithHeader,
-	  { allowMultiple: false },
-	  _react2.default.Children.map([1, 2, 3, 4], function (item, i) {
+	  null,
+	  quotes.map(function (quote, i) {
 	    return _react2.default.createElement(
 	      _index.AccordionNode,
-	      { className: 'custom-classname', trigger: 'foo' },
+	      { key: i, className: 'custom-classname' },
 	      _react2.default.createElement(
 	        _index.AccordionHeader,
 	        { className: 'foobar-header',
 	          title: null,
 	          titleColor: '#607D8B',
-	          horizontalAlignment: 'centerSpaceAround',
+	          horizontalAlignment: alignment[i],
 	          verticalAlignment: 'center' },
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'Some Header for item #',
-	          item
-	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
 	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/100/10' + (i + (Math.floor(Math.random() * 5) + 1)) })
 	        ),
 	        _react2.default.createElement(
-	          'div',
+	          'h2',
 	          null,
-	          'Another heading item'
+	          _react2.default.createElement(
+	            'code',
+	            null,
+	            'horizontalAlignment="',
+	            alignment[i],
+	            '"'
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -104,15 +108,14 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { style: { textAlign: 'center' } },
 	          _react2.default.createElement(
 	            'div',
-	            { style: { outline: '10px solid yellow', height: 75, textAlign: 'center' } },
+	            null,
 	            _react2.default.createElement(
 	              'h2',
 	              null,
-	              'Some important stuff for #',
-	              item,
+	              quote,
 	              '!'
 	            )
 	          ),
@@ -21749,7 +21752,7 @@
 	
 	      var style = (_style = {
 	        cursor: 'pointer',
-	        color: this.props.titleColor || 'red',
+	        color: this.props.titleColor || 'black',
 	        display: '-webkit-flex'
 	      }, _defineProperty(_style, 'display', 'flex'), _defineProperty(_style, 'flexDirection', 'row'), _defineProperty(_style, 'alignItems', getVerticalAlignment(this.props.verticalAlignment)), _defineProperty(_style, 'justifyContent', getHorizontalAlignment(this.props.horizontalAlignment)), _style);
 	
@@ -21800,7 +21803,7 @@
 	
 	var defaultStyles = {
 	  overflow: 'hidden', //IMPORTANT!!!
-	  padding: 10
+	  padding: 0
 	};
 	
 	var AccordionPanel = function (_Component) {
@@ -21816,8 +21819,7 @@
 	    _this.calcHeight = _this.calcHeight.bind(_this);
 	
 	    _this.state = {
-	      originalHeight: 0,
-	      isExpanded: false
+	      originalHeight: 0
 	    };
 	    return _this;
 	  }
@@ -21984,7 +21986,7 @@
 	          onSelect: function onSelect() {
 	            return _this2.setState({ expanded: !_this2.state.expanded });
 	          },
-	          isExpanded: _this2.state.expanded
+	          isExpanded: _this2.state.expanded //make this.props.isExpanded available in children
 	        });
 	      });
 	    }

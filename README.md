@@ -1,6 +1,6 @@
 ### (work in progress)
 
-# [DEMO](https://jforaker.github.io/react-accordion-with-header/dist)
+# [DEMO](https://jforaker.github.io/react-accordion-with-header/demo/)
 
 React accordion component with flexbox header 
 
