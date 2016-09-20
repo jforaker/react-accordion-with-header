@@ -63,7 +63,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var quotes = ['This maniac should be wearing a number, not a badge.', 'So, what are you, like some special forces guy?', 'The jury decided. I presided.', 'Assumption is the mother of all f*ck-ups!', 'You\'ve got 5 seconds... and 3 are up.'];
+	var quotes = ['This maniac should be wearing a number, not a badge.', 'So, what are you, like some special forces guy?', 'The jury decided. I presided.', 'Assumption is the mother of all f*ck-ups!', 'You\'ve got 5 seconds... and 3 are up.']; /* eslint-disable quotes */
+	
 	
 	var alignment = ['centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'];
 	
