@@ -15,6 +15,8 @@ const alignment = [
   'centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'
 ];
 
+const Child = () => <div>Click Me</div>;
+
 render(
   <AccordionWithHeader>
     {quotes.map((quote, i) => {
@@ -25,7 +27,7 @@ render(
                            title={null}
                            titleColor="#607D8B"
                            horizontalAlignment={alignment[i]}
-                           verticalAlignment="center">
+                           verticalAlignment="center" template={<Child />}>
             <div>
               <img src={`http://www.stevensegallery.com/100/10${i + (Math.floor(Math.random() * 5) + 1)}`}/>
             </div>

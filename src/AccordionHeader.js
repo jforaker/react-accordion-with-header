@@ -1,27 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
-
-const getHorizontalAlignment = (str) => {
-  let align = {
-    'left': 'flex-start',
-    'right': 'flex-end',
-    'center': 'center',
-    'centerSpaceAround': 'space-around',
-    'centerSpaceBetween': 'space-between',
-    'default': 'flex-start'
-  };
-  return align[str] || align['default'];
-};
-
-const getVerticalAlignment = (str) => {
-  let align = {
-    'bottom': 'baseline',
-    'top': 'flex-start',
-    'center': 'center',
-    'default': 'center'
-  };
-  return align[str] || align['default'];
-};
+import {getHorizontalAlignment, getVerticalAlignment} from './utils';
 
 const defaultStyle = {
   padding: 10
@@ -44,8 +23,11 @@ export default class AccordionHeader extends Component {
     if (this.props.title) {
       return <h1>{this.props.title}</h1>;
     }
-    if (!this.props.children && !this.props.title) {
-      throw new Error('AccordionHeader must have a title or at least one child!');
+    if (!this.props.template && !this.props.children && !this.props.title) {
+      throw new Error('AccordionHeader must have a title or template or at least one child!');
+    }
+    if (this.props.template) {
+      return this.props.template;
     }
     return this.props.children;
   }
@@ -58,12 +40,12 @@ export default class AccordionHeader extends Component {
       display: '-webkit-flex',
       display: 'flex',
       flexDirection: 'row',
-      alignItems: getVerticalAlignment(this.props.verticalAlignment),//'center, top, bottom',
+      alignItems: getVerticalAlignment(this.props.verticalAlignment),
       justifyContent: getHorizontalAlignment(this.props.horizontalAlignment),
     };
 
     return (
-      <div className={classNames('accordion-header', this.props.className, {'is-Expando': this.props.isExpanded})}
+      <div className={classNames('accordion-header', this.props.className, {'is-expanded': this.props.isExpanded})}
            onClick={this.handleClick}
            style={{...defaultStyle, ...style}}>
         {this.renderChildren()}
@@ -72,3 +54,16 @@ export default class AccordionHeader extends Component {
   }
 }
 
+AccordionHeader.propTypes = {
+  className: PropTypes.string,
+  verticalAlignment: PropTypes.oneOf(['top', 'center', 'bottom']),
+  horizontalAlignment: PropTypes.oneOf(['centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right']),
+  title: PropTypes.string,
+  titleColor: PropTypes.string,
+  template: PropTypes.element
+};
+AccordionHeader.defaultProps = {
+  horizontalAlignment: 'centerSpaceAround',
+  verticalAlignment: 'center',
+  titleColor: 'black'
+};

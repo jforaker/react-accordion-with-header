@@ -61,6 +61,41 @@ import {
 
 ```
 
+### Pass in a component as a header template:
+
+
+```javascript
+…
+
+const Child = () => <div>Click Me</div>;
+
+...
+
+  render() {
+    return (
+      <AccordionWithHeader>
+        {[1, 2, 3, 4].map((item, i) => {
+          return (
+            <AccordionNode key={i}>
+
+              <AccordionHeader template={<Child />} />
+
+              <AccordionPanel>
+                <h2>Important information!</h2>
+              </AccordionPanel>
+
+            </AccordionNode>
+          );
+        })}
+      </AccordionWithHeader>
+    );
+  }
+
+…
+
+```
+
+
 
 ## options / PropTypes
 
@@ -75,9 +110,10 @@ import {
 |:---|:---|:---|:---|
 | title | `String` | For simple headers, a title will render an `<h1>` and disallow child elements | `null` |
 | titleColor | `String` | some valid CSS color or rgb or hex | `black` |
-| horizontalAlignment | `String` | One of: 'centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'. Maps to corresponding flex-box CSS property | `left` |
+| horizontalAlignment | `String` | One of: 'centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'. Maps to corresponding flex-box CSS property | `centerSpaceAround` |
 | verticalAlignment | `String` | One of: 'top', 'center', 'bottom' | `center` |
 | className | `String` | Custom classname applied to root div | `accordion-header` |
 | style | `Object` | Inline styles applied to root div | `null` |
+| template | `Element` | Component to be rendered as a template | `null` |
 
 
