@@ -5,8 +5,11 @@
 
 ### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
 
+<div style="width:70%">
 
 ![Steven](https://d17oy1vhnax1f7.cloudfront.net/items/0m0u2f260j0E163X1u2k/Screen%20Recording%202016-09-21%20at%2005.16%20PM.gif)
+
+</div>
 
 #### Install via NPM:
 
