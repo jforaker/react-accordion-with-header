@@ -68,6 +68,14 @@
 	
 	var alignment = ['centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'];
 	
+	var Child = function Child() {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    'Click Me'
+	  );
+	};
+	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _index.AccordionWithHeader,
 	  null,
@@ -81,7 +89,7 @@
 	          title: null,
 	          titleColor: '#607D8B',
 	          horizontalAlignment: alignment[i],
-	          verticalAlignment: 'center' },
+	          verticalAlignment: 'center', template: _react2.default.createElement(Child, null) },
 	        _react2.default.createElement(
 	          'div',
 	          null,
@@ -21512,11 +21520,11 @@
 	
 	var _AccordionHeader3 = _interopRequireDefault(_AccordionHeader2);
 	
-	var _AccordionPanel2 = __webpack_require__(177);
+	var _AccordionPanel2 = __webpack_require__(178);
 	
 	var _AccordionPanel3 = _interopRequireDefault(_AccordionPanel2);
 	
-	var _AccordionNode2 = __webpack_require__(178);
+	var _AccordionNode2 = __webpack_require__(179);
 	
 	var _AccordionNode3 = _interopRequireDefault(_AccordionNode2);
 	
@@ -21555,32 +21563,18 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var propTypes = {
-	  allowMultiple: _react2.default.PropTypes.bool
-	};
-	
-	var defaultProps = {
-	  allowMultiple: false
-	};
-	
 	var AccordionWithHeader = function (_Component) {
 	  _inherits(AccordionWithHeader, _Component);
 	
 	  function AccordionWithHeader(props) {
 	    _classCallCheck(this, AccordionWithHeader);
 	
-	    var _this = _possibleConstructorReturn(this, (AccordionWithHeader.__proto__ || Object.getPrototypeOf(AccordionWithHeader)).call(this, props));
-	
-	    _this.state = {
-	      allowMultiple: props.allowMultiple || defaultProps.allowMultiple
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, (AccordionWithHeader.__proto__ || Object.getPrototypeOf(AccordionWithHeader)).call(this, props));
 	  }
 	
 	  _createClass(AccordionWithHeader, [{
 	    key: 'render',
 	    value: function render() {
-	      console.log('this.props  MAIN', this.props);
 	      return _react2.default.createElement(
 	        'div',
 	        {
@@ -21594,11 +21588,16 @@
 	  return AccordionWithHeader;
 	}(_react.Component);
 	
+	//todo - update these
+	
+	
 	exports.default = AccordionWithHeader;
-	
-	
-	AccordionWithHeader.propTypes = propTypes;
-	AccordionWithHeader.defaultProps = defaultProps;
+	AccordionWithHeader.propTypes = {
+	  allowMultiple: _react.PropTypes.bool
+	};
+	AccordionWithHeader.defaultProps = {
+	  allowMultiple: false
+	};
 
 /***/ },
 /* 175 */
@@ -21676,6 +21675,8 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
+	var _utils = __webpack_require__(177);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -21685,28 +21686,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var getHorizontalAlignment = function getHorizontalAlignment(str) {
-	  var align = {
-	    'left': 'flex-start',
-	    'right': 'flex-end',
-	    'center': 'center',
-	    'centerSpaceAround': 'space-around',
-	    'centerSpaceBetween': 'space-between',
-	    'default': 'flex-start'
-	  };
-	  return align[str] || align['default'];
-	};
-	
-	var getVerticalAlignment = function getVerticalAlignment(str) {
-	  var align = {
-	    'bottom': 'baseline',
-	    'top': 'flex-start',
-	    'center': 'center',
-	    'default': 'center'
-	  };
-	  return align[str] || align['default'];
-	};
 	
 	var defaultStyle = {
 	  padding: 10
@@ -21741,8 +21720,11 @@
 	          this.props.title
 	        );
 	      }
-	      if (!this.props.children && !this.props.title) {
-	        throw new Error('AccordionHeader must have a title or at least one child!');
+	      if (!this.props.template && !this.props.children && !this.props.title) {
+	        throw new Error('AccordionHeader must have a title or template or at least one child!');
+	      }
+	      if (this.props.template) {
+	        return this.props.template;
 	      }
 	      return this.props.children;
 	    }
@@ -21755,11 +21737,11 @@
 	        cursor: 'pointer',
 	        color: this.props.titleColor || 'black',
 	        display: '-webkit-flex'
-	      }, _defineProperty(_style, 'display', 'flex'), _defineProperty(_style, 'flexDirection', 'row'), _defineProperty(_style, 'alignItems', getVerticalAlignment(this.props.verticalAlignment)), _defineProperty(_style, 'justifyContent', getHorizontalAlignment(this.props.horizontalAlignment)), _style);
+	      }, _defineProperty(_style, 'display', 'flex'), _defineProperty(_style, 'flexDirection', 'row'), _defineProperty(_style, 'alignItems', (0, _utils.getVerticalAlignment)(this.props.verticalAlignment)), _defineProperty(_style, 'justifyContent', (0, _utils.getHorizontalAlignment)(this.props.horizontalAlignment)), _style);
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: (0, _classnames2.default)('accordion-header', this.props.className, { 'is-Expando': this.props.isExpanded }),
+	        { className: (0, _classnames2.default)('accordion-header', this.props.className, { 'is-expanded': this.props.isExpanded }),
 	          onClick: this.handleClick,
 	          style: _extends({}, defaultStyle, style) },
 	        this.renderChildren()
@@ -21771,9 +21753,69 @@
 	}(_react.Component);
 	
 	exports.default = AccordionHeader;
+	
+	
+	AccordionHeader.propTypes = {
+	  className: _react.PropTypes.string,
+	  verticalAlignment: _react.PropTypes.oneOf(['top', 'center', 'bottom']),
+	  horizontalAlignment: _react.PropTypes.oneOf(['centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right']),
+	  title: _react.PropTypes.string,
+	  titleColor: _react.PropTypes.string,
+	  template: _react.PropTypes.element
+	};
+	AccordionHeader.defaultProps = {
+	  horizontalAlignment: 'centerSpaceAround',
+	  verticalAlignment: 'center',
+	  titleColor: 'black'
+	};
 
 /***/ },
 /* 177 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Created by jakeforaker on 9/17/16.
+	 */
+	var arrayify = exports.arrayify = function arrayify(obj) {
+	  return [].concat(obj);
+	};
+	
+	// removes duplicate from array
+	var dedupeArr = exports.dedupeArr = function dedupeArr(arr) {
+	  return arr.filter(function (item, index, inputArray) {
+	    return inputArray.indexOf(item) === index;
+	  });
+	};
+	
+	var getHorizontalAlignment = exports.getHorizontalAlignment = function getHorizontalAlignment(str) {
+	  var align = {
+	    'left': 'flex-start',
+	    'right': 'flex-end',
+	    'center': 'center',
+	    'centerSpaceAround': 'space-around',
+	    'centerSpaceBetween': 'space-between',
+	    'default': 'flex-start'
+	  };
+	  return align[str] || align['default'];
+	};
+	
+	var getVerticalAlignment = exports.getVerticalAlignment = function getVerticalAlignment(str) {
+	  var align = {
+	    'bottom': 'baseline',
+	    'top': 'flex-start',
+	    'center': 'center',
+	    'default': 'center'
+	  };
+	  return align[str] || align['default'];
+	};
+
+/***/ },
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21911,7 +21953,7 @@
 	exports.default = AccordionPanel;
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
