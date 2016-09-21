@@ -85,7 +85,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/100/10' + (i + (Math.floor(Math.random() * 5) + 1)) })
+	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + (i + (Math.floor(Math.random() * 5) + 1)) })
 	        ),
 	        _react2.default.createElement(
 	          'h2',
@@ -101,7 +101,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/100/10' + (i + (Math.floor(Math.random() * 5) + 1)) })
+	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + (i + (Math.floor(Math.random() * 5) + 1)) })
 	        )
 	      ),
 	      _react2.default.createElement(

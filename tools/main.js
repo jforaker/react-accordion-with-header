@@ -27,11 +27,11 @@ render(
                            horizontalAlignment={alignment[i]}
                            verticalAlignment="center">
             <div>
-              <img src={`http://www.stevensegallery.com/100/10${i + (Math.floor(Math.random() * 5) + 1)}`}/>
+              <img src={`http://www.stevensegallery.com/75/7${i + (Math.floor(Math.random() * 5) + 1)}`}/>
             </div>
             <h2><code>horizontalAlignment="{alignment[i]}"</code></h2>
             <div>
-              <img src={`http://www.stevensegallery.com/100/10${i + (Math.floor(Math.random() * 5) + 1)}`}/>
+              <img src={`http://www.stevensegallery.com/75/7${i + (Math.floor(Math.random() * 5) + 1)}`}/>
             </div>
 
           </AccordionHeader>
