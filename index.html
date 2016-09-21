@@ -20,101 +20,151 @@
 
     <section class="main-content">
       <h1>
-<a id="youve-got-5-seconds-and-3-are-up---steven-seagall" class="anchor" href="#youve-got-5-seconds-and-3-are-up---steven-seagall" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>"You've got 5 seconds... and 3 are up." - <em>Steven Seagall</em>
-</h1>
+<a id="react-accordion-component-with-flexbox-header" class="anchor" href="#react-accordion-component-with-flexbox-header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>React accordion component with flexbox header</h1>
 
-<h2>
+<blockquote>
+<p>"You've got 5 seconds... and 3 are up." - <em>Steven Seagall</em></p>
+</blockquote>
+
+<h3>
 <a id="check-out-the-demo-now" class="anchor" href="#check-out-the-demo-now" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://jforaker.github.io/react-accordion-with-header/demo/">Check out the demo NOW</a>
-</h2>
-
-<p>React accordion component with flexbox header </p>
+</h3>
 
 <p><img src="https://d17oy1vhnax1f7.cloudfront.net/items/2E3v430p1B2z351E3F0a/Screen%20Recording%202016-09-20%20at%2003.10%20PM.gif" alt="Steven"></p>
 
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
-
-<p>Install via NPM:</p>
+<h4>
+<a id="install-via-npm" class="anchor" href="#install-via-npm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install via NPM:</h4>
 
 <pre><code>npm install react-accordion-with-header
 </code></pre>
 
-<p>Then:</p>
+<h4>
+<a id="import-the-modules" class="anchor" href="#import-the-modules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Import the modules:</h4>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> {
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-k">import</span> {
     <span class="pl-smi">AccordionWithHeader</span>,
     <span class="pl-smi">AccordionNode</span>,
     <span class="pl-smi">AccordionHeader</span>,
     <span class="pl-smi">AccordionPanel</span>
 } <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>react-accordion-with-header<span class="pl-pds">'</span></span>;
-
-…
-
-  <span class="pl-en">render</span>() {
-    <span class="pl-k">return</span> (
-      <span class="pl-k">&lt;</span>AccordionWithHeader<span class="pl-k">&gt;</span>
-        {[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>].<span class="pl-en">map</span>((<span class="pl-smi">item</span>, <span class="pl-smi">i</span>) <span class="pl-k">=&gt;</span> {
-          <span class="pl-k">return</span> (
-            <span class="pl-k">&lt;</span>AccordionNode key<span class="pl-k">=</span>{i} className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>foobar-node<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
-
-              <span class="pl-k">&lt;</span>AccordionHeader className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>foobar-header<span class="pl-pds">"</span></span>
-                               title<span class="pl-k">=</span>{<span class="pl-c1">null</span>}
-                               titleColor<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>#607D8B<span class="pl-pds">"</span></span>
-                               horizontalAlignment<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>centerSpaceAround<span class="pl-pds">"</span></span>
-                               verticalAlignment<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
-                {<span class="pl-c">/* elements below will render in the header, aligned flexbox style */</span>}
-                <span class="pl-k">&lt;</span>h5<span class="pl-k">&gt;</span>Some title<span class="pl-k">&lt;</span><span class="pl-k">/</span>h5<span class="pl-k">&gt;</span>
-                <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>Something <span class="pl-k">else</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>
-                <span class="pl-k">&lt;</span>h5<span class="pl-k">&gt;</span><span class="pl-c1">A</span> third item<span class="pl-k">&lt;</span><span class="pl-k">/</span>h5<span class="pl-k">&gt;</span>
-              <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionHeader<span class="pl-k">&gt;</span>
-
-              <span class="pl-k">&lt;</span>AccordionPanel<span class="pl-k">&gt;</span>
-                <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>
-                  <span class="pl-k">&lt;</span>h2<span class="pl-k">&gt;</span>Important information<span class="pl-k">!</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>h2<span class="pl-k">&gt;</span>
-                <span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>
-              <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionPanel<span class="pl-k">&gt;</span>
-
-            <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionNode<span class="pl-k">&gt;</span>
-          );
-        })}
-      <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionWithHeader<span class="pl-k">&gt;</span>
-    );
-  }
-
-…
 </pre></div>
 
+<p>Items can be passed in to <code>&lt;AccordionHeader /&gt;</code> and <code>&lt;AccordionPanel /&gt;</code> one of three ways:</p>
+
+<ul>
+<li>a component passed into the <code>template</code> prop</li>
+<li>a component passed into the body (in between opening and closing tags of parent components)</li>
+<li>as plain html 
+<em>NOTE: We cannot pass in a stateless component as a template at this time because of the way we use refs to calculate height... and according to react: "<code>Stateless function components cannot be given refs</code>"</em> </li>
+</ul>
+
+<p>Items can be passed in to <code>&lt;AccordionHeader /&gt;</code> can be <strong>horizontally justified and vertically aligned</strong> via their respective props 
+<g-emoji alias="tada" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png">🎉</g-emoji> <g-emoji alias="boom" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a5.png">💥</g-emoji> <g-emoji alias="beers" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f37b.png">🍻</g-emoji>  </p>
+
+<ul>
+<li><code>horizontalAlignment</code></li>
+<li><code>verticalAlignment</code></li>
+</ul>
+
 <h3>
-<a id="pass-in-a-component-as-a-header-template" class="anchor" href="#pass-in-a-component-as-a-header-template" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pass in a component as a header template:</h3>
+<a id="pass-in-a-component-as-a-template-via-template-prop" class="anchor" href="#pass-in-a-component-as-a-template-via-template-prop" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pass in a component as a template via <code>template</code> prop:</h3>
 
-<div class="highlight highlight-source-js"><pre>…
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-k">class</span> <span class="pl-en">HeaderTpl</span> <span class="pl-k">extends</span> <span class="pl-e">React</span>.<span class="pl-smi">Component</span> {
+   <span class="pl-en">render</span>() {
+     <span class="pl-k">return</span> (
+       <span class="pl-k">&lt;</span>header<span class="pl-k">&gt;</span>
+         <span class="pl-k">&lt;</span>img src<span class="pl-k">=</span>{<span class="pl-s"><span class="pl-pds">`</span>http://www.stevensegallery.com/100/10<span class="pl-s1"><span class="pl-pse">${</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">floor</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">5</span>) <span class="pl-k">+</span> <span class="pl-c1">1</span>)<span class="pl-pse">}</span></span><span class="pl-pds">`</span></span>}<span class="pl-k">/</span><span class="pl-k">&gt;</span>
+         <span class="pl-k">&lt;</span>img src<span class="pl-k">=</span>{<span class="pl-s"><span class="pl-pds">`</span>http://www.stevensegallery.com/100/10<span class="pl-s1"><span class="pl-pse">${</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">floor</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">5</span>) <span class="pl-k">+</span> <span class="pl-c1">1</span>)<span class="pl-pse">}</span></span><span class="pl-pds">`</span></span>}<span class="pl-k">/</span><span class="pl-k">&gt;</span>
+       <span class="pl-k">&lt;</span><span class="pl-k">/</span>header<span class="pl-k">&gt;</span>
+     );
+   }
+ }
 
-<span class="pl-k">const</span> <span class="pl-c1">Child</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>Click Me<span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>;
+ <span class="pl-k">class</span> <span class="pl-en">BodyTpl</span> <span class="pl-k">extends</span> <span class="pl-e">React</span>.<span class="pl-smi">Component</span> {
+   <span class="pl-en">render</span>() {
+     <span class="pl-k">return</span> (
+       <span class="pl-k">&lt;</span>article<span class="pl-k">&gt;</span>
+         <span class="pl-k">&lt;</span>figcaption<span class="pl-k">&gt;</span><span class="pl-k">...</span>the blood bank<span class="pl-k">&lt;</span><span class="pl-k">/</span>figcaption<span class="pl-k">&gt;</span>
+         <span class="pl-k">&lt;</span>img src<span class="pl-k">=</span>{<span class="pl-s"><span class="pl-pds">`</span>http://www.stevensegallery.com/200/20<span class="pl-s1"><span class="pl-pse">${</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">floor</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">5</span>) <span class="pl-k">+</span> <span class="pl-c1">1</span>)<span class="pl-pse">}</span></span><span class="pl-pds">`</span></span>}<span class="pl-k">/</span><span class="pl-k">&gt;</span>
+       <span class="pl-k">&lt;</span><span class="pl-k">/</span>article<span class="pl-k">&gt;</span>
+     );
+   }
 
 <span class="pl-k">...</span>
 
   <span class="pl-en">render</span>() {
     <span class="pl-k">return</span> (
       <span class="pl-k">&lt;</span>AccordionWithHeader<span class="pl-k">&gt;</span>
-        {[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>].<span class="pl-en">map</span>((<span class="pl-smi">item</span>, <span class="pl-smi">i</span>) <span class="pl-k">=&gt;</span> {
+        {<span class="pl-smi">quotes</span>.<span class="pl-en">map</span>((<span class="pl-smi">quote</span>, <span class="pl-smi">i</span>) <span class="pl-k">=&gt;</span> {
           <span class="pl-k">return</span> (
             <span class="pl-k">&lt;</span>AccordionNode key<span class="pl-k">=</span>{i}<span class="pl-k">&gt;</span>
-
-              <span class="pl-k">&lt;</span>AccordionHeader template<span class="pl-k">=</span>{<span class="pl-k">&lt;</span>Child <span class="pl-k">/</span><span class="pl-k">&gt;</span>} <span class="pl-k">/</span><span class="pl-k">&gt;</span>
-
-              <span class="pl-k">&lt;</span>AccordionPanel<span class="pl-k">&gt;</span>
-                <span class="pl-k">&lt;</span>h2<span class="pl-k">&gt;</span>Important information<span class="pl-k">!</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>h2<span class="pl-k">&gt;</span>
-              <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionPanel<span class="pl-k">&gt;</span>
-
+              <span class="pl-k">&lt;</span>AccordionHeader template<span class="pl-k">=</span>{<span class="pl-k">&lt;</span>HeaderTpl <span class="pl-k">/</span><span class="pl-k">&gt;</span>} horizontalAlignment<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>centerSpaceBetween<span class="pl-pds">"</span></span> <span class="pl-k">/</span><span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span>AccordionPanel template<span class="pl-k">=</span>{<span class="pl-k">&lt;</span>BodyTpl <span class="pl-k">/</span><span class="pl-k">&gt;</span>} <span class="pl-k">/</span><span class="pl-k">&gt;</span>
             <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionNode<span class="pl-k">&gt;</span>
           );
         })}
       <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionWithHeader<span class="pl-k">&gt;</span>
     );
   }
-
-…
 </pre></div>
+
+<h3>
+<a id="pass-in-a-component-or-as-children" class="anchor" href="#pass-in-a-component-or-as-children" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pass in a component or as children:</h3>
+
+<div class="highlight highlight-source-js"><pre>…
+  <span class="pl-en">render</span>() {
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>AccordionWithHeader<span class="pl-k">&gt;</span>
+        {[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>].<span class="pl-en">map</span>((<span class="pl-smi">item</span>, <span class="pl-smi">i</span>) <span class="pl-k">=&gt;</span> {
+          <span class="pl-k">return</span> (
+            <span class="pl-k">&lt;</span>AccordionNode key<span class="pl-k">=</span>{i} className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>foobar-node<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span>AccordionHeader className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>foobar-header<span class="pl-pds">"</span></span>
+                               titleColor<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>#607D8B<span class="pl-pds">"</span></span>
+                               horizontalAlignment<span class="pl-k">=</span>{<span class="pl-s"><span class="pl-pds">"</span>centerSpaceAround<span class="pl-pds">"</span></span>}
+                               verticalAlignment<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+                <span class="pl-k">&lt;</span>HeaderTpl <span class="pl-k">/</span><span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionHeader<span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span>AccordionPanel<span class="pl-k">&gt;</span>
+                <span class="pl-k">&lt;</span>BodyTpl <span class="pl-k">/</span><span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionPanel<span class="pl-k">&gt;</span>
+            <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionNode<span class="pl-k">&gt;</span>
+          );
+        })}
+      <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionWithHeader<span class="pl-k">&gt;</span>
+    );
+  }
+…</pre></div>
+
+<h3>
+<a id="or-as-plain-html" class="anchor" href="#or-as-plain-html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>...or as plain HTML</h3>
+
+<div class="highlight highlight-source-js"><pre>…
+  <span class="pl-en">render</span>() {
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>AccordionWithHeader<span class="pl-k">&gt;</span>
+        {[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>].<span class="pl-en">map</span>((<span class="pl-smi">item</span>, <span class="pl-smi">i</span>) <span class="pl-k">=&gt;</span> {
+          <span class="pl-k">return</span> (
+            <span class="pl-k">&lt;</span>AccordionNode key<span class="pl-k">=</span>{i} className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>foobar-node<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span>AccordionHeader<span class="pl-k">&gt;</span>
+                <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>
+                  <span class="pl-k">&lt;</span>h2<span class="pl-k">&gt;</span>Some title<span class="pl-k">!</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>h2<span class="pl-k">&gt;</span>
+                <span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionHeader<span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span>AccordionPanel<span class="pl-k">&gt;</span>
+                <span class="pl-k">&lt;</span>section<span class="pl-k">&gt;</span>
+                  <span class="pl-k">&lt;</span>header<span class="pl-k">&gt;</span>Some body information etc<span class="pl-k">&lt;</span><span class="pl-k">/</span>header<span class="pl-k">&gt;</span>
+                  <span class="pl-k">&lt;</span>article<span class="pl-k">&gt;</span>Interesting things<span class="pl-k">...</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>article<span class="pl-k">&gt;</span>
+                <span class="pl-k">&lt;</span><span class="pl-k">/</span>section<span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionPanel<span class="pl-k">&gt;</span>
+            <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionNode<span class="pl-k">&gt;</span>
+          );
+        })}
+      <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionWithHeader<span class="pl-k">&gt;</span>
+    );
+  }
+…</pre></div>
 
 <h2>
 <a id="options--proptypes" class="anchor" href="#options--proptypes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options / PropTypes</h2>
@@ -190,6 +240,28 @@
 <td align="left">Inline styles applied to root div</td>
 <td align="left"><code>null</code></td>
 </tr>
+<tr>
+<td align="left">template</td>
+<td align="left"><code>Element</code></td>
+<td align="left">Component to be rendered as a template</td>
+<td align="left"><code>null</code></td>
+</tr>
+</tbody>
+</table>
+
+<h4>
+<a id="accordionpanel" class="anchor" href="#accordionpanel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AccordionPanel</h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">Property</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td align="left">template</td>
 <td align="left"><code>Element</code></td>
