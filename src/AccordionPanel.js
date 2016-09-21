@@ -47,6 +47,15 @@ export default class AccordionPanel extends Component {
   }
 
   calcHeight() {
+    if (this.props.template) {
+      //NOTE:
+      const {clientHeight} = this.refs[`item-${this.props.indexKey}`];
+      this.setState({
+        originalHeight: clientHeight
+      });
+      return;
+    }
+
     Children.forEach(this.props.children, (child) => {
       const { clientHeight } = this.refs[`item-${child.props.key}`];
       this.setState({
@@ -56,13 +65,22 @@ export default class AccordionPanel extends Component {
   }
 
   renderChildren() {
-    if (!this.props.children) {
+    if (!this.props.template && !this.props.children) {
       throw new Error('AccordionPanel must have at least one child!');
     }
+
+    /***************************************************************
+     create a ref so we calculate its height on componentDidMount()
+     ***************************************************************/
+
+    if (this.props.template) {
+      /* templates are special in we cannot iterate over them with React.Children.map */
+      return cloneElement(this.props.template, {
+        ref: `item-${this.props.indexKey}`
+      });
+    }
+
     return Children.map(this.props.children, (child) => {
-      /***************************************************************
-       create a ref so we calculate its height on componentDidMount()
-       ***************************************************************/
       return cloneElement(child, {
         ref: `item-${child.props.key}`
       });

@@ -1,22 +1,23 @@
 
-# "You've got 5 seconds... and 3 are up." - *Steven Seagall*
-##[Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
+# React accordion component with flexbox header 
 
-React accordion component with flexbox header 
+> "You've got 5 seconds... and 3 are up." - *Steven Seagall*
+
+### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
+
 
 ![Steven](https://d17oy1vhnax1f7.cloudfront.net/items/2E3v430p1B2z351E3F0a/Screen%20Recording%202016-09-20%20at%2003.10%20PM.gif)
 
-## Usage
-
-Install via NPM:
+#### Install via NPM:
 
 ```
 npm install react-accordion-with-header
 ```
 
-Then:
+#### Import the modules:
 
 ```javascript
+
 import {
     AccordionWithHeader,
     AccordionNode,
@@ -24,77 +25,127 @@ import {
     AccordionPanel
 } from 'react-accordion-with-header';
 
-…
+```
 
+Items can be passed in to `<AccordionHeader />` and `<AccordionPanel />` one of three ways:
+
+- a component passed into the `template` prop
+- a component passed into the body (in between opening and closing tags of parent components)
+- as plain html 
+*NOTE: We cannot pass in a stateless component as a template at this time because of the way we use refs to calculate height... and according to react: "`Stateless function components cannot be given refs`"* 
+
+
+Items can be passed in to `<AccordionHeader />` can be **horizontally justified and vertically aligned** via their respective props 
+:tada: :boom: :beers:  
+ 
+- `horizontalAlignment`
+- `verticalAlignment`
+
+
+### Pass in a component as a template via `template` prop:
+
+```javascript
+
+class HeaderTpl extends React.Component {
+   render() {
+     return (
+       <header>
+         <img src={`http://www.stevensegallery.com/100/10${(Math.floor(Math.random() * 5) + 1)}`}/>
+         <img src={`http://www.stevensegallery.com/100/10${(Math.floor(Math.random() * 5) + 1)}`}/>
+       </header>
+     );
+   }
+ }
+ 
+ class BodyTpl extends React.Component {
+   render() {
+     return (
+       <article>
+         <figcaption>...the blood bank</figcaption>
+         <img src={`http://www.stevensegallery.com/200/20${(Math.floor(Math.random() * 5) + 1)}`}/>
+       </article>
+     );
+   }
+ 
+...
+
+  render() {
+    return (
+      <AccordionWithHeader>
+        {quotes.map((quote, i) => {
+          return (
+            <AccordionNode key={i}>
+              <AccordionHeader template={<HeaderTpl />} horizontalAlignment="centerSpaceBetween" />
+              <AccordionPanel template={<BodyTpl />} />
+            </AccordionNode>
+          );
+        })}
+      </AccordionWithHeader>
+    );
+  }
+
+```
+
+
+### Pass in a component or as children:
+
+
+```javascript
+…
   render() {
     return (
       <AccordionWithHeader>
         {[1, 2, 3, 4].map((item, i) => {
           return (
             <AccordionNode key={i} className="foobar-node">
-
               <AccordionHeader className="foobar-header"
-                               title={null}
                                titleColor="#607D8B"
-                               horizontalAlignment="centerSpaceAround"
+                               horizontalAlignment={"centerSpaceAround"}
                                verticalAlignment="center">
-                {/* elements below will render in the header, aligned flexbox style */}
-                <h5>Some title</h5>
-                <div>Something else</div>
-                <h5>A third item</h5>
+                <HeaderTpl />
               </AccordionHeader>
-
               <AccordionPanel>
-                <div>
-                  <h2>Important information!</h2>
-                </div>
+                <BodyTpl />
               </AccordionPanel>
-
             </AccordionNode>
           );
         })}
       </AccordionWithHeader>
     );
   }
-
 …
-
 ```
 
-### Pass in a component as a header template:
-
+### ...or as plain HTML
+ 
 
 ```javascript
 …
-
-const Child = () => <div>Click Me</div>;
-
-...
-
   render() {
     return (
       <AccordionWithHeader>
         {[1, 2, 3, 4].map((item, i) => {
           return (
-            <AccordionNode key={i}>
-
-              <AccordionHeader template={<Child />} />
-
+            <AccordionNode key={i} className="foobar-node">
+              <AccordionHeader>
+                <div>
+                  <h2>Some title!</h2>
+                </div>
+              </AccordionHeader>
               <AccordionPanel>
-                <h2>Important information!</h2>
+                <section>
+                  <header>Some body information etc</header>
+                  <article>Interesting things...</article>
+                </section>
               </AccordionPanel>
-
             </AccordionNode>
           );
         })}
       </AccordionWithHeader>
     );
   }
-
 …
-
 ```
-
 
 
 ## options / PropTypes
@@ -114,6 +165,11 @@ const Child = () => <div>Click Me</div>;
 | verticalAlignment | `String` | One of: 'top', 'center', 'bottom' | `center` |
 | className | `String` | Custom classname applied to root div | `accordion-header` |
 | style | `Object` | Inline styles applied to root div | `null` |
+| template | `Element` | Component to be rendered as a template | `null` |
+
+#### AccordionPanel
+| Property | Type | Description | Default |
+|:---|:---|:---|:---|
 | template | `Element` | Component to be rendered as a template | `null` |
 
 
