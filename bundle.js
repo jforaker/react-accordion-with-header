@@ -120,7 +120,7 @@
 	              '!'
 	            )
 	          ),
-	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/500/50' + (i + (Math.floor(Math.random() * 5) + 1)) })
+	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/200/20' + (i + (Math.floor(Math.random() * 5) + 1)) })
 	        )
 	      )
 	    );
@@ -21898,6 +21898,16 @@
 	    value: function calcHeight() {
 	      var _this3 = this;
 	
+	      if (this.props.template) {
+	        //NOTE:
+	        var clientHeight = this.refs['item-' + this.props.indexKey].clientHeight;
+	
+	        this.setState({
+	          originalHeight: clientHeight
+	        });
+	        return;
+	      }
+	
 	      _react.Children.forEach(this.props.children, function (child) {
 	        var clientHeight = _this3.refs['item-' + child.props.key].clientHeight;
 	
@@ -21909,13 +21919,22 @@
 	  }, {
 	    key: 'renderChildren',
 	    value: function renderChildren() {
-	      if (!this.props.children) {
+	      if (!this.props.template && !this.props.children) {
 	        throw new Error('AccordionPanel must have at least one child!');
 	      }
+	
+	      /***************************************************************
+	       create a ref so we calculate its height on componentDidMount()
+	       ***************************************************************/
+	
+	      if (this.props.template) {
+	        /* templates are special in we cannot iterate over them with React.Children.map */
+	        return (0, _react.cloneElement)(this.props.template, {
+	          ref: 'item-' + this.props.indexKey
+	        });
+	      }
+	
 	      return _react.Children.map(this.props.children, function (child) {
-	        /***************************************************************
-	         create a ref so we calculate its height on componentDidMount()
-	         ***************************************************************/
 	        return (0, _react.cloneElement)(child, {
 	          ref: 'item-' + child.props.key
 	        });
@@ -22019,6 +22038,7 @@
 	         lets render the <AccordionHeader /> and <AccordionPanel />
 	         ***************************************************************/
 	        return (0, _react.cloneElement)(item, {
+	          indexKey: index,
 	          className: (0, _classnames2.default)('accordion-node-' + (index === 0 ? 'header' : 'panel'), _this2.props.className),
 	          onSelect: function onSelect() {
 	            return _this2.setState({ expanded: !_this2.state.expanded });
