@@ -84,6 +84,38 @@
 …
 </pre></div>
 
+<h3>
+<a id="pass-in-a-component-as-a-header-template" class="anchor" href="#pass-in-a-component-as-a-header-template" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pass in a component as a header template:</h3>
+
+<div class="highlight highlight-source-js"><pre>…
+
+<span class="pl-k">const</span> <span class="pl-c1">Child</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>Click Me<span class="pl-k">&lt;</span><span class="pl-k">/</span>div<span class="pl-k">&gt;</span>;
+
+<span class="pl-k">...</span>
+
+  <span class="pl-en">render</span>() {
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>AccordionWithHeader<span class="pl-k">&gt;</span>
+        {[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>].<span class="pl-en">map</span>((<span class="pl-smi">item</span>, <span class="pl-smi">i</span>) <span class="pl-k">=&gt;</span> {
+          <span class="pl-k">return</span> (
+            <span class="pl-k">&lt;</span>AccordionNode key<span class="pl-k">=</span>{i}<span class="pl-k">&gt;</span>
+
+              <span class="pl-k">&lt;</span>AccordionHeader template<span class="pl-k">=</span>{<span class="pl-k">&lt;</span>Child <span class="pl-k">/</span><span class="pl-k">&gt;</span>} <span class="pl-k">/</span><span class="pl-k">&gt;</span>
+
+              <span class="pl-k">&lt;</span>AccordionPanel<span class="pl-k">&gt;</span>
+                <span class="pl-k">&lt;</span>h2<span class="pl-k">&gt;</span>Important information<span class="pl-k">!</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>h2<span class="pl-k">&gt;</span>
+              <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionPanel<span class="pl-k">&gt;</span>
+
+            <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionNode<span class="pl-k">&gt;</span>
+          );
+        })}
+      <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionWithHeader<span class="pl-k">&gt;</span>
+    );
+  }
+
+…
+</pre></div>
+
 <h2>
 <a id="options--proptypes" class="anchor" href="#options--proptypes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options / PropTypes</h2>
 
@@ -138,7 +170,7 @@
 <td align="left">horizontalAlignment</td>
 <td align="left"><code>String</code></td>
 <td align="left">One of: 'centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'. Maps to corresponding flex-box CSS property</td>
-<td align="left"><code>left</code></td>
+<td align="left"><code>centerSpaceAround</code></td>
 </tr>
 <tr>
 <td align="left">verticalAlignment</td>
@@ -156,6 +188,12 @@
 <td align="left">style</td>
 <td align="left"><code>Object</code></td>
 <td align="left">Inline styles applied to root div</td>
+<td align="left"><code>null</code></td>
+</tr>
+<tr>
+<td align="left">template</td>
+<td align="left"><code>Element</code></td>
+<td align="left">Component to be rendered as a template</td>
 <td align="left"><code>null</code></td>
 </tr>
 </tbody>
