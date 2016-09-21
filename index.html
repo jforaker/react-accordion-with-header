@@ -30,7 +30,7 @@
 <a id="check-out-the-demo-now" class="anchor" href="#check-out-the-demo-now" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://jforaker.github.io/react-accordion-with-header/demo/">Check out the demo NOW</a>
 </h3>
 
-<p><img src="https://d17oy1vhnax1f7.cloudfront.net/items/2E3v430p1B2z351E3F0a/Screen%20Recording%202016-09-20%20at%2003.10%20PM.gif" alt="Steven"></p>
+<p><img src="https://d17oy1vhnax1f7.cloudfront.net/items/0m0u2f260j0E163X1u2k/Screen%20Recording%202016-09-21%20at%2005.16%20PM.gif" width="600"></p>
 
 <h4>
 <a id="install-via-npm" class="anchor" href="#install-via-npm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install via NPM:</h4>
@@ -111,7 +111,7 @@
 </pre></div>
 
 <h3>
-<a id="pass-in-a-component-or-as-children" class="anchor" href="#pass-in-a-component-or-as-children" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pass in a component or as children:</h3>
+<a id="pass-in-a-component-as-children" class="anchor" href="#pass-in-a-component-as-children" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pass in a component as children:</h3>
 
 <div class="highlight highlight-source-js"><pre>…
   <span class="pl-en">render</span>() {
@@ -122,7 +122,7 @@
             <span class="pl-k">&lt;</span>AccordionNode key<span class="pl-k">=</span>{i} className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>foobar-node<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
               <span class="pl-k">&lt;</span>AccordionHeader className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>foobar-header<span class="pl-pds">"</span></span>
                                titleColor<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>#607D8B<span class="pl-pds">"</span></span>
-                               horizontalAlignment<span class="pl-k">=</span>{<span class="pl-s"><span class="pl-pds">"</span>centerSpaceAround<span class="pl-pds">"</span></span>}
+                               horizontalAlignment<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>centerSpaceAround<span class="pl-pds">"</span></span>
                                verticalAlignment<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
                 <span class="pl-k">&lt;</span>HeaderTpl <span class="pl-k">/</span><span class="pl-k">&gt;</span>
               <span class="pl-k">&lt;</span><span class="pl-k">/</span>AccordionHeader<span class="pl-k">&gt;</span>
@@ -146,7 +146,7 @@
       <span class="pl-k">&lt;</span>AccordionWithHeader<span class="pl-k">&gt;</span>
         {[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>].<span class="pl-en">map</span>((<span class="pl-smi">item</span>, <span class="pl-smi">i</span>) <span class="pl-k">=&gt;</span> {
           <span class="pl-k">return</span> (
-            <span class="pl-k">&lt;</span>AccordionNode key<span class="pl-k">=</span>{i} className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>foobar-node<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+            <span class="pl-k">&lt;</span>AccordionNode key<span class="pl-k">=</span>{i}<span class="pl-k">&gt;</span>
               <span class="pl-k">&lt;</span>AccordionHeader<span class="pl-k">&gt;</span>
                 <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>
                   <span class="pl-k">&lt;</span>h2<span class="pl-k">&gt;</span>Some title<span class="pl-k">!</span><span class="pl-k">&lt;</span><span class="pl-k">/</span>h2<span class="pl-k">&gt;</span>
