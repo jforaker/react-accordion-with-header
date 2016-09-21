@@ -68,14 +68,6 @@
 	
 	var alignment = ['centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'];
 	
-	var Child = function Child() {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    'Click Me'
-	  );
-	};
-	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _index.AccordionWithHeader,
 	  null,
@@ -89,7 +81,7 @@
 	          title: null,
 	          titleColor: '#607D8B',
 	          horizontalAlignment: alignment[i],
-	          verticalAlignment: 'center', template: _react2.default.createElement(Child, null) },
+	          verticalAlignment: 'center' },
 	        _react2.default.createElement(
 	          'div',
 	          null,
