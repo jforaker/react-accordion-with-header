@@ -86,7 +86,7 @@ class HeaderTpl extends React.Component {
 ```
 
 
-### Pass in a component or as children:
+### Pass in a component as children:
 
 
 ```javascript
@@ -99,7 +99,7 @@ class HeaderTpl extends React.Component {
             <AccordionNode key={i} className="foobar-node">
               <AccordionHeader className="foobar-header"
                                titleColor="#607D8B"
-                               horizontalAlignment={"centerSpaceAround"}
+                               horizontalAlignment="centerSpaceAround"
                                verticalAlignment="center">
                 <HeaderTpl />
               </AccordionHeader>
@@ -125,7 +125,7 @@ class HeaderTpl extends React.Component {
       <AccordionWithHeader>
         {[1, 2, 3, 4].map((item, i) => {
           return (
-            <AccordionNode key={i} className="foobar-node">
+            <AccordionNode key={i}>
               <AccordionHeader>
                 <div>
                   <h2>Some title!</h2>
