@@ -109,7 +109,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { style: { textAlign: 'center' } },
+	          { style: { textAlign: 'center', height: 300 } },
 	          _react2.default.createElement(
 	            'div',
 	            null,
@@ -120,7 +120,7 @@
 	              '!'
 	            )
 	          ),
-	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/200/20' + (i + (Math.floor(Math.random() * 5) + 1)) })
+	          _react2.default.createElement('img', { style: { marginBottom: 10 }, src: 'http://www.stevensegallery.com/200/20' + (i + (Math.floor(Math.random() * 5) + 1)) })
 	        )
 	      )
 	    );

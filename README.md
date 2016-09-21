@@ -6,7 +6,7 @@
 ### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
 
 
-![Steven](https://d17oy1vhnax1f7.cloudfront.net/items/2E3v430p1B2z351E3F0a/Screen%20Recording%202016-09-20%20at%2003.10%20PM.gif)
+![Steven](https://d17oy1vhnax1f7.cloudfront.net/items/0o1m1g3t1l0U1q2Q1P1E/Screen%20Recording%202016-09-21%20at%2005.11%20PM.gif)
 
 #### Install via NPM:
 

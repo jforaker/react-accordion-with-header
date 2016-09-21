@@ -37,11 +37,11 @@ render(
           </AccordionHeader>
 
           <AccordionPanel>
-            <div style={{textAlign: 'center'}}>
+            <div style={{textAlign: 'center', height: 300}}>
               <div>
                 <h2>{quote}!</h2>
               </div>
-              <img src={`http://www.stevensegallery.com/200/20${i + (Math.floor(Math.random() * 5) + 1)}`}/>
+              <img style={{marginBottom: 10}} src={`http://www.stevensegallery.com/200/20${i + (Math.floor(Math.random() * 5) + 1)}`}/>
             </div>
           </AccordionPanel>
 
