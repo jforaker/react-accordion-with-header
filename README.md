@@ -1,7 +1,7 @@
 
 # React accordion component with flexbox header 
 
-> "You've got 5 seconds... and 3 are up." - *Steven Seagall*
+> "You've got 5 seconds... and 3 are up." - *Steven Seagal*
 
 ### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
 
@@ -31,10 +31,11 @@ Items can be passed in to `<AccordionHeader />` and `<AccordionPanel />` one of 
 - a component passed into the `template` prop
 - a component passed into the body (in between opening and closing tags of parent components)
 - as plain html 
+
 *NOTE: We cannot pass in a stateless component as a template at this time because of the way we use refs to calculate height... and according to react: "`Stateless function components cannot be given refs`"* 
 
 
-Items can be passed in to `<AccordionHeader />` can be **horizontally justified and vertically aligned** via their respective props 
+The elements passed in to `<AccordionHeader />` can be **horizontally justified and vertically aligned** via their respective props 
 :tada: :boom: :beers:  
  
 - `horizontalAlignment`
@@ -65,13 +66,14 @@ class HeaderTpl extends React.Component {
        </article>
      );
    }
+ }
  
 ...
 
   render() {
     return (
       <AccordionWithHeader>
-        {quotes.map((quote, i) => {
+        {[1, 2, 3, 4].map((item, i) => {
           return (
             <AccordionNode key={i}>
               <AccordionHeader template={<HeaderTpl />} horizontalAlignment="centerSpaceBetween" />
