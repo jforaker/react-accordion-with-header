@@ -174,3 +174,11 @@ class HeaderTpl extends React.Component {
 | template | `Element` | Component to be rendered as a template | `null` |
 
 
+--------------
+
+### Roadmap
+
+- allow one panel active
+- add callbacks to open/close methods
+
+
