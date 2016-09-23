@@ -1,6 +1,6 @@
-import React, {Component, Children, cloneElement, PropTypes} from 'react';
+import React, { Component, Children, cloneElement, PropTypes } from 'react';
 import classNames from 'classnames';
-import {getHorizontalAlignment, getVerticalAlignment} from './utils';
+import { getHorizontalAlignment, getVerticalAlignment } from './utils';
 
 const defaultStyle = {
   padding: 10

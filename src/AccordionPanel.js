@@ -91,7 +91,7 @@ export default class AccordionPanel extends Component {
      ***************************************************************/
 
     if (this.props.template) {
-      /* templates are special in we cannot iterate over them with React.Children.map */
+      /* templates are special in that we cannot iterate over them with React.Children.map */
       return cloneElement(this.props.template, {
         ref: `item-${this.props.indexKey}`
       });

@@ -1,6 +1,5 @@
-
 export const getHorizontalAlignment = (str) => {
-  let align = {
+  const align = {
     'left': 'flex-start',
     'right': 'flex-end',
     'center': 'center',
@@ -12,7 +11,7 @@ export const getHorizontalAlignment = (str) => {
 };
 
 export const getVerticalAlignment = (str) => {
-  let align = {
+  const align = {
     'bottom': 'baseline',
     'top': 'flex-start',
     'center': 'center',

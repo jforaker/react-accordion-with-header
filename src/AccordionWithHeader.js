@@ -1,5 +1,5 @@
 /* eslint-disable no-lonely-if */
-import React, {Component, PropTypes, Children, cloneElement} from 'react';
+import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import classNames from 'classnames';
 const guid = require('easy-guid');
 
@@ -42,7 +42,6 @@ export default class AccordionWithHeader extends Component {
     s.active = null;
 
     if (this.props.multipleOkay) {
-      //multipleOkay is true, push the new item into array
       let panelsArr = active;
       if (panelsArr.indexOf(panelIndex) !== -1) {
         //panel exists, remove it

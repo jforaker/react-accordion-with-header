@@ -1,7 +1,3 @@
-/**
- * Created by jakeforaker on 9/17/16.
- */
-
 /* eslint-disable quotes */
 import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import classNames from 'classnames';
@@ -62,9 +58,7 @@ export default class AccordionNode extends Component {
 
 	render() {
 
-	  const {
-      className,
-    } = this.props;
+	  const { className } = this.props;
 
     return (
 			<div className={classNames(className, [defaultClass.accordionNode].join(' '))}>
