@@ -23,14 +23,14 @@
 <a id="react-accordion-component-with-flexbox-header" class="anchor" href="#react-accordion-component-with-flexbox-header" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>React accordion component with flexbox header</h1>
 
 <blockquote>
-<p>"You've got 5 seconds... and 3 are up." - <em>Steven Seagall</em></p>
+<p>"You've got 5 seconds... and 3 are up." - <em>Steven Seagal</em></p>
 </blockquote>
 
 <h3>
 <a id="check-out-the-demo-now" class="anchor" href="#check-out-the-demo-now" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://jforaker.github.io/react-accordion-with-header/demo/">Check out the demo NOW</a>
 </h3>
 
-<p><img src="https://d17oy1vhnax1f7.cloudfront.net/items/0m0u2f260j0E163X1u2k/Screen%20Recording%202016-09-21%20at%2005.16%20PM.gif" width="600"></p>
+<p><img src="https://d17oy1vhnax1f7.cloudfront.net/items/1Z233J1R0J0t0s2f1X1s/Screen%20Recording%202016-09-23%20at%2001.42%20AM.gif" width="600"></p>
 
 <h4>
 <a id="install-via-npm" class="anchor" href="#install-via-npm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install via NPM:</h4>
@@ -55,11 +55,12 @@
 <ul>
 <li>a component passed into the <code>template</code> prop</li>
 <li>a component passed into the body (in between opening and closing tags of parent components)</li>
-<li>as plain html 
-<em>NOTE: We cannot pass in a stateless component as a template at this time because of the way we use refs to calculate height... and according to react: "<code>Stateless function components cannot be given refs</code>"</em> </li>
+<li>as plain html </li>
 </ul>
 
-<p>Items can be passed in to <code>&lt;AccordionHeader /&gt;</code> can be <strong>horizontally justified and vertically aligned</strong> via their respective props 
+<p><em>NOTE: We cannot pass in a stateless component as a template at this time because of the way we use refs to calculate height... and according to react: "<code>Stateless function components cannot be given refs</code>"</em> </p>
+
+<p>The elements passed in to <code>&lt;AccordionHeader /&gt;</code> can be <strong>horizontally justified and vertically aligned</strong> via their respective props 
 <g-emoji alias="tada" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png">🎉</g-emoji> <g-emoji alias="boom" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a5.png">💥</g-emoji> <g-emoji alias="beers" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f37b.png">🍻</g-emoji>  </p>
 
 <ul>
@@ -91,13 +92,14 @@
        <span class="pl-k">&lt;</span><span class="pl-k">/</span>article<span class="pl-k">&gt;</span>
      );
    }
+ }
 
 <span class="pl-k">...</span>
 
   <span class="pl-en">render</span>() {
     <span class="pl-k">return</span> (
       <span class="pl-k">&lt;</span>AccordionWithHeader<span class="pl-k">&gt;</span>
-        {<span class="pl-smi">quotes</span>.<span class="pl-en">map</span>((<span class="pl-smi">quote</span>, <span class="pl-smi">i</span>) <span class="pl-k">=&gt;</span> {
+        {[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>].<span class="pl-en">map</span>((<span class="pl-smi">item</span>, <span class="pl-smi">i</span>) <span class="pl-k">=&gt;</span> {
           <span class="pl-k">return</span> (
             <span class="pl-k">&lt;</span>AccordionNode key<span class="pl-k">=</span>{i}<span class="pl-k">&gt;</span>
               <span class="pl-k">&lt;</span>AccordionHeader template<span class="pl-k">=</span>{<span class="pl-k">&lt;</span>HeaderTpl <span class="pl-k">/</span><span class="pl-k">&gt;</span>} horizontalAlignment<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>centerSpaceBetween<span class="pl-pds">"</span></span> <span class="pl-k">/</span><span class="pl-k">&gt;</span>
@@ -170,6 +172,40 @@
 <a id="options--proptypes" class="anchor" href="#options--proptypes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options / PropTypes</h2>
 
 <h4>
+<a id="accordionwithheader" class="anchor" href="#accordionwithheader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AccordionWithHeader</h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">Property</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">firstOpen</td>
+<td align="left"><code>Boolean</code></td>
+<td align="left">Determines if the first panel should be expanded by default</td>
+<td align="left"><code>false</code></td>
+</tr>
+<tr>
+<td align="left">multipleOkay</td>
+<td align="left"><code>Boolean</code></td>
+<td align="left">True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time.</td>
+<td align="left"><code>false</code></td>
+</tr>
+<tr>
+<td align="left">className</td>
+<td align="left"><code>String</code></td>
+<td align="left">Custom classname applied to root item div</td>
+<td align="left"><code>null</code></td>
+</tr>
+</tbody>
+</table>
+
+<h4>
 <a id="accordionnode" class="anchor" href="#accordionnode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AccordionNode</h4>
 
 <table>
@@ -186,7 +222,7 @@
 <td align="left">className</td>
 <td align="left"><code>String</code></td>
 <td align="left">Custom classname applied to root item div</td>
-<td align="left"><code>accordion-node</code></td>
+<td align="left"><code>null</code></td>
 </tr>
 </tbody>
 </table>
@@ -268,8 +304,24 @@
 <td align="left">Component to be rendered as a template</td>
 <td align="left"><code>null</code></td>
 </tr>
+<tr>
+<td align="left">speed</td>
+<td align="left"><code>Number</code></td>
+<td align="left">Speed in milliseconds to apply to CSS transition of open/close effect</td>
+<td align="left"><code>250</code></td>
+</tr>
 </tbody>
 </table>
+
+<hr>
+
+<h3>
+<a id="roadmap" class="anchor" href="#roadmap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Roadmap</h3>
+
+<ul>
+<li>add callbacks to open/close methods</li>
+<li>add tests</li>
+</ul>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/jforaker/react-accordion-with-header">React-accordion-with-header</a> is maintained by <a href="https://github.com/jforaker">jforaker</a>.</span>
