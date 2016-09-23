@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 import React from 'react';
-import {render} from 'react-dom';
-import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} from '../src/index';
+import { render } from 'react-dom';
+import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } from '../src/index';
 
 const quotes = [
   'This maniac should be wearing a number, not a badge.',
@@ -14,17 +14,6 @@ const quotes = [
 const alignment = [
   'centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'
 ];
-
-class BodyTpl extends React.Component {
-  render() {
-    return (
-      <article>
-        <figcaption>...the blood bank</figcaption>
-        <img src={`http://www.stevensegallery.com/200/20${(Math.floor(Math.random() * 5) + 1)}`}/>
-      </article>
-    );
-  }
-}
 
 render(
   <AccordionWithHeader multipleOkay={false} firstOpen className="my-accordion">
@@ -48,10 +37,12 @@ render(
           </AccordionHeader>
 
           <AccordionPanel className="my-panel" speed={350}>
-            <article>
-              <figcaption>...the blood bank</figcaption>
-              <img src={`http://www.stevensegallery.com/200/20${(Math.floor(Math.random() * 5) + 1)}`}/>
-            </article>
+            <div style={{textAlign: 'center',height:320}}>
+              <div>
+                <h2>{quote}!</h2>
+              </div>
+              <img style={{marginBottom: 10}} src={`http://www.stevensegallery.com/200/20${(Math.floor(Math.random() * 5) + 1)}`}/>
+            </div>
           </AccordionPanel>
 
         </AccordionNode>
