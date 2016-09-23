@@ -2,55 +2,78 @@
  * Created by jakeforaker on 9/17/16.
  */
 
-import React, { Component, cloneElement, Children } from 'react';
+/* eslint-disable quotes */
+import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import classNames from 'classnames';
+import csjs from 'csjs';
+import insertCss from 'insert-css';
 
-const defaultStyles = {
-  border: '1px solid #607D8B',
-  borderRadius: 5
-};
+const defaultClass = csjs`
+  .accordionNode {
+    border: 1px solid #607D8B;
+  }
+`;
+
+insertCss(csjs.getCss(defaultClass));
 
 export default class AccordionNode extends Component {
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.handleSelect = this.handleSelect.bind(this);
-    this.state = {
-      expanded: false
-    };
+    this.checkExpanded = this.checkExpanded.bind(this);
   }
 
-  handleSelect(key, e) {
-    e.preventDefault();
+  handleSelect(key) {
     if (this.props.onSelect) {
-      this.props.onSelect(key, e);
+      this.props.onSelect(key);
+    }
+  }
+
+  checkExpanded(indexKey, activePanelOrPanels) {
+    if (Array.isArray(activePanelOrPanels)) {
+      //multipleOkay is true
+      return activePanelOrPanels.some(panel => panel === indexKey)
+    } else {
+      return indexKey === activePanelOrPanels
     }
   }
 
 	renderNodeItems () {
-		if (!this.props.children) {
+
+    const { indexKey, active, children } = this.props;
+
+    if (!children) {
       console.warn('AccordionNode component has no inner items!');
       return null;
 		}
 
-		return Children.map(this.props.children, (item, index) => {
+    return Children.map(children, (item) => {
       /***************************************************************
        lets render the <AccordionHeader /> and <AccordionPanel />
        ***************************************************************/
       return cloneElement(item, {
-        indexKey: index,
-				className: classNames(`accordion-node-${ index === 0 ? 'header' : 'panel' }`, this.props.className),
-        onSelect: () => this.setState({expanded: !this.state.expanded}),
-				isExpanded: this.state.expanded //make this.props.isExpanded available in children
+        ...item.props,
+        onClickHeader: () => this.handleSelect(indexKey),
+        isExpanded: this.checkExpanded(indexKey, active)
 			});
 		});
 	}
 
 	render() {
+
+	  const {
+      className,
+    } = this.props;
+
     return (
-			<div className={classNames('accordion-node', this.props.className)} style={{...defaultStyles, ...this.props.style}}>
+			<div className={classNames(className, [defaultClass.accordionNode].join(' '))}>
 				{this.renderNodeItems()}
 			</div>
 		);
 	}
 }
+
+AccordionNode.propTypes = {
+  className: PropTypes.string
+};

@@ -5,7 +5,7 @@
 
 ### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
 
-<img src="https://d17oy1vhnax1f7.cloudfront.net/items/0m0u2f260j0E163X1u2k/Screen%20Recording%202016-09-21%20at%2005.16%20PM.gif" width="600" />
+<img src="https://d17oy1vhnax1f7.cloudfront.net/items/1Z233J1R0J0t0s2f1X1s/Screen%20Recording%202016-09-23%20at%2001.42%20AM.gif" width="600" />
 
 #### Install via NPM:
 
@@ -151,10 +151,17 @@ class HeaderTpl extends React.Component {
 
 ## options / PropTypes
 
+#### AccordionWithHeader
+| Property | Type | Description | Default |
+|:---|:---|:---|:---|
+| firstOpen | `Boolean` | Determines if the first panel should be expanded by default | `false` |
+| multipleOkay | `Boolean` | True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time. | `false` |
+| className | `String` | Custom classname applied to root item div | `null` |
+
 #### AccordionNode
 | Property | Type | Description | Default |
 |:---|:---|:---|:---|
-| className | `String` | Custom classname applied to root item div | `accordion-node` |
+| className | `String` | Custom classname applied to root item div | `null` |
 
 
 #### AccordionHeader
@@ -172,13 +179,14 @@ class HeaderTpl extends React.Component {
 | Property | Type | Description | Default |
 |:---|:---|:---|:---|
 | template | `Element` | Component to be rendered as a template | `null` |
+| speed | `Number` | Speed in milliseconds to apply to CSS transition of open/close effect | `250` |
 
 
 --------------
 
 ### Roadmap
 
-- allow one panel active
 - add callbacks to open/close methods
+- add tests
 
 

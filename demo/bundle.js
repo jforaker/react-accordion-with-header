@@ -70,14 +70,14 @@
 	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _index.AccordionWithHeader,
-	  null,
+	  { multipleOkay: false, firstOpen: true, className: 'my-accordion' },
 	  quotes.map(function (quote, i) {
 	    return _react2.default.createElement(
 	      _index.AccordionNode,
-	      { key: i, className: 'custom-classname' },
+	      { key: i, className: 'accordion-node' },
 	      _react2.default.createElement(
 	        _index.AccordionHeader,
-	        { className: 'foobar-header',
+	        { className: 'accordion-header',
 	          title: null,
 	          titleColor: '#607D8B',
 	          horizontalAlignment: alignment[i],
@@ -85,7 +85,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + (i + (Math.floor(Math.random() * 5) + 1)) })
+	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + (Math.floor(Math.random() * 5) + 1) })
 	        ),
 	        _react2.default.createElement(
 	          'h2',
@@ -101,15 +101,15 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + (i + (Math.floor(Math.random() * 5) + 1)) })
+	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + (Math.floor(Math.random() * 5) + 1) })
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _index.AccordionPanel,
-	        null,
+	        { className: 'my-panel', speed: 350 },
 	        _react2.default.createElement(
 	          'div',
-	          { style: { textAlign: 'center', height: 300 } },
+	          { style: { textAlign: 'center', height: 320 } },
 	          _react2.default.createElement(
 	            'div',
 	            null,
@@ -120,7 +120,7 @@
 	              '!'
 	            )
 	          ),
-	          _react2.default.createElement('img', { style: { marginBottom: 10 }, src: 'http://www.stevensegallery.com/200/20' + (i + (Math.floor(Math.random() * 5) + 1)) })
+	          _react2.default.createElement('img', { style: { marginBottom: 10 }, src: 'http://www.stevensegallery.com/200/20' + (Math.floor(Math.random() * 5) + 1) })
 	        )
 	      )
 	    );
@@ -21508,15 +21508,15 @@
 	
 	var _AccordionWithHeader3 = _interopRequireDefault(_AccordionWithHeader2);
 	
-	var _AccordionHeader2 = __webpack_require__(176);
+	var _AccordionHeader2 = __webpack_require__(177);
 	
 	var _AccordionHeader3 = _interopRequireDefault(_AccordionHeader2);
 	
-	var _AccordionPanel2 = __webpack_require__(178);
+	var _AccordionPanel2 = __webpack_require__(179);
 	
 	var _AccordionPanel3 = _interopRequireDefault(_AccordionPanel2);
 	
-	var _AccordionNode2 = __webpack_require__(179);
+	var _AccordionNode2 = __webpack_require__(194);
 	
 	var _AccordionNode3 = _interopRequireDefault(_AccordionNode2);
 	
@@ -21553,7 +21553,15 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-lonely-if */
+	
+	
+	var guid = __webpack_require__(176);
+	
+	var defaultProps = {
+	  multipleOkay: false,
+	  firstOpen: false
+	};
 	
 	var AccordionWithHeader = function (_Component) {
 	  _inherits(AccordionWithHeader, _Component);
@@ -21561,18 +21569,98 @@
 	  function AccordionWithHeader(props) {
 	    _classCallCheck(this, AccordionWithHeader);
 	
-	    return _possibleConstructorReturn(this, (AccordionWithHeader.__proto__ || Object.getPrototypeOf(AccordionWithHeader)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (AccordionWithHeader.__proto__ || Object.getPrototypeOf(AccordionWithHeader)).call(this, props));
+	
+	    _this.renderChildren = _this.renderChildren.bind(_this);
+	    _this.panelControl = _this.panelControl.bind(_this);
+	
+	    var active = null;
+	    if (props.multipleOkay) {
+	      active = [];
+	      if (props.firstOpen) active.push(0);
+	    } else {
+	      active = props.firstOpen ? 0 : null;
+	    }
+	
+	    _this.state = {
+	      panels: [],
+	      active: active
+	    };
+	    return _this;
 	  }
 	
 	  _createClass(AccordionWithHeader, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+	
+	      _react.Children.forEach(this.props.children, function (child) {
+	        _this2.state.panels.push(+child.key);
+	      });
+	    }
+	  }, {
+	    key: 'panelControl',
+	    value: function panelControl(panelIndex) {
+	      var _state = this.state;
+	      var active = _state.active;
+	      var panels = _state.panels;
+	
+	      var s = {};
+	      s.active = null;
+	
+	      if (this.props.multipleOkay) {
+	        //multipleOkay is true, push the new item into array
+	        var panelsArr = active;
+	        if (panelsArr.indexOf(panelIndex) !== -1) {
+	          //panel exists, remove it
+	          panelsArr = panelsArr.filter(function (item) {
+	            return item !== panelIndex;
+	          });
+	        } else {
+	          //otherwise push it in
+	          panelsArr.push(panelIndex);
+	        }
+	        s.active = panelsArr;
+	      } else {
+	        //panelIndex = active, then it should close. leave it null and close it
+	        if (panelIndex !== active) {
+	          //open it
+	          s.active = panels[panelIndex];
+	        }
+	      }
+	
+	      this.setState(s);
+	    }
+	  }, {
+	    key: 'renderChildren',
+	    value: function renderChildren() {
+	      var _this3 = this;
+	
+	      if (!this.props.children) {
+	        throw new Error('AccordionWithHeader must have children!');
+	      }
+	
+	      /***************************************************************
+	       lets render the <AccordionNode /> and its kids
+	       ***************************************************************/
+	      return _react.Children.map(this.props.children, function (item, index) {
+	        return (0, _react.cloneElement)(item, {
+	          active: _this3.state.active,
+	          indexKey: index,
+	          key: index,
+	          onSelect: _this3.panelControl.bind(_this3, index)
+	        });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        {
-	          className: (0, _classnames2.default)('accordion-with-header-container', this.props.className),
+	          className: (0, _classnames2.default)(this.props.className),
 	          style: this.props.style },
-	        this.props.children
+	        this.renderChildren()
 	      );
 	    }
 	  }]);
@@ -21580,16 +21668,14 @@
 	  return AccordionWithHeader;
 	}(_react.Component);
 	
-	//todo - update these
-	
-	
 	exports.default = AccordionWithHeader;
+	
+	
 	AccordionWithHeader.propTypes = {
-	  allowMultiple: _react.PropTypes.bool
+	  firstOpen: _react.PropTypes.bool,
+	  multipleOkay: _react.PropTypes.bool
 	};
-	AccordionWithHeader.defaultProps = {
-	  allowMultiple: false
-	};
+	AccordionWithHeader.defaultProps = defaultProps;
 
 /***/ },
 /* 175 */
@@ -21647,6 +21733,52 @@
 
 /***/ },
 /* 176 */
+/***/ function(module, exports) {
+
+	/*
+	 * easy-guid
+	 * https://github.com/easy-node/easy-guid
+	 *
+	 * Copyright (c) 2014 Huei Tan
+	 * Licensed under the MIT license.
+	 */
+	
+	'use strict';
+	
+	function S4() {
+	    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+	}
+	
+	function guid32() {
+	    return (S4()+S4()+S4()+S4()+S4()+S4()+S4()+S4());
+	}
+	
+	function guid16() {
+	    return (S4()+S4()+S4()+S4());
+	}
+	
+	exports.new = function (type) {
+	
+	    var value;
+	
+	    switch (type) {
+	        case 16:
+	            value = guid16();
+	            break;
+	        case 32:
+	            value = guid32();
+	            break;
+	        default:
+	            value = guid32();
+	    }
+	
+	    return value;
+	};
+	
+
+
+/***/ },
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21667,7 +21799,7 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _utils = __webpack_require__(177);
+	var _utils = __webpack_require__(178);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21691,16 +21823,16 @@
 	
 	    var _this = _possibleConstructorReturn(this, (AccordionHeader.__proto__ || Object.getPrototypeOf(AccordionHeader)).call(this, props));
 	
-	    _this.handleClick = _this.handleClick.bind(_this);
 	    _this.renderChildren = _this.renderChildren.bind(_this);
+	    _this.handleHeaderClick = _this.handleHeaderClick.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(AccordionHeader, [{
-	    key: 'handleClick',
-	    value: function handleClick(ev) {
-	      ev.preventDefault();
-	      this.props.onSelect();
+	    key: 'handleHeaderClick',
+	    value: function handleHeaderClick(index) {
+	      this.props.onClickHeader(index);
+	      //handled in props.onClickHeader() of AccordionNode > props.onSelect() of AccordionWithHeader
 	    }
 	  }, {
 	    key: 'renderChildren',
@@ -21725,16 +21857,23 @@
 	    value: function render() {
 	      var _style;
 	
+	      var _props = this.props;
+	      var titleColor = _props.titleColor;
+	      var verticalAlignment = _props.verticalAlignment;
+	      var horizontalAlignment = _props.horizontalAlignment;
+	      var className = _props.className;
+	
+	
 	      var style = (_style = {
 	        cursor: 'pointer',
-	        color: this.props.titleColor || 'black',
+	        color: titleColor || 'black',
 	        display: '-webkit-flex'
-	      }, _defineProperty(_style, 'display', 'flex'), _defineProperty(_style, 'flexDirection', 'row'), _defineProperty(_style, 'alignItems', (0, _utils.getVerticalAlignment)(this.props.verticalAlignment)), _defineProperty(_style, 'justifyContent', (0, _utils.getHorizontalAlignment)(this.props.horizontalAlignment)), _style);
+	      }, _defineProperty(_style, 'display', 'flex'), _defineProperty(_style, 'flexDirection', 'row'), _defineProperty(_style, 'alignItems', (0, _utils.getVerticalAlignment)(verticalAlignment)), _defineProperty(_style, 'justifyContent', (0, _utils.getHorizontalAlignment)(horizontalAlignment)), _style);
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: (0, _classnames2.default)('accordion-header', this.props.className, { 'is-expanded': this.props.isExpanded }),
-	          onClick: this.handleClick,
+	        { className: (0, _classnames2.default)(className),
+	          onClick: this.handleHeaderClick,
 	          style: _extends({}, defaultStyle, style) },
 	        this.renderChildren()
 	      );
@@ -21762,7 +21901,7 @@
 	};
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21770,20 +21909,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/**
-	 * Created by jakeforaker on 9/17/16.
-	 */
-	var arrayify = exports.arrayify = function arrayify(obj) {
-	  return [].concat(obj);
-	};
-	
-	// removes duplicate from array
-	var dedupeArr = exports.dedupeArr = function dedupeArr(arr) {
-	  return arr.filter(function (item, index, inputArray) {
-	    return inputArray.indexOf(item) === index;
-	  });
-	};
-	
 	var getHorizontalAlignment = exports.getHorizontalAlignment = function getHorizontalAlignment(str) {
 	  var align = {
 	    'left': 'flex-start',
@@ -21807,7 +21932,7 @@
 	};
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21820,6 +21945,8 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _templateObject = _taggedTemplateLiteral(['\n      .accordionPanel {\n        overflow: hidden; \n        padding: 0;\n      }\n    '], ['\n      .accordionPanel {\n        overflow: hidden; \n        padding: 0;\n      }\n    ']);
+	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -21827,6 +21954,18 @@
 	var _reactDom = __webpack_require__(35);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _classnames = __webpack_require__(175);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _csjs = __webpack_require__(180);
+	
+	var _csjs2 = _interopRequireDefault(_csjs);
+	
+	var _insertCss = __webpack_require__(193);
+	
+	var _insertCss2 = _interopRequireDefault(_insertCss);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21836,10 +21975,15 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var defaultStyles = {
-	  overflow: 'hidden', //IMPORTANT!!!
-	  padding: 0
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+	
+	var defaultProps = {
+	  speed: 250
 	};
+	
+	var defaultClass = (0, _csjs2.default)(_templateObject);
+	
+	(0, _insertCss2.default)(_csjs2.default.getCss(defaultClass));
 	
 	var AccordionPanel = function (_Component) {
 	  _inherits(AccordionPanel, _Component);
@@ -21888,6 +22032,7 @@
 	      };
 	
 	      for (var i = 0; i < images.length; i += 1) {
+	        //recurse over images
 	        var img = new Image();
 	        img.src = images[i].src;
 	        img.onload = img.onerror = imgLoaded;
@@ -21899,7 +22044,6 @@
 	      var _this3 = this;
 	
 	      if (this.props.template) {
-	        //NOTE:
 	        var clientHeight = this.refs['item-' + this.props.indexKey].clientHeight;
 	
 	        this.setState({
@@ -21908,12 +22052,14 @@
 	        return;
 	      }
 	
-	      _react.Children.forEach(this.props.children, function (child) {
-	        var clientHeight = _this3.refs['item-' + child.props.key].clientHeight;
+	      var totalHeight = _react.Children.map(this.props.children, function (child) {
+	        return _this3.refs['item-' + child.props.key];
+	      }).reduce(function (previousValue, child) {
+	        return previousValue + child.clientHeight;
+	      }, this.state.originalHeight);
 	
-	        _this3.setState({
-	          originalHeight: clientHeight
-	        });
+	      this.setState({
+	        originalHeight: totalHeight
 	      });
 	    }
 	  }, {
@@ -21925,6 +22071,7 @@
 	
 	      /***************************************************************
 	       create a ref so we calculate its height on componentDidMount()
+	       this way we know how high to expand the panel
 	       ***************************************************************/
 	
 	      if (this.props.template) {
@@ -21943,16 +22090,22 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _props = this.props;
+	      var className = _props.className;
+	      var isExpanded = _props.isExpanded;
+	
 	
 	      var style = {
-	        transition: 'all ' + (this.props.speed || 250) + 'ms ease-in-out',
+	        transition: 'all ' + (this.props.speed || defaultProps.speed) + 'ms ease-in-out',
 	        maxHeight: this.props.isExpanded ? this.state.originalHeight : 0,
 	        opacity: this.props.isExpanded ? 1 : 0
 	      };
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { ref: 'accordionPanel', className: 'accordion-panel', style: _extends({}, defaultStyles, style) },
+	        { ref: 'accordionPanel',
+	          className: (0, _classnames2.default)(className, { 'is-expanded': isExpanded }, [defaultClass.accordionPanel].join(' ')),
+	          style: _extends({}, style) },
 	        this.renderChildren()
 	      );
 	    }
@@ -21962,9 +22115,526 @@
 	}(_react.Component);
 	
 	exports.default = AccordionPanel;
+	
+	
+	AccordionPanel.propTypes = {
+	  className: _react.PropTypes.string,
+	  speed: _react.PropTypes.number
+	};
+	AccordionPanel.defaultProps = defaultProps;
 
 /***/ },
-/* 179 */
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var csjs = __webpack_require__(181);
+	
+	module.exports = csjs;
+	module.exports.csjs = csjs;
+	module.exports.getCss = __webpack_require__(191);
+
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(182);
+
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var extractExtends = __webpack_require__(183);
+	var isComposition = __webpack_require__(184).isComposition;
+	var buildExports = __webpack_require__(185);
+	var scopify = __webpack_require__(186);
+	var cssKey = __webpack_require__(190);
+	
+	module.exports = function csjsHandler(strings) {
+	  // Fast path to prevent arguments deopt
+	  var values = Array(arguments.length - 1);
+	  for (var i = 1; i < arguments.length; i++) {
+	    values[i - 1] = arguments[i];
+	  }
+	  var css = joiner(strings, values.map(selectorize));
+	
+	  var ignores = values.reduce(function(acc, val) {
+	    if (isComposition(val)) {
+	      val.classNames.forEach(function(name, i) {
+	        acc[name] = val.unscoped[i];
+	      });
+	    }
+	    return acc;
+	  }, {});
+	
+	  var scoped = scopify(css, ignores);
+	  var extracted = extractExtends(scoped.css);
+	
+	  var localClasses = without(scoped.classes, ignores);
+	  var localKeyframes = without(scoped.keyframes, ignores);
+	  var compositions = extracted.compositions;
+	
+	  var exports = buildExports(localClasses, localKeyframes, compositions);
+	
+	  return Object.defineProperty(exports, cssKey, {
+	    enumerable: false,
+	    configurable: false,
+	    writeable: false,
+	    value: extracted.css
+	  });
+	};
+	
+	/**
+	 * Replaces class compositions with comma seperated class selectors
+	 * @param  value - the potential class composition
+	 * @return       - the original value or the selectorized class composition
+	 */
+	function selectorize(value) {
+	  return isComposition(value) ? value.selector : value;
+	}
+	
+	/**
+	 * Joins template string literals and values
+	 * @param  {array} strings - array of strings
+	 * @param  {array} values  - array of values
+	 * @return {string}        - strings and values joined
+	 */
+	function joiner(strings, values) {
+	  return strings.map(function(str, i) {
+	    return (i !== values.length) ? str + values[i] : str;
+	  }).join('');
+	}
+	
+	/**
+	 * Returns first object without keys of second
+	 * @param  {object} obj      - source object
+	 * @param  {object} unwanted - object with unwanted keys
+	 * @return {object}          - first object without unwanted keys
+	 */
+	function without(obj, unwanted) {
+	  return Object.keys(obj).reduce(function(acc, key) {
+	    if (!unwanted[key]) {
+	      acc[key] = obj[key];
+	    }
+	    return acc;
+	  }, {});
+	}
+
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var makeComposition = __webpack_require__(184).makeComposition;
+	
+	var regex = /\.([^\s]+)(\s+)(extends\s+)(\.[^{]+)/g;
+	
+	module.exports = function extractExtends(css) {
+	  var found, matches = [];
+	  while (found = regex.exec(css)) {
+	    matches.unshift(found);
+	  }
+	
+	  function extractCompositions(acc, match) {
+	    var extendee = getClassName(match[1]);
+	    var keyword = match[3];
+	    var extended = match[4];
+	
+	    // remove from output css
+	    var index = match.index + match[1].length + match[2].length;
+	    var len = keyword.length + extended.length;
+	    acc.css = acc.css.slice(0, index) + " " + acc.css.slice(index + len + 1);
+	
+	    var extendedClasses = splitter(extended);
+	
+	    extendedClasses.forEach(function(className) {
+	      if (!acc.compositions[extendee]) {
+	        acc.compositions[extendee] = {};
+	      }
+	      if (!acc.compositions[className]) {
+	        acc.compositions[className] = {};
+	      }
+	      acc.compositions[extendee][className] = acc.compositions[className];
+	    });
+	    return acc;
+	  }
+	
+	  return matches.reduce(extractCompositions, {
+	    css: css,
+	    compositions: {}
+	  });
+	
+	};
+	
+	function splitter(match) {
+	  return match.split(',').map(getClassName);
+	}
+	
+	function getClassName(str) {
+	  var trimmed = str.trim();
+	  return trimmed[0] === '.' ? trimmed.substr(1) : trimmed;
+	}
+
+
+/***/ },
+/* 184 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = {
+	  makeComposition: makeComposition,
+	  isComposition: isComposition
+	};
+	
+	/**
+	 * Returns an immutable composition object containing the given class names
+	 * @param  {array} classNames - The input array of class names
+	 * @return {Composition}      - An immutable object that holds multiple
+	 *                              representations of the class composition
+	 */
+	function makeComposition(classNames, unscoped, isAnimation) {
+	  var classString = classNames.join(' ');
+	  return Object.create(Composition.prototype, {
+	    classNames: { // the original array of class names
+	      value: Object.freeze(classNames),
+	      configurable: false,
+	      writable: false,
+	      enumerable: true
+	    },
+	    unscoped: { // the original array of class names
+	      value: Object.freeze(unscoped),
+	      configurable: false,
+	      writable: false,
+	      enumerable: true
+	    },
+	    className: { // space-separated class string for use in HTML
+	      value: classString,
+	      configurable: false,
+	      writable: false,
+	      enumerable: true
+	    },
+	    selector: { // comma-separated, period-prefixed string for use in CSS
+	      value: classNames.map(function(name) {
+	        return isAnimation ? name : '.' + name;
+	      }).join(', '),
+	      configurable: false,
+	      writable: false,
+	      enumerable: true
+	    },
+	    toString: { // toString() method, returns class string for use in HTML
+	      value: function() {
+	        return classString;
+	      },
+	      configurable: false,
+	      writeable: false,
+	      enumerable: false
+	    }
+	  });
+	}
+	
+	/**
+	 * Returns whether the input value is a Composition
+	 * @param value      - value to check
+	 * @return {boolean} - whether value is a Composition or not
+	 */
+	function isComposition(value) {
+	  return value instanceof Composition;
+	}
+	
+	/**
+	 * Private constructor for use in `instanceof` checks
+	 */
+	function Composition() {}
+
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var makeComposition = __webpack_require__(184).makeComposition;
+	
+	module.exports = function createExports(classes, keyframes, compositions) {
+	  var keyframesObj = Object.keys(keyframes).reduce(function(acc, key) {
+	    var val = keyframes[key];
+	    acc[val] = makeComposition([key], [val], true);
+	    return acc;
+	  }, {});
+	
+	  var exports = Object.keys(classes).reduce(function(acc, key) {
+	    var val = classes[key];
+	    var composition = compositions[key];
+	    var extended = composition ? getClassChain(composition) : [];
+	    var allClasses = [key].concat(extended);
+	    var unscoped = allClasses.map(function(name) {
+	      return classes[name] ? classes[name] : name;
+	    });
+	    acc[val] = makeComposition(allClasses, unscoped);
+	    return acc;
+	  }, keyframesObj);
+	
+	  return exports;
+	}
+	
+	function getClassChain(obj) {
+	  var visited = {}, acc = [];
+	
+	  function traverse(obj) {
+	    return Object.keys(obj).forEach(function(key) {
+	      if (!visited[key]) {
+	        visited[key] = true;
+	        acc.push(key);
+	        traverse(obj[key]);
+	      }
+	    });
+	  }
+	
+	  traverse(obj);
+	  return acc;
+	}
+
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var fileScoper = __webpack_require__(187);
+	
+	var findClasses = /(\.)(?!\d)([^\s\.,{\[>+~#:)]*)(?![^{]*})/.source;
+	var findKeyframes = /(@\S*keyframes\s*)([^{\s]*)/.source;
+	var ignoreComments = /(?!(?:[^*/]|\*[^/]|\/[^*])*\*+\/)/.source;
+	
+	var classRegex = new RegExp(findClasses + ignoreComments, 'g');
+	var keyframesRegex = new RegExp(findKeyframes + ignoreComments, 'g');
+	
+	module.exports = scopify;
+	
+	function scopify(css, ignores) {
+	  var makeScopedName = fileScoper(css);
+	  var replacers = {
+	    classes: classRegex,
+	    keyframes: keyframesRegex
+	  };
+	
+	  function scopeCss(result, key) {
+	    var replacer = replacers[key];
+	    function replaceFn(fullMatch, prefix, name) {
+	      var scopedName = ignores[name] ? name : makeScopedName(name);
+	      result[key][scopedName] = name;
+	      return prefix + scopedName;
+	    }
+	    return {
+	      css: result.css.replace(replacer, replaceFn),
+	      keyframes: result.keyframes,
+	      classes: result.classes
+	    };
+	  }
+	
+	  var result = Object.keys(replacers).reduce(scopeCss, {
+	    css: css,
+	    keyframes: {},
+	    classes: {}
+	  });
+	
+	  return replaceAnimations(result);
+	}
+	
+	function replaceAnimations(result) {
+	  var animations = Object.keys(result.keyframes).reduce(function(acc, key) {
+	    acc[result.keyframes[key]] = key;
+	    return acc;
+	  }, {});
+	  var unscoped = Object.keys(animations);
+	
+	  if (unscoped.length) {
+	    var regexStr = '((?:animation|animation-name)\\s*:[^};]*)('
+	      + unscoped.join('|') + ')([;\\s])' + ignoreComments;
+	    var regex = new RegExp(regexStr, 'g');
+	
+	    var replaced = result.css.replace(regex, function(match, preamble, name, ending) {
+	      return preamble + animations[name] + ending;
+	    });
+	
+	    return {
+	      css: replaced,
+	      keyframes: result.keyframes,
+	      classes: result.classes
+	    }
+	  }
+	
+	  return result;
+	}
+
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var encode = __webpack_require__(188);
+	var hash = __webpack_require__(189);
+	
+	module.exports = function fileScoper(fileSrc) {
+	  var suffix = encode(hash(fileSrc));
+	
+	  return function scopedName(name) {
+	    return name + '_' + suffix;
+	  }
+	};
+
+
+/***/ },
+/* 188 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	/**
+	 * base62 encode implementation based on base62 module:
+	 * https://github.com/andrew/base62.js
+	 */
+	
+	var CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	
+	module.exports = function encode(integer) {
+	  if (integer === 0) {
+	    return '0';
+	  }
+	  var str = '';
+	  while (integer > 0) {
+	    str = CHARS[integer % 62] + str;
+	    integer = Math.floor(integer / 62);
+	  }
+	  return str;
+	};
+
+
+/***/ },
+/* 189 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	/**
+	 * djb2 string hash implementation based on string-hash module:
+	 * https://github.com/darkskyapp/string-hash
+	 */
+	
+	module.exports = function hashStr(str) {
+	  var hash = 5381;
+	  var i = str.length;
+	
+	  while (i) {
+	    hash = (hash * 33) ^ str.charCodeAt(--i)
+	  }
+	  return hash >>> 0;
+	};
+
+
+/***/ },
+/* 190 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	/**
+	 * CSS identifiers with whitespace are invalid
+	 * Hence this key will not cause a collision
+	 */
+	
+	module.exports = ' css ';
+
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(192);
+
+
+/***/ },
+/* 192 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var cssKey = __webpack_require__(190);
+	
+	module.exports = function getCss(csjs) {
+	  return csjs[cssKey];
+	};
+
+
+/***/ },
+/* 193 */
+/***/ function(module, exports) {
+
+	var containers = []; // will store container HTMLElement references
+	var styleElements = []; // will store {prepend: HTMLElement, append: HTMLElement}
+	
+	module.exports = function (css, options) {
+	    options = options || {};
+	
+	    var position = options.prepend === true ? 'prepend' : 'append';
+	    var container = options.container !== undefined ? options.container : document.querySelector('head');
+	    var containerId = containers.indexOf(container);
+	
+	    // first time we see this container, create the necessary entries
+	    if (containerId === -1) {
+	        containerId = containers.push(container) - 1;
+	        styleElements[containerId] = {};
+	    }
+	
+	    // try to get the correponding container + position styleElement, create it otherwise
+	    var styleElement;
+	
+	    if (styleElements[containerId] !== undefined && styleElements[containerId][position] !== undefined) {
+	        styleElement = styleElements[containerId][position];
+	    } else {
+	        styleElement = styleElements[containerId][position] = createStyleElement();
+	
+	        if (position === 'prepend') {
+	            container.insertBefore(styleElement, container.childNodes[0]);
+	        } else {
+	            container.appendChild(styleElement);
+	        }
+	    }
+	
+	    // actually add the stylesheet
+	    if (styleElement.styleSheet) {
+	        styleElement.styleSheet.cssText += css
+	    } else {
+	        styleElement.textContent += css;
+	    }
+	
+	    return styleElement;
+	};
+	
+	function createStyleElement() {
+	    var styleElement = document.createElement('style');
+	    styleElement.setAttribute('type', 'text/css');
+	    return styleElement;
+	}
+
+
+/***/ },
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21977,6 +22647,8 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _templateObject = _taggedTemplateLiteral(['\n  .accordionNode {\n    border: 1px solid #607D8B;\n  }\n'], ['\n  .accordionNode {\n    border: 1px solid #607D8B;\n  }\n']);
+	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -21985,42 +22657,63 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
+	var _csjs = __webpack_require__(180);
+	
+	var _csjs2 = _interopRequireDefault(_csjs);
+	
+	var _insertCss = __webpack_require__(193);
+	
+	var _insertCss2 = _interopRequireDefault(_insertCss);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by jakeforaker on 9/17/16.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var defaultStyles = {
-	  border: '1px solid #607D8B',
-	  borderRadius: 5
-	};
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
+	                                                                                                                                                   * Created by jakeforaker on 9/17/16.
+	                                                                                                                                                   */
+	
+	/* eslint-disable quotes */
+	
+	
+	var defaultClass = (0, _csjs2.default)(_templateObject);
+	
+	(0, _insertCss2.default)(_csjs2.default.getCss(defaultClass));
 	
 	var AccordionNode = function (_Component) {
 	  _inherits(AccordionNode, _Component);
 	
-	  function AccordionNode(props, context) {
+	  function AccordionNode(props) {
 	    _classCallCheck(this, AccordionNode);
 	
-	    var _this = _possibleConstructorReturn(this, (AccordionNode.__proto__ || Object.getPrototypeOf(AccordionNode)).call(this, props, context));
+	    var _this = _possibleConstructorReturn(this, (AccordionNode.__proto__ || Object.getPrototypeOf(AccordionNode)).call(this, props));
 	
 	    _this.handleSelect = _this.handleSelect.bind(_this);
-	    _this.state = {
-	      expanded: false
-	    };
+	    _this.checkExpanded = _this.checkExpanded.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(AccordionNode, [{
 	    key: 'handleSelect',
-	    value: function handleSelect(key, e) {
-	      e.preventDefault();
+	    value: function handleSelect(key) {
 	      if (this.props.onSelect) {
-	        this.props.onSelect(key, e);
+	        this.props.onSelect(key);
+	      }
+	    }
+	  }, {
+	    key: 'checkExpanded',
+	    value: function checkExpanded(indexKey, activePanelOrPanels) {
+	      if (Array.isArray(activePanelOrPanels)) {
+	        //multipleOkay is true
+	        return activePanelOrPanels.some(function (panel) {
+	          return panel === indexKey;
+	        });
+	      } else {
+	        return indexKey === activePanelOrPanels;
 	      }
 	    }
 	  }, {
@@ -22028,31 +22721,38 @@
 	    value: function renderNodeItems() {
 	      var _this2 = this;
 	
-	      if (!this.props.children) {
+	      var _props = this.props;
+	      var indexKey = _props.indexKey;
+	      var active = _props.active;
+	      var children = _props.children;
+	
+	
+	      if (!children) {
 	        console.warn('AccordionNode component has no inner items!');
 	        return null;
 	      }
 	
-	      return _react.Children.map(this.props.children, function (item, index) {
+	      return _react.Children.map(children, function (item) {
 	        /***************************************************************
 	         lets render the <AccordionHeader /> and <AccordionPanel />
 	         ***************************************************************/
-	        return (0, _react.cloneElement)(item, {
-	          indexKey: index,
-	          className: (0, _classnames2.default)('accordion-node-' + (index === 0 ? 'header' : 'panel'), _this2.props.className),
-	          onSelect: function onSelect() {
-	            return _this2.setState({ expanded: !_this2.state.expanded });
+	        return (0, _react.cloneElement)(item, _extends({}, item.props, {
+	          onClickHeader: function onClickHeader() {
+	            return _this2.handleSelect(indexKey);
 	          },
-	          isExpanded: _this2.state.expanded //make this.props.isExpanded available in children
-	        });
+	          isExpanded: _this2.checkExpanded(indexKey, active)
+	        }));
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var className = this.props.className;
+	
+	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: (0, _classnames2.default)('accordion-node', this.props.className), style: _extends({}, defaultStyles, this.props.style) },
+	        { className: (0, _classnames2.default)(className, [defaultClass.accordionNode].join(' ')) },
 	        this.renderNodeItems()
 	      );
 	    }
@@ -22062,6 +22762,11 @@
 	}(_react.Component);
 	
 	exports.default = AccordionNode;
+	
+	
+	AccordionNode.propTypes = {
+	  className: _react.PropTypes.string
+	};
 
 /***/ }
 /******/ ]);

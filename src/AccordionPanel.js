@@ -1,16 +1,26 @@
-import React, {Component, Children, cloneElement} from 'react';
+import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
+import csjs from 'csjs';
+import insertCss from 'insert-css';
 
-const defaultStyles = {
-  overflow: 'hidden',  //IMPORTANT!!!
-  padding: 0
+const defaultProps = {
+  speed: 250
 };
+
+const defaultClass = csjs`
+      .accordionPanel {
+        overflow: hidden; 
+        padding: 0;
+      }
+    `;
+
+insertCss(csjs.getCss(defaultClass));
 
 export default class AccordionPanel extends Component {
 
   constructor(props) {
     super(props);
-
     this.renderChildren = this.renderChildren.bind(this);
     this.preloadImages = this.preloadImages.bind(this);
     this.calcHeight = this.calcHeight.bind(this);
@@ -40,6 +50,7 @@ export default class AccordionPanel extends Component {
     };
 
     for (let i = 0; i < images.length; i += 1) {
+      //recurse over images
       let img = new Image();
       img.src = images[i].src;
       img.onload = img.onerror = imgLoaded;
@@ -48,7 +59,6 @@ export default class AccordionPanel extends Component {
 
   calcHeight() {
     if (this.props.template) {
-      //NOTE:
       const {clientHeight} = this.refs[`item-${this.props.indexKey}`];
       this.setState({
         originalHeight: clientHeight
@@ -56,12 +66,18 @@ export default class AccordionPanel extends Component {
       return;
     }
 
-    Children.forEach(this.props.children, (child) => {
-      const { clientHeight } = this.refs[`item-${child.props.key}`];
-      this.setState({
-        originalHeight: clientHeight
-      })
-    });
+    let totalHeight =
+      Children
+        .map(this.props.children, (child) => {
+          return this.refs[`item-${child.props.key}`];
+        })
+        .reduce((previousValue, child) => (
+          previousValue + child.clientHeight
+        ), this.state.originalHeight);
+
+    this.setState({
+      originalHeight: totalHeight
+    })
   }
 
   renderChildren() {
@@ -71,6 +87,7 @@ export default class AccordionPanel extends Component {
 
     /***************************************************************
      create a ref so we calculate its height on componentDidMount()
+     this way we know how high to expand the panel
      ***************************************************************/
 
     if (this.props.template) {
@@ -89,16 +106,27 @@ export default class AccordionPanel extends Component {
 
   render() {
 
+    const { className, isExpanded } = this.props;
+
     const style = {
-      transition: `all ${this.props.speed || 250}ms ease-in-out`,
+      transition: `all ${this.props.speed || defaultProps.speed}ms ease-in-out`,
       maxHeight: this.props.isExpanded ? this.state.originalHeight : 0,
       opacity: this.props.isExpanded ? 1 : 0
     };
 
     return (
-      <div ref="accordionPanel" className="accordion-panel" style={{...defaultStyles, ...style}}>
+      <div ref="accordionPanel"
+           className={classNames(className, {'is-expanded': isExpanded}, [defaultClass.accordionPanel].join(' '))}
+           style={{...style}}>
         {this.renderChildren()}
       </div>
     );
   }
 }
+
+AccordionPanel.propTypes = {
+  className: PropTypes.string,
+  speed: PropTypes.number
+};
+AccordionPanel.defaultProps = defaultProps;
+

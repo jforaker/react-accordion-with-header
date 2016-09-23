@@ -16,32 +16,32 @@ const alignment = [
 ];
 
 render(
-  <AccordionWithHeader>
+  <AccordionWithHeader multipleOkay={false} firstOpen className="my-accordion">
     {quotes.map((quote, i) => {
       return (
-        <AccordionNode key={i} className="custom-classname">
+        <AccordionNode key={i} className="accordion-node">
 
-          <AccordionHeader className="foobar-header"
+          <AccordionHeader className="accordion-header"
                            title={null}
                            titleColor="#607D8B"
                            horizontalAlignment={alignment[i]}
                            verticalAlignment="center">
             <div>
-              <img src={`http://www.stevensegallery.com/75/7${i + (Math.floor(Math.random() * 5) + 1)}`}/>
+              <img src={`http://www.stevensegallery.com/75/7${(Math.floor(Math.random() * 5) + 1)}`}/>
             </div>
             <h2><code>horizontalAlignment="{alignment[i]}"</code></h2>
             <div>
-              <img src={`http://www.stevensegallery.com/75/7${i + (Math.floor(Math.random() * 5) + 1)}`}/>
+              <img src={`http://www.stevensegallery.com/75/7${(Math.floor(Math.random() * 5) + 1)}`}/>
             </div>
 
           </AccordionHeader>
 
-          <AccordionPanel>
-            <div style={{textAlign: 'center', height: 300}}>
+          <AccordionPanel className="my-panel" speed={350}>
+            <div style={{textAlign: 'center',height:320}}>
               <div>
                 <h2>{quote}!</h2>
               </div>
-              <img style={{marginBottom: 10}} src={`http://www.stevensegallery.com/200/20${i + (Math.floor(Math.random() * 5) + 1)}`}/>
+              <img style={{marginBottom: 10}} src={`http://www.stevensegallery.com/200/20${(Math.floor(Math.random() * 5) + 1)}`}/>
             </div>
           </AccordionPanel>
 

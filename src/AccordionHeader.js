@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, Children, cloneElement, PropTypes} from 'react';
 import classNames from 'classnames';
 import {getHorizontalAlignment, getVerticalAlignment} from './utils';
 
@@ -10,13 +10,13 @@ export default class AccordionHeader extends Component {
 
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
     this.renderChildren = this.renderChildren.bind(this);
+    this.handleHeaderClick= this.handleHeaderClick.bind(this);
   }
 
-  handleClick(ev) {
-    ev.preventDefault();
-    this.props.onSelect();
+  handleHeaderClick(index) {
+    this.props.onClickHeader(index);
+    //handled in props.onClickHeader() of AccordionNode > props.onSelect() of AccordionWithHeader
   }
 
   renderChildren() {
@@ -34,19 +34,23 @@ export default class AccordionHeader extends Component {
 
   render() {
 
-    var style = {
+    const {
+      titleColor, verticalAlignment, horizontalAlignment, className
+    } = this.props;
+
+    let style = {
       cursor: 'pointer',
-      color: this.props.titleColor || 'black',
+      color: titleColor || 'black',
       display: '-webkit-flex',
       display: 'flex',
       flexDirection: 'row',
-      alignItems: getVerticalAlignment(this.props.verticalAlignment),
-      justifyContent: getHorizontalAlignment(this.props.horizontalAlignment),
+      alignItems: getVerticalAlignment(verticalAlignment),
+      justifyContent: getHorizontalAlignment(horizontalAlignment),
     };
 
     return (
-      <div className={classNames('accordion-header', this.props.className, {'is-expanded': this.props.isExpanded})}
-           onClick={this.handleClick}
+      <div className={classNames(className)}
+           onClick={this.handleHeaderClick}
            style={{...defaultStyle, ...style}}>
         {this.renderChildren()}
       </div>
