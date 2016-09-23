@@ -1,53 +1,92 @@
 /* eslint-disable quotes */
 import React from 'react';
-import { render } from 'react-dom';
-import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } from '../src/index';
+import {render} from 'react-dom';
+import AccordionWithHeaderOptions from './demos/AccordionWithHeader_Options';
+import AccordionHeaderOptions from './demos/AccordionHeader_Options';
 
-const quotes = [
-  'This maniac should be wearing a number, not a badge.',
-  'So, what are you, like some special forces guy?',
-  'The jury decided. I presided.',
-  'Assumption is the mother of all f*ck-ups!',
-  `You've got 5 seconds... and 3 are up.`
-];
+class Demo extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      multipleOkay: false,
+      firstOpen: true
+    }
+  }
+
+  render() {
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-12">
+            <h2>Example options for &lt;AccordionWithHeader &#47;&gt;</h2>
+            <button className="btn btn-default" style={{marginRight:20}} type="button"
+                    onClick={() => this.setState({multipleOkay: !this.state.multipleOkay})}>
+              toggle <code>multipleOkay</code>
+            </button>
+            <button className="btn btn-default" type="button"
+                    onClick={() => this.setState({firstOpen: !this.state.firstOpen})}>
+              toggle <code>firstOpen</code>
+            </button>
+            <AccordionWithHeaderOptions multipleOkay={this.state.multipleOkay} firstOpen={this.state.firstOpen}/>
+          </div>
+        </div>
+
+        <br />
+        <hr />
+        <hr />
+      </div>
+    )
+  }
+}
+
+render(
+  <Demo />,
+  document.getElementById('app')
+);
+
+
+/////
 
 const alignment = [
   'centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'
 ];
 
+class Demo2 extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      multipleOkay: false,
+      firstOpen: true
+    }
+  }
+
+  render() {
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-12">
+            <h2>Example options for &lt;AccordionHeader &#47;&gt;</h2>
+            <button className="btn btn-default" style={{marginRight: 20}} type="button"
+                    onClick={() => null}>
+              toggle <code>multipleOkay</code>
+            </button>
+            <button className="btn btn-default" type="button"
+                    onClick={() => null}>
+              toggle <code>firstOpen</code>
+            </button>
+            <AccordionHeaderOptions />
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
 render(
-  <AccordionWithHeader multipleOkay={false} firstOpen className="my-accordion">
-    {quotes.map((quote, i) => {
-      return (
-        <AccordionNode key={i} className="accordion-node">
-
-          <AccordionHeader className="accordion-header"
-                           title={null}
-                           titleColor="#607D8B"
-                           horizontalAlignment={alignment[i]}
-                           verticalAlignment="center">
-            <div>
-              <img src={`http://www.stevensegallery.com/75/7${(Math.floor(Math.random() * 5) + 1)}`}/>
-            </div>
-            <h2><code>horizontalAlignment="{alignment[i]}"</code></h2>
-            <div>
-              <img src={`http://www.stevensegallery.com/75/7${(Math.floor(Math.random() * 5) + 1)}`}/>
-            </div>
-
-          </AccordionHeader>
-
-          <AccordionPanel className="my-panel" speed={350}>
-            <div style={{textAlign: 'center',height:320}}>
-              <div>
-                <h2>{quote}!</h2>
-              </div>
-              <img style={{marginBottom: 10}} src={`http://www.stevensegallery.com/200/20${(Math.floor(Math.random() * 5) + 1)}`}/>
-            </div>
-          </AccordionPanel>
-
-        </AccordionNode>
-      );
-    })}
-  </AccordionWithHeader>,
-  document.getElementById('app')
+  <Demo2 />,
+  document.getElementById('app2')
 );

@@ -1,4 +1,4 @@
-/* eslint-disable no-lonely-if */
+/* eslint-disable no-lonely-if, no-nested-ternary */
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import classNames from 'classnames';
 const guid = require('easy-guid');
@@ -14,53 +14,46 @@ export default class AccordionWithHeader extends Component {
     super(props);
     this.renderChildren = this.renderChildren.bind(this);
     this.panelControl = this.panelControl.bind(this);
-
-    let active = null;
-    if (props.multipleOkay) {
-      active = [];
-      if (props.firstOpen) active.push(0);
-    } else {
-      active = props.firstOpen ? 0 : null
-    }
+    this.mountingProps = this.mountingProps.bind(this);
 
     this.state = {
       panels: [],
-      active: active
+      active: []
     }
   }
 
   componentWillMount() {
+    let panels = [];
     Children.forEach(this.props.children, child => {
-      this.state.panels.push(+child.key)
+      panels.push(+child.key)
     });
+    this.setState({ panels: panels });
+    this.mountingProps(this.props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //this is only for the demo. TODO - think of a better way
+    this.mountingProps(nextProps)
+  }
+
+  mountingProps(props) {
+    let active = [];
+    if (props.firstOpen) active.push(0);
+    this.setState({ active: active })
   }
 
   panelControl(panelIndex) {
 
-    let { active, panels } = this.state;
-    let s = {};
-    s.active = null;
+    let activePanelArray;
 
-    if (this.props.multipleOkay) {
-      let panelsArr = active;
-      if (panelsArr.indexOf(panelIndex) !== -1) {
-        //panel exists, remove it
-        panelsArr = panelsArr.filter(item => item !== panelIndex);
-      } else {
-        //otherwise push it in
-        panelsArr.push(panelIndex);
-      }
-      s.active = panelsArr;
-
+    if (this.state.active.indexOf(panelIndex) !== -1) {
+      activePanelArray = this.state.active.filter(item => item !== panelIndex);
     } else {
-      //panelIndex = active, then it should close. leave it null and close it
-      if (panelIndex !== active) {
-        //open it
-        s.active = panels[panelIndex];
-      }
+      activePanelArray = !this.props.multipleOkay ? [] : this.state.active;
+      activePanelArray.push(this.state.panels[panelIndex]);
     }
 
-    this.setState(s);
+    this.setState({ active: activePanelArray });
   }
 
   renderChildren() {
