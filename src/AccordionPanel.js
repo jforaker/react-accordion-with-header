@@ -32,6 +32,7 @@ export default class AccordionPanel extends Component {
 
   componentDidMount() {
     const bodyNode = ReactDOM.findDOMNode(this.refs.accordionPanel);
+    if (!bodyNode) return;
     const images = bodyNode.querySelectorAll('img');
 
     if (images.length > 0) {

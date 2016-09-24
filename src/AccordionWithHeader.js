@@ -25,7 +25,7 @@ export default class AccordionWithHeader extends Component {
   componentWillMount() {
     let panels = [];
     Children.forEach(this.props.children, child => {
-      panels.push(+child.key)
+      panels.push(+child.key);
     });
     this.setState({ panels: panels });
     this.mountingProps(this.props)
