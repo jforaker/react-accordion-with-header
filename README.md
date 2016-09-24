@@ -1,14 +1,15 @@
 # react-accordion-with-header
 
-### React accordion component with flexbox header 
+### React accordion component with customizable flexbox header 
 
 [![NPM](https://nodei.co/npm/react-accordion-with-header.png?downloads=true)](https://nodei.co/npm/react-accordion-with-header?downloads=true)
 
 > "You've got 5 seconds... and 3 are up." - *Steven Seagal*
 
-### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
 
 <img src="https://d17oy1vhnax1f7.cloudfront.net/items/451P2l3x1O070C1X3J39/Screen%20Recording%202016-09-23%20at%2011.35%20PM.gif" width="600" />
+
+### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header)
 
 #### Install via NPM:
 
