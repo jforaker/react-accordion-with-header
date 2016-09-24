@@ -1,5 +1,8 @@
+# react-accordion-with-header
 
-# React accordion component with flexbox header 
+### React accordion component with flexbox header 
+
+[![NPM](https://nodei.co/npm/react-accordion-with-header.png?downloads=true)](https://nodei.co/npm/react-accordion-with-header?downloads=true)
 
 > "You've got 5 seconds... and 3 are up." - *Steven Seagal*
 

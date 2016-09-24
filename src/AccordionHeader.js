@@ -21,7 +21,7 @@ export default class AccordionHeader extends Component {
 
   renderChildren() {
     if (this.props.title) {
-      return <h1>{this.props.title}</h1>;
+      return <div><h1>{this.props.title}</h1></div>;
     }
     if (!this.props.template && !this.props.children && !this.props.title) {
       throw new Error('AccordionHeader must have a title or template or at least one child!');
@@ -35,7 +35,7 @@ export default class AccordionHeader extends Component {
   render() {
 
     const {
-      titleColor, verticalAlignment, horizontalAlignment, className
+      titleColor, verticalAlignment, horizontalAlignment, className, isExpanded
     } = this.props;
 
     let style = {
@@ -49,7 +49,7 @@ export default class AccordionHeader extends Component {
     };
 
     return (
-      <div className={classNames(className)}
+      <div className={classNames(className, {'is-expanded': isExpanded})}
            onClick={this.handleHeaderClick}
            style={{...defaultStyle, ...style}}>
         {this.renderChildren()}

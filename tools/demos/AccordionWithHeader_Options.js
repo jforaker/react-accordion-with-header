@@ -6,9 +6,7 @@ import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} fro
 const quotes = [
   'This maniac should be wearing a number, not a badge.',
   'So, what are you, like some special forces guy?',
-  'The jury decided. I presided.',
-  // 'Assumption is the mother of all f*ck-ups!',
-  // `You've got 5 seconds... and 3 are up.`
+  'The jury decided. I presided.'
 ];
 
 const alignment = [
@@ -19,7 +17,7 @@ const createMarkup = (props) => {
   return {__html: `<h1><pre><code>&lt;AccordionWithHeader multipleOkay={${props.multipleOkay.toString()}} firstOpen={${props.firstOpen.toString()}} &#47;&gt;</pre></code></h1>`};
 };
 
-const rando = () => (Math.floor(Math.random() * 5) + 1);
+const rando = () => (Math.floor(Math.random() * 9) + 1);
 
 export default class AccordionWithHeaderOptions extends React.Component {
 
@@ -32,8 +30,8 @@ export default class AccordionWithHeaderOptions extends React.Component {
 
   componentWillMount() {
     let images = [];
-    [1,2,3,4,5].forEach((item, i) => {
-      images.push(`http://www.stevensegallery.com/200/20${rando()}`)
+    [1,2,3].forEach((item, i) => {
+      images.push(`http://www.stevensegallery.com/70/7${i}`)
     });
     this.setState({images: images})
   }
@@ -59,7 +57,7 @@ export default class AccordionWithHeaderOptions extends React.Component {
                   <div>
                     <img src={this.state.images[i]}/>
                   </div>
-                  <h3>horizontalAlignment="{alignment[i]}"</h3>
+                  <h4><code>horizontalAlignment="{alignment[i]}"</code></h4>
                   <div>
                     <img src={this.state.images[i]}/>
                   </div>
@@ -67,11 +65,9 @@ export default class AccordionWithHeaderOptions extends React.Component {
                 </AccordionHeader>
 
                 <AccordionPanel className="my-panel" speed={350}>
-                  <div style={{textAlign: 'center', height: 320}}>
-                    <div>
-                      <h2>{quote}!</h2>
-                    </div>
-                    <img style={{marginBottom: 10}} src={this.state.images[i]}/>
+                  <div style={{textAlign: 'center',padding:20}}>
+                    <h2>{quote}</h2>
+                    <img width={200} src={`http://www.stevensegallery.com/200/20${rando()}`}/>
                   </div>
                 </AccordionPanel>
 

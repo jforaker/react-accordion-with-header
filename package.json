@@ -8,6 +8,16 @@
   },
   "description": "React accordion component with flexbox header",
   "homepage": "https://jforaker.github.io/react-accordion-with-header/",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-component",
+    "react-accordion",
+    "flex-box",
+    "flex",
+    "widget"
+  ],
   "main": "lib/index.js",
   "scripts": {
     "test": "test",
@@ -19,6 +29,9 @@
     "bundle-demo": "webpack --config ./tools/webpack.config.demo.js",
     "bundle-lib": "webpack --config ./tools/webpack.config.dist.js"
   },
+  "dependencies": {
+    "classnames": "^2.2.5"
+  },
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "babel-core": "^6.14.0",
@@ -29,7 +42,6 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
-    "classnames": "^2.2.5",
     "css-loader": "^0.25.0",
     "easy-guid": "^0.1.3",
     "eslint": "^3.5.0",

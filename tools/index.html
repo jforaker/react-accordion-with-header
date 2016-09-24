@@ -8,23 +8,44 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      /*font-family: 'Droid Sans Mono', monospace;*/
-      background: lightgray;
-      margin: 20px 25px 50px;
+      background: white;
+      /*margin: 20px 25px 50px;*/
     }
     #h {
       color: #fff;
-      background-color: #3398a9;
       text-align: center;
       margin-bottom: 20px;
-      padding: 50px;
+      background: #3398a9 url("https://d17oy1vhnax1f7.cloudfront.net/items/1L3m3Y0O0T3y3w090p3L/steven.jpg") no-repeat;
+      background-size: cover;
+      padding-top: 160px;
     }
     blockquote {
       display: inline-block;
-      padding-bottom: 20px;
+      padding-bottom: 14px;
+      font-style: italic;
+    }
+    .my-accordion {
+      border: 1px solid rgba(128, 128, 128, 0.25);
     }
     .accordion-node {
       background: white;
+      border: none !important;
+    }
+    .accordion-header {
+      transition: background 250ms ease-in-out;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+      border-top: 1px solid rgba(128, 128, 128, 0.5);
+    }
+    .accordion-header.is-expanded {
+      background: rgba(51, 152, 169, 0.13);
+    }
+    .my-panel {
+
+    }
+    .my-panel.is-expanded {
+      -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.125);
+      -moz-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.125);
+      box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.125);
     }
 
   </style>
@@ -32,34 +53,39 @@
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div id="h" class="jumbotron">
+    <!--<img src="http://www.stevensegallery.com/100/100">-->
+    <blockquote>"I'm gunna to take you to the bank senator Trent, the blood bank."</blockquote>
+    <h1>
+      react-accordion-with-header
+    </h1>
+    <h3>
+      React accordion component with flexbox based header
+    </h3>
+    <a class="github-button" href="https://github.com/jforaker/react-accordion-with-header"
+       data-icon="octicon-star"
+       data-style="mega" aria-label="Star jforaker/react-accordion-with-header on GitHub">Star</a>
+    <a class="github-button" href="https://github.com/jforaker/react-accordion-with-header/fork"
+       data-icon="octicon-repo-forked" data-style="mega"
+       aria-label="Fork jforaker/react-accordion-with-header on GitHub">Fork</a>
+  </div>
+  <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div id="h" class="jumbotron">
-          <img src="http://www.stevensegallery.com/100/100">
-          <blockquote>"I'm gunna to take you to the bank senator Trent, the blood bank."</blockquote>
-          <hr/>
-          <h1>
-            react-accordion-with-header
-          </h1>
-          <h3>
-            React accordion component with flexbox based header
-          </h3>
-          <a class="github-button" href="https://github.com/jforaker/react-accordion-with-header"
-             data-icon="octicon-star"
-             data-style="mega" aria-label="Star jforaker/react-accordion-with-header on GitHub">Star</a>
-          <a class="github-button" href="https://github.com/jforaker/react-accordion-with-header/fork"
-             data-icon="octicon-repo-forked" data-style="mega"
-             aria-label="Fork jforaker/react-accordion-with-header on GitHub">Fork</a>
-        </div>
-
+        <div id="app"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="app2"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="app3"></div>
       </div>
     </div>
   </div>
-
-  <div id="app"></div>
-
-  <div id="app2"></div>
 
   <script src="/bundle.js"></script>
 </body>
