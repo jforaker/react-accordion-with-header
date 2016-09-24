@@ -53,79 +53,517 @@
 
 	'use strict';
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactDom = __webpack_require__(35);
 	
-	var _index = __webpack_require__(173);
+	var _AccordionWithHeader_Options = __webpack_require__(173);
+	
+	var _AccordionWithHeader_Options2 = _interopRequireDefault(_AccordionWithHeader_Options);
+	
+	var _AccordionHeader_Options = __webpack_require__(196);
+	
+	var _AccordionHeader_Options2 = _interopRequireDefault(_AccordionHeader_Options);
+	
+	var _Default_Options = __webpack_require__(197);
+	
+	var _Default_Options2 = _interopRequireDefault(_Default_Options);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var quotes = ['This maniac should be wearing a number, not a badge.', 'So, what are you, like some special forces guy?', 'The jury decided. I presided.', 'Assumption is the mother of all f*ck-ups!', 'You\'ve got 5 seconds... and 3 are up.']; /* eslint-disable quotes */
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable quotes */
 	
 	
-	var alignment = ['centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'];
+	var Demo = function (_React$Component) {
+	  _inherits(Demo, _React$Component);
 	
-	(0, _reactDom.render)(_react2.default.createElement(
-	  _index.AccordionWithHeader,
-	  { multipleOkay: false, firstOpen: true, className: 'my-accordion' },
-	  quotes.map(function (quote, i) {
-	    return _react2.default.createElement(
-	      _index.AccordionNode,
-	      { key: i, className: 'accordion-node' },
-	      _react2.default.createElement(
-	        _index.AccordionHeader,
-	        { className: 'accordion-header',
-	          title: null,
-	          titleColor: '#607D8B',
-	          horizontalAlignment: alignment[i],
-	          verticalAlignment: 'center' },
+	  function Demo(props) {
+	    _classCallCheck(this, Demo);
+	
+	    var _this = _possibleConstructorReturn(this, (Demo.__proto__ || Object.getPrototypeOf(Demo)).call(this, props));
+	
+	    _this.state = {
+	      multipleOkay: false,
+	      firstOpen: true
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Demo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'container-fluid' },
 	        _react2.default.createElement(
 	          'div',
-	          null,
-	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + (Math.floor(Math.random() * 5) + 1) })
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
+	          { className: 'row' },
 	          _react2.default.createElement(
-	            'code',
-	            null,
-	            'horizontalAlignment="',
-	            alignment[i],
-	            '"'
+	            'div',
+	            { className: 'col-md-12' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'page-header' },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                'Example options for  ',
+	                _react2.default.createElement(
+	                  'small',
+	                  null,
+	                  '<AccordionWithHeader />'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'table-responsive' },
+	              _react2.default.createElement(
+	                'table',
+	                { className: 'table table-bordered table-striped' },
+	                _react2.default.createElement(
+	                  'thead',
+	                  null,
+	                  _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                      'th',
+	                      null,
+	                      'Prop'
+	                    ),
+	                    _react2.default.createElement(
+	                      'th',
+	                      null,
+	                      'Description'
+	                    ),
+	                    _react2.default.createElement(
+	                      'th',
+	                      null,
+	                      'Default'
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tbody',
+	                  null,
+	                  _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                      'th',
+	                      { scope: 'row' },
+	                      _react2.default.createElement(
+	                        'code',
+	                        null,
+	                        'multipleOkay'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time.'
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'false'
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                      'th',
+	                      { scope: 'row' },
+	                      _react2.default.createElement(
+	                        'code',
+	                        null,
+	                        'firstOpen'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'Determines if the first panel should be expanded by default'
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'false'
+	                    )
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'btn btn-primary btn-lg', style: { marginRight: 20 }, type: 'button',
+	                onClick: function onClick() {
+	                  return _this2.setState({ multipleOkay: !_this2.state.multipleOkay });
+	                } },
+	              'toggle ',
+	              _react2.default.createElement(
+	                'code',
+	                null,
+	                'multipleOkay'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'btn btn-primary btn-lg', type: 'button',
+	                onClick: function onClick() {
+	                  return _this2.setState({ firstOpen: !_this2.state.firstOpen });
+	                } },
+	              'toggle ',
+	              _react2.default.createElement(
+	                'code',
+	                null,
+	                'firstOpen'
+	              )
+	            ),
+	            _react2.default.createElement(_AccordionWithHeader_Options2.default, { multipleOkay: this.state.multipleOkay, firstOpen: this.state.firstOpen })
 	          )
 	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement('hr', null)
+	      );
+	    }
+	  }]);
+	
+	  return Demo;
+	}(_react2.default.Component);
+	
+	(0, _reactDom.render)(_react2.default.createElement(Demo, null), document.getElementById('app'));
+	
+	/////
+	
+	var hAlignment = ['centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'];
+	
+	var vAlignment = ['top', 'center', 'bottom'];
+	
+	var genHex = function genHex() {
+	  return '#' + Math.floor(Math.random() * 16777215).toString(16);
+	};
+	
+	var Demo2 = function (_React$Component2) {
+	  _inherits(Demo2, _React$Component2);
+	
+	  function Demo2(props) {
+	    _classCallCheck(this, Demo2);
+	
+	    var _this3 = _possibleConstructorReturn(this, (Demo2.__proto__ || Object.getPrototypeOf(Demo2)).call(this, props));
+	
+	    _this3.state = {
+	      title: null,
+	      titleColor: genHex(),
+	      horizontalAlignment: hAlignment[0],
+	      verticalAlignment: vAlignment[1]
+	    };
+	    return _this3;
+	  }
+	
+	  _createClass(Demo2, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this4 = this;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'container-fluid' },
 	        _react2.default.createElement(
 	          'div',
-	          null,
-	          _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + (Math.floor(Math.random() * 5) + 1) })
-	        )
-	      ),
-	      _react2.default.createElement(
-	        _index.AccordionPanel,
-	        { className: 'my-panel', speed: 350 },
-	        _react2.default.createElement(
-	          'div',
-	          { style: { textAlign: 'center', height: 320 } },
+	          { className: 'row' },
 	          _react2.default.createElement(
 	            'div',
 	            null,
 	            _react2.default.createElement(
-	              'h2',
+	              'div',
+	              { className: 'page-header' },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                'Example options for  ',
+	                _react2.default.createElement(
+	                  'small',
+	                  null,
+	                  '<AccordionHeader />'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'table-responsive' },
+	              _react2.default.createElement(
+	                'table',
+	                { className: 'table table-bordered table-striped' },
+	                _react2.default.createElement(
+	                  'thead',
+	                  null,
+	                  _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                      'th',
+	                      null,
+	                      'Prop'
+	                    ),
+	                    _react2.default.createElement(
+	                      'th',
+	                      null,
+	                      'Description'
+	                    ),
+	                    _react2.default.createElement(
+	                      'th',
+	                      null,
+	                      'Default'
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tbody',
+	                  null,
+	                  _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                      'th',
+	                      { scope: 'row' },
+	                      _react2.default.createElement(
+	                        'code',
+	                        null,
+	                        'title'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'For simple headers, a title will render an h1 tag and disallow child elements'
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'null'
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                      'th',
+	                      { scope: 'row' },
+	                      _react2.default.createElement(
+	                        'code',
+	                        null,
+	                        'titleColor'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'Some valid CSS color or rgb or hex'
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'black'
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                      'th',
+	                      { scope: 'row' },
+	                      _react2.default.createElement(
+	                        'code',
+	                        null,
+	                        'horizontalAlignment'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'One of: \'centerSpaceBetween\', \'centerSpaceAround\', \'center\', \'left\', \'right\'. Maps to corresponding flex-box CSS property'
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'centerSpaceAround'
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                      'th',
+	                      { scope: 'row' },
+	                      _react2.default.createElement(
+	                        'code',
+	                        null,
+	                        'verticalAlignment'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'One of: \'top\', \'center\', \'bottom\''
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      'center'
+	                    )
+	                  )
+	                )
+	              )
+	            ),
+	            !this.state.title && _react2.default.createElement(
+	              'button',
+	              { className: 'btn btn-primary btn-lg', style: { marginRight: 20 }, type: 'button',
+	                onClick: function onClick() {
+	                  return _this4.setState({ title: 'Some title' });
+	                } },
+	              'toggle ',
+	              _react2.default.createElement(
+	                'code',
+	                null,
+	                'title'
+	              )
+	            ),
+	            this.state.title && _react2.default.createElement(
+	              'button',
+	              { className: 'btn btn-primary btn-lg', style: { marginRight: 20 }, type: 'button',
+	                onClick: function onClick() {
+	                  return _this4.setState({ title: null });
+	                } },
+	              'toggle ',
+	              _react2.default.createElement(
+	                'code',
+	                null,
+	                'title'
+	              )
+	            ),
+	            this.state.title && _react2.default.createElement(
+	              'button',
+	              { className: 'btn btn-primary btn-lg', style: { marginRight: 20 }, type: 'button',
+	                onClick: function onClick() {
+	                  return _this4.setState({ titleColor: genHex() });
+	                } },
+	              'toggle ',
+	              _react2.default.createElement(
+	                'code',
+	                null,
+	                'titleColor'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'btn btn-primary btn-lg', style: { marginRight: 20 }, type: 'button',
+	                onClick: function onClick() {
+	                  return _this4.setState({ horizontalAlignment: hAlignment[Math.floor(Math.random() * 5)] });
+	                } },
+	              'toggle ',
+	              _react2.default.createElement(
+	                'code',
+	                null,
+	                'horizontalAlignment'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'btn btn-primary btn-lg', style: { marginRight: 20 }, type: 'button',
+	                onClick: function onClick() {
+	                  return _this4.setState({ verticalAlignment: vAlignment[Math.floor(Math.random() * 3)] });
+	                } },
+	              'toggle ',
+	              _react2.default.createElement(
+	                'code',
+	                null,
+	                'verticalAlignment'
+	              )
+	            ),
+	            this.state.title ? _react2.default.createElement(
+	              'p',
+	              { style: { fontStyle: 'italic' } },
+	              'Note: vertical and some centering flexbox properties do not have an affect on only one element'
+	            ) : _react2.default.createElement(
+	              'p',
 	              null,
-	              quote,
-	              '!'
-	            )
-	          ),
-	          _react2.default.createElement('img', { style: { marginBottom: 10 }, src: 'http://www.stevensegallery.com/200/20' + (Math.floor(Math.random() * 5) + 1) })
+	              ' '
+	            ),
+	            _react2.default.createElement(_AccordionHeader_Options2.default, { title: this.state.title,
+	              titleColor: this.state.titleColor,
+	              horizontalAlignment: this.state.horizontalAlignment,
+	              verticalAlignment: this.state.verticalAlignment })
+	          )
 	        )
-	      )
-	    );
-	  })
-	), document.getElementById('app'));
+	      );
+	    }
+	  }]);
+	
+	  return Demo2;
+	}(_react2.default.Component);
+	
+	(0, _reactDom.render)(_react2.default.createElement(Demo2, null), document.getElementById('app2'));
+	
+	var Demo3 = function (_React$Component3) {
+	  _inherits(Demo3, _React$Component3);
+	
+	  function Demo3() {
+	    _classCallCheck(this, Demo3);
+	
+	    return _possibleConstructorReturn(this, (Demo3.__proto__ || Object.getPrototypeOf(Demo3)).apply(this, arguments));
+	  }
+	
+	  _createClass(Demo3, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'container-fluid' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-12' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'page-header' },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                'Example with default options'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                '(and no custom styles applied)'
+	              )
+	            ),
+	            _react2.default.createElement(_Default_Options2.default, null)
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Demo3;
+	}(_react2.default.Component);
+	
+	(0, _reactDom.render)(_react2.default.createElement(Demo3, null), document.getElementById('app3'));
 
 /***/ },
 /* 2 */
@@ -21502,21 +21940,160 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(35);
+	
+	var _src = __webpack_require__(174);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable quotes */
+	
+	
+	var quotes = ['This maniac should be wearing a number, not a badge.', 'So, what are you, like some special forces guy?', 'The jury decided. I presided.'];
+	
+	var alignment = ['centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'];
+	
+	var createMarkup = function createMarkup(props) {
+	  return { __html: '<h1><pre><code>&lt;AccordionWithHeader multipleOkay={' + props.multipleOkay.toString() + '} firstOpen={' + props.firstOpen.toString() + '} &#47;&gt;</pre></code></h1>' };
+	};
+	
+	var rando = function rando() {
+	  return Math.floor(Math.random() * 9) + 1;
+	};
+	
+	var AccordionWithHeaderOptions = function (_React$Component) {
+	  _inherits(AccordionWithHeaderOptions, _React$Component);
+	
+	  function AccordionWithHeaderOptions(props) {
+	    _classCallCheck(this, AccordionWithHeaderOptions);
+	
+	    var _this = _possibleConstructorReturn(this, (AccordionWithHeaderOptions.__proto__ || Object.getPrototypeOf(AccordionWithHeaderOptions)).call(this, props));
+	
+	    _this.state = {
+	      images: []
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(AccordionWithHeaderOptions, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var images = [];
+	      [1, 2, 3].forEach(function (item, i) {
+	        images.push('http://www.stevensegallery.com/70/7' + i);
+	      });
+	      this.setState({ images: images });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement('div', { dangerouslySetInnerHTML: createMarkup(this.props) })
+	        ),
+	        _react2.default.createElement(
+	          _src.AccordionWithHeader,
+	          { multipleOkay: this.props.multipleOkay, firstOpen: this.props.firstOpen, className: 'my-accordion' },
+	          quotes.map(function (quote, i) {
+	            return _react2.default.createElement(
+	              _src.AccordionNode,
+	              { key: i, className: 'accordion-node' },
+	              _react2.default.createElement(
+	                _src.AccordionHeader,
+	                { className: 'accordion-header',
+	                  title: null,
+	                  titleColor: '#607D8B',
+	                  horizontalAlignment: alignment[i],
+	                  verticalAlignment: 'center' },
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  _react2.default.createElement('img', { src: _this2.state.images[i] })
+	                ),
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  _react2.default.createElement(
+	                    'code',
+	                    null,
+	                    'horizontalAlignment="',
+	                    alignment[i],
+	                    '"'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  _react2.default.createElement('img', { src: _this2.state.images[i] })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _src.AccordionPanel,
+	                { className: 'my-panel', speed: 350 },
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: { textAlign: 'center', padding: 20 } },
+	                  _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    quote
+	                  ),
+	                  _react2.default.createElement('img', { width: 200, src: 'http://www.stevensegallery.com/200/20' + rando() })
+	                )
+	              )
+	            );
+	          })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return AccordionWithHeaderOptions;
+	}(_react2.default.Component);
+	
+	exports.default = AccordionWithHeaderOptions;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.AccordionNode = exports.AccordionPanel = exports.AccordionHeader = exports.AccordionWithHeader = undefined;
 	
-	var _AccordionWithHeader2 = __webpack_require__(174);
+	var _AccordionWithHeader2 = __webpack_require__(175);
 	
 	var _AccordionWithHeader3 = _interopRequireDefault(_AccordionWithHeader2);
 	
-	var _AccordionHeader2 = __webpack_require__(177);
+	var _AccordionHeader2 = __webpack_require__(178);
 	
 	var _AccordionHeader3 = _interopRequireDefault(_AccordionHeader2);
 	
-	var _AccordionPanel2 = __webpack_require__(179);
+	var _AccordionPanel2 = __webpack_require__(180);
 	
 	var _AccordionPanel3 = _interopRequireDefault(_AccordionPanel2);
 	
-	var _AccordionNode2 = __webpack_require__(194);
+	var _AccordionNode2 = __webpack_require__(195);
 	
 	var _AccordionNode3 = _interopRequireDefault(_AccordionNode2);
 	
@@ -21528,7 +22105,7 @@
 	exports.AccordionNode = _AccordionNode3.default;
 
 /***/ },
-/* 174 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21543,7 +22120,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(175);
+	var _classnames = __webpack_require__(176);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -21553,10 +22130,10 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-lonely-if */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-lonely-if, no-nested-ternary */
 	
 	
-	var guid = __webpack_require__(176);
+	var guid = __webpack_require__(177);
 	
 	var defaultProps = {
 	  multipleOkay: false,
@@ -21573,18 +22150,11 @@
 	
 	    _this.renderChildren = _this.renderChildren.bind(_this);
 	    _this.panelControl = _this.panelControl.bind(_this);
-	
-	    var active = null;
-	    if (props.multipleOkay) {
-	      active = [];
-	      if (props.firstOpen) active.push(0);
-	    } else {
-	      active = props.firstOpen ? 0 : null;
-	    }
+	    _this.mountingProps = _this.mountingProps.bind(_this);
 	
 	    _this.state = {
 	      panels: [],
-	      active: active
+	      active: []
 	    };
 	    return _this;
 	  }
@@ -21592,49 +22162,47 @@
 	  _createClass(AccordionWithHeader, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      var _this2 = this;
-	
+	      var panels = [];
 	      _react.Children.forEach(this.props.children, function (child) {
-	        _this2.state.panels.push(+child.key);
+	        panels.push(+child.key);
 	      });
+	      this.setState({ panels: panels });
+	      this.mountingProps(this.props);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      //this is only for the demo. TODO - think of a better way
+	      this.mountingProps(nextProps);
+	    }
+	  }, {
+	    key: 'mountingProps',
+	    value: function mountingProps(props) {
+	      var active = [];
+	      if (props.firstOpen) active.push(0);
+	      this.setState({ active: active });
 	    }
 	  }, {
 	    key: 'panelControl',
 	    value: function panelControl(panelIndex) {
-	      var _state = this.state;
-	      var active = _state.active;
-	      var panels = _state.panels;
 	
-	      var s = {};
-	      s.active = null;
+	      var activePanelArray = void 0;
 	
-	      if (this.props.multipleOkay) {
-	        //multipleOkay is true, push the new item into array
-	        var panelsArr = active;
-	        if (panelsArr.indexOf(panelIndex) !== -1) {
-	          //panel exists, remove it
-	          panelsArr = panelsArr.filter(function (item) {
-	            return item !== panelIndex;
-	          });
-	        } else {
-	          //otherwise push it in
-	          panelsArr.push(panelIndex);
-	        }
-	        s.active = panelsArr;
+	      if (this.state.active.indexOf(panelIndex) !== -1) {
+	        activePanelArray = this.state.active.filter(function (item) {
+	          return item !== panelIndex;
+	        });
 	      } else {
-	        //panelIndex = active, then it should close. leave it null and close it
-	        if (panelIndex !== active) {
-	          //open it
-	          s.active = panels[panelIndex];
-	        }
+	        activePanelArray = !this.props.multipleOkay ? [] : this.state.active;
+	        activePanelArray.push(this.state.panels[panelIndex]);
 	      }
 	
-	      this.setState(s);
+	      this.setState({ active: activePanelArray });
 	    }
 	  }, {
 	    key: 'renderChildren',
 	    value: function renderChildren() {
-	      var _this3 = this;
+	      var _this2 = this;
 	
 	      if (!this.props.children) {
 	        throw new Error('AccordionWithHeader must have children!');
@@ -21645,10 +22213,10 @@
 	       ***************************************************************/
 	      return _react.Children.map(this.props.children, function (item, index) {
 	        return (0, _react.cloneElement)(item, {
-	          active: _this3.state.active,
+	          active: _this2.state.active,
 	          indexKey: index,
 	          key: index,
-	          onSelect: _this3.panelControl.bind(_this3, index)
+	          onSelect: _this2.panelControl.bind(_this2, index)
 	        });
 	      });
 	    }
@@ -21678,7 +22246,7 @@
 	AccordionWithHeader.defaultProps = defaultProps;
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21732,7 +22300,7 @@
 
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports) {
 
 	/*
@@ -21778,7 +22346,7 @@
 
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21795,11 +22363,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(175);
+	var _classnames = __webpack_require__(176);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _utils = __webpack_require__(178);
+	var _utils = __webpack_require__(179);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21839,9 +22407,13 @@
 	    value: function renderChildren() {
 	      if (this.props.title) {
 	        return _react2.default.createElement(
-	          'h1',
+	          'div',
 	          null,
-	          this.props.title
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            this.props.title
+	          )
 	        );
 	      }
 	      if (!this.props.template && !this.props.children && !this.props.title) {
@@ -21862,6 +22434,7 @@
 	      var verticalAlignment = _props.verticalAlignment;
 	      var horizontalAlignment = _props.horizontalAlignment;
 	      var className = _props.className;
+	      var isExpanded = _props.isExpanded;
 	
 	
 	      var style = (_style = {
@@ -21872,7 +22445,7 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: (0, _classnames2.default)(className),
+	        { className: (0, _classnames2.default)(className, { 'is-expanded': isExpanded }),
 	          onClick: this.handleHeaderClick,
 	          style: _extends({}, defaultStyle, style) },
 	        this.renderChildren()
@@ -21901,7 +22474,7 @@
 	};
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21923,7 +22496,7 @@
 	
 	var getVerticalAlignment = exports.getVerticalAlignment = function getVerticalAlignment(str) {
 	  var align = {
-	    'bottom': 'baseline',
+	    'bottom': 'flex-end',
 	    'top': 'flex-start',
 	    'center': 'center',
 	    'default': 'center'
@@ -21932,7 +22505,7 @@
 	};
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21955,15 +22528,15 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(175);
+	var _classnames = __webpack_require__(176);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _csjs = __webpack_require__(180);
+	var _csjs = __webpack_require__(181);
 	
 	var _csjs2 = _interopRequireDefault(_csjs);
 	
-	var _insertCss = __webpack_require__(193);
+	var _insertCss = __webpack_require__(194);
 	
 	var _insertCss2 = _interopRequireDefault(_insertCss);
 	
@@ -22075,7 +22648,7 @@
 	       ***************************************************************/
 	
 	      if (this.props.template) {
-	        /* templates are special in we cannot iterate over them with React.Children.map */
+	        /* templates are special in that we cannot iterate over them with React.Children.map */
 	        return (0, _react.cloneElement)(this.props.template, {
 	          ref: 'item-' + this.props.indexKey
 	        });
@@ -22124,25 +22697,16 @@
 	AccordionPanel.defaultProps = defaultProps;
 
 /***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var csjs = __webpack_require__(181);
-	
-	module.exports = csjs;
-	module.exports.csjs = csjs;
-	module.exports.getCss = __webpack_require__(191);
-
-
-/***/ },
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(182);
+	var csjs = __webpack_require__(182);
+	
+	module.exports = csjs;
+	module.exports.csjs = csjs;
+	module.exports.getCss = __webpack_require__(192);
 
 
 /***/ },
@@ -22151,11 +22715,20 @@
 
 	'use strict';
 	
-	var extractExtends = __webpack_require__(183);
-	var isComposition = __webpack_require__(184).isComposition;
-	var buildExports = __webpack_require__(185);
-	var scopify = __webpack_require__(186);
-	var cssKey = __webpack_require__(190);
+	module.exports = __webpack_require__(183);
+
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var extractExtends = __webpack_require__(184);
+	var isComposition = __webpack_require__(185).isComposition;
+	var buildExports = __webpack_require__(186);
+	var scopify = __webpack_require__(187);
+	var cssKey = __webpack_require__(191);
 	
 	module.exports = function csjsHandler(strings) {
 	  // Fast path to prevent arguments deopt
@@ -22229,12 +22802,12 @@
 
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var makeComposition = __webpack_require__(184).makeComposition;
+	var makeComposition = __webpack_require__(185).makeComposition;
 	
 	var regex = /\.([^\s]+)(\s+)(extends\s+)(\.[^{]+)/g;
 	
@@ -22286,7 +22859,7 @@
 
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22358,12 +22931,12 @@
 
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var makeComposition = __webpack_require__(184).makeComposition;
+	var makeComposition = __webpack_require__(185).makeComposition;
 	
 	module.exports = function createExports(classes, keyframes, compositions) {
 	  var keyframesObj = Object.keys(keyframes).reduce(function(acc, key) {
@@ -22406,12 +22979,12 @@
 
 
 /***/ },
-/* 186 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var fileScoper = __webpack_require__(187);
+	var fileScoper = __webpack_require__(188);
 	
 	var findClasses = /(\.)(?!\d)([^\s\.,{\[>+~#:)]*)(?![^{]*})/.source;
 	var findKeyframes = /(@\S*keyframes\s*)([^{\s]*)/.source;
@@ -22480,13 +23053,13 @@
 
 
 /***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var encode = __webpack_require__(188);
-	var hash = __webpack_require__(189);
+	var encode = __webpack_require__(189);
+	var hash = __webpack_require__(190);
 	
 	module.exports = function fileScoper(fileSrc) {
 	  var suffix = encode(hash(fileSrc));
@@ -22498,7 +23071,7 @@
 
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22524,7 +23097,7 @@
 
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22546,7 +23119,7 @@
 
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22560,21 +23133,21 @@
 
 
 /***/ },
-/* 191 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = __webpack_require__(192);
-
-
-/***/ },
 /* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var cssKey = __webpack_require__(190);
+	module.exports = __webpack_require__(193);
+
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var cssKey = __webpack_require__(191);
 	
 	module.exports = function getCss(csjs) {
 	  return csjs[cssKey];
@@ -22582,7 +23155,7 @@
 
 
 /***/ },
-/* 193 */
+/* 194 */
 /***/ function(module, exports) {
 
 	var containers = []; // will store container HTMLElement references
@@ -22634,7 +23207,7 @@
 
 
 /***/ },
-/* 194 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22653,15 +23226,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(175);
+	var _classnames = __webpack_require__(176);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _csjs = __webpack_require__(180);
+	var _csjs = __webpack_require__(181);
 	
 	var _csjs2 = _interopRequireDefault(_csjs);
 	
-	var _insertCss = __webpack_require__(193);
+	var _insertCss = __webpack_require__(194);
 	
 	var _insertCss2 = _interopRequireDefault(_insertCss);
 	
@@ -22673,11 +23246,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
-	                                                                                                                                                   * Created by jakeforaker on 9/17/16.
-	                                                                                                                                                   */
-	
-	/* eslint-disable quotes */
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* eslint-disable quotes */
 	
 	
 	var defaultClass = (0, _csjs2.default)(_templateObject);
@@ -22767,6 +23336,256 @@
 	AccordionNode.propTypes = {
 	  className: _react.PropTypes.string
 	};
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(35);
+	
+	var _src = __webpack_require__(174);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable quotes */
+	
+	
+	var quotes = ['This maniac should be wearing a number, not a badge.', 'So, what are you, like some special forces guy?', 'The jury decided. I presided.', 'Assumption is the mother of all f*ck-ups!', 'You\'ve got 5 seconds... and 3 are up.'];
+	
+	var createMarkup = function createMarkup(props) {
+	  return {
+	    __html: '\n  <h1><pre><code>&lt;AccordionHeader \n  title={' + (props.title ? props.title.toString() : null) + '} \n  titleColor={' + props.titleColor.toString() + '} \n  horizontalAlignment={' + props.horizontalAlignment.toString() + '} \n  verticalAlignment={' + props.verticalAlignment.toString() + '} &#47;&gt;</pre></code></h1>' };
+	};
+	
+	var rando = function rando() {
+	  return Math.floor(Math.random() * 5) + 1;
+	};
+	
+	var AccordionHeaderOptions = function (_React$Component) {
+	  _inherits(AccordionHeaderOptions, _React$Component);
+	
+	  function AccordionHeaderOptions() {
+	    _classCallCheck(this, AccordionHeaderOptions);
+	
+	    return _possibleConstructorReturn(this, (AccordionHeaderOptions.__proto__ || Object.getPrototypeOf(AccordionHeaderOptions)).apply(this, arguments));
+	  }
+	
+	  _createClass(AccordionHeaderOptions, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement('div', { dangerouslySetInnerHTML: createMarkup(this.props) })
+	        ),
+	        _react2.default.createElement(
+	          _src.AccordionWithHeader,
+	          { className: 'my-accordion' },
+	          quotes.map(function (quote, i) {
+	            return _react2.default.createElement(
+	              _src.AccordionNode,
+	              { key: i, className: 'accordion-node' },
+	              _react2.default.createElement(
+	                _src.AccordionHeader,
+	                { className: 'accordion-header',
+	                  title: _this2.props.title,
+	                  titleColor: _this2.props.titleColor,
+	                  horizontalAlignment: _this2.props.horizontalAlignment,
+	                  verticalAlignment: _this2.props.verticalAlignment },
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + rando() })
+	                ),
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  _react2.default.createElement(
+	                    'code',
+	                    null,
+	                    'horizontalAlignment="',
+	                    _this2.props.horizontalAlignment,
+	                    '"'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  _react2.default.createElement(
+	                    'code',
+	                    null,
+	                    'verticalAlignment="',
+	                    _this2.props.verticalAlignment,
+	                    '"'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _src.AccordionPanel,
+	                { className: 'my-panel', speed: 350 },
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: { textAlign: 'center', height: 320 } },
+	                  _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                      'h2',
+	                      null,
+	                      quote,
+	                      '!'
+	                    )
+	                  ),
+	                  _react2.default.createElement('img', { style: { marginBottom: 10 }, src: 'http://www.stevensegallery.com/200/20' + (Math.floor(Math.random() * 5) + 1) })
+	                )
+	              )
+	            );
+	          })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return AccordionHeaderOptions;
+	}(_react2.default.Component);
+	
+	exports.default = AccordionHeaderOptions;
+
+/***/ },
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(35);
+	
+	var _src = __webpack_require__(174);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable quotes */
+	
+	
+	var quotes = ['The jury decided. I presided.', 'Assumption is the mother of all f*ck-ups!', 'You\'ve got 5 seconds... and 3 are up.'];
+	
+	var rando = function rando() {
+	  return Math.floor(Math.random() * 5) + 1;
+	};
+	
+	var DefaultOptions = function (_React$Component) {
+	  _inherits(DefaultOptions, _React$Component);
+	
+	  function DefaultOptions() {
+	    _classCallCheck(this, DefaultOptions);
+	
+	    return _possibleConstructorReturn(this, (DefaultOptions.__proto__ || Object.getPrototypeOf(DefaultOptions)).apply(this, arguments));
+	  }
+	
+	  _createClass(DefaultOptions, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _src.AccordionWithHeader,
+	          null,
+	          quotes.map(function (quote, i) {
+	            return _react2.default.createElement(
+	              _src.AccordionNode,
+	              { key: i },
+	              _react2.default.createElement(
+	                _src.AccordionHeader,
+	                null,
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  _react2.default.createElement('img', { src: 'http://www.stevensegallery.com/75/7' + rando() })
+	                ),
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  _react2.default.createElement(
+	                    'code',
+	                    null,
+	                    'horizontalAlignment="centerSpaceAround"'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  _react2.default.createElement(
+	                    'code',
+	                    null,
+	                    'verticalAlignment="center"'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _src.AccordionPanel,
+	                null,
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: { textAlign: 'center', height: 320 } },
+	                  _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                      'h2',
+	                      null,
+	                      quote,
+	                      '!'
+	                    )
+	                  ),
+	                  _react2.default.createElement('img', { style: { marginBottom: 10 }, src: 'http://www.stevensegallery.com/200/20' + rando() })
+	                )
+	              )
+	            );
+	          })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return DefaultOptions;
+	}(_react2.default.Component);
+	
+	exports.default = DefaultOptions;
 
 /***/ }
 /******/ ]);
