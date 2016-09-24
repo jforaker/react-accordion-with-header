@@ -8,7 +8,7 @@
 
 ### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header/demo/)
 
-<img src="https://d17oy1vhnax1f7.cloudfront.net/items/1Z233J1R0J0t0s2f1X1s/Screen%20Recording%202016-09-23%20at%2001.42%20AM.gif" width="600" />
+<img src="https://d17oy1vhnax1f7.cloudfront.net/items/0W193j1Z1d313W381S1V/Screen%20Recording%202016-09-23%20at%2011.31%20PM.gif" width="600" />
 
 #### Install via NPM:
 
