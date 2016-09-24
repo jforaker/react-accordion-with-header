@@ -3,60 +3,90 @@
 
 <head>
   <title>React-accordion-with-header</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    *,
-    *:after,
-    *:before {
-      box-sizing: border-box;
-    }
     body {
-      font-family: 'Droid Sans Mono', monospace;
-      background: lightgray;
-      margin: 0 25px 50px;
+      background: white;
+      /*margin: 20px 25px 50px;*/
     }
     #h {
       color: #fff;
-      background-color: #3398a9;
       text-align: center;
       margin-bottom: 20px;
-      padding: 50px;
+      background: #3398a9 url("https://d17oy1vhnax1f7.cloudfront.net/items/1L3m3Y0O0T3y3w090p3L/steven.jpg") no-repeat;
+      background-size: cover;
+      padding-top: 160px;
     }
     blockquote {
       display: inline-block;
-      padding-bottom: 20px;
+      padding-bottom: 14px;
+      font-style: italic;
+    }
+    .my-accordion {
+      border: 1px solid rgba(128, 128, 128, 0.25);
     }
     .accordion-node {
       background: white;
+      border: none !important;
     }
+    .accordion-header {
+      transition: background 250ms ease-in-out;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+      border-top: 1px solid rgba(128, 128, 128, 0.5);
+    }
+    .accordion-header.is-expanded {
+      background: rgba(51, 152, 169, 0.13);
+    }
+    .my-panel {
+
+    }
+    .my-panel.is-expanded {
+      -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.125);
+      -moz-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.125);
+      box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.125);
+    }
+
   </style>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 
 <body>
-  <div id="h">
-    <img src="http://www.stevensegallery.com/100/100">
+  <div id="h" class="jumbotron">
+    <!--<img src="http://www.stevensegallery.com/100/100">-->
     <blockquote>"I'm gunna to take you to the bank senator Trent, the blood bank."</blockquote>
-    <hr />
-    <h1 style="font-size: 3.25rem;">
-      React-accordion-with-header
+    <h1>
+      react-accordion-with-header
     </h1>
-    <h2>
+    <h3>
       React accordion component with flexbox based header
-    </h2>
-    <a class="github-button" href="https://github.com/jforaker/react-accordion-with-header" data-icon="octicon-star"
+    </h3>
+    <a class="github-button" href="https://github.com/jforaker/react-accordion-with-header"
+       data-icon="octicon-star"
        data-style="mega" aria-label="Star jforaker/react-accordion-with-header on GitHub">Star</a>
-    <!-- Place this tag where you want the button to render. -->
     <a class="github-button" href="https://github.com/jforaker/react-accordion-with-header/fork"
        data-icon="octicon-repo-forked" data-style="mega"
        aria-label="Fork jforaker/react-accordion-with-header on GitHub">Fork</a>
   </div>
-
-  <div>
-    <h3>Example <code>horizontalAlignment</code> options:</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="app"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="app2"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="app3"></div>
+      </div>
+    </div>
   </div>
 
-  <div id="app"></div>
   <script src="/bundle.js"></script>
 <script type="text/javascript" src="bundle.js"></script></body>
 
