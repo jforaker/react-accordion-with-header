@@ -27,6 +27,7 @@ export default class AccordionNode extends Component {
   }
 
   checkExpanded(indexKey, activePanelOrPanels) {
+    //console.log('arguments ', arguments);
     if (Array.isArray(activePanelOrPanels)) {
       //multipleOkay is true
       return activePanelOrPanels.some(panel => panel === indexKey)

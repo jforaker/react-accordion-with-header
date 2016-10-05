@@ -13,17 +13,32 @@ const quotes = [
 
 const createMarkup = (props) => {
   return {
-    __html: `
-  <h1><pre><code>&lt;AccordionHeader 
+    __html: `<h1><pre><code>&lt;AccordionHeader 
   title={${props.title ? props.title.toString() : null}} 
   titleColor={${props.titleColor.toString()}} 
   horizontalAlignment={${props.horizontalAlignment.toString()}} 
   verticalAlignment={${props.verticalAlignment.toString()}} &#47;&gt;</pre></code></h1>`};
 };
 
-const rando = () => (Math.floor(Math.random() * 5) + 1);
-
 export default class AccordionHeaderOptions extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      images: [],
+      imagesLarge: []
+    };
+  }
+
+  componentWillMount() {
+    let images = [], images_large = [];
+    [1, 2, 3].forEach((item, i) => {
+      images.push(`http://www.stevensegallery.com/70/7${i}`);
+      images_large.push(`http://www.stevensegallery.com/200/20${i}`)
+    });
+    this.setState({images: images, imagesLarge: images_large})
+  }
+
 
   render() {
     return (
@@ -42,7 +57,7 @@ export default class AccordionHeaderOptions extends React.Component {
                                  horizontalAlignment={this.props.horizontalAlignment}
                                  verticalAlignment={this.props.verticalAlignment}>
                   <div>
-                    <img src={`http://www.stevensegallery.com/75/7${rando()}`}/>
+                    <img src={this.state.images[i]}/>
                   </div>
                   <h4><code>horizontalAlignment="{this.props.horizontalAlignment}"</code></h4>
                   <h4><code>verticalAlignment="{this.props.verticalAlignment}"</code></h4>
@@ -54,7 +69,7 @@ export default class AccordionHeaderOptions extends React.Component {
                     <div>
                       <h2>{quote}!</h2>
                     </div>
-                    <img style={{marginBottom: 10}} src={`http://www.stevensegallery.com/200/20${(Math.floor(Math.random() * 5) + 1)}`}/>
+                    <img style={{marginBottom: 10}} src={this.state.imagesLarge[i]}/>
                   </div>
                 </AccordionPanel>
 

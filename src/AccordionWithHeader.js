@@ -1,11 +1,10 @@
 /* eslint-disable no-lonely-if, no-nested-ternary */
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import classNames from 'classnames';
-const guid = require('easy-guid');
 
 const defaultProps = {
   multipleOkay: false,
-  firstOpen: false
+  firstOpen: true
 };
 
 export default class AccordionWithHeader extends Component {

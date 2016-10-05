@@ -44,8 +44,8 @@ export default class AccordionPanel extends Component {
 
   // Wait for images to load before calculating height of element
   preloadImages(node, images = []) {
-    var imagesLoaded = 0;
-    var imgLoaded = () => {
+    let imagesLoaded = 0;
+    let imgLoaded = () => {
       imagesLoaded++;
       if (imagesLoaded === images.length) this.calcHeight();
     };
