@@ -1,7 +1,6 @@
 /* eslint-disable no-lonely-if, no-nested-ternary */
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import classNames from 'classnames';
-const guid = require('easy-guid');
 
 const defaultProps = {
   multipleOkay: false,
@@ -45,6 +44,7 @@ export default class AccordionWithHeader extends Component {
   panelControl(panelIndex) {
 
     let activePanelArray;
+    let panelData;
 
     if (this.state.active.indexOf(panelIndex) !== -1) {
       activePanelArray = this.state.active.filter(item => item !== panelIndex);
@@ -54,6 +54,15 @@ export default class AccordionWithHeader extends Component {
     }
 
     this.setState({ active: activePanelArray });
+
+    if (this.props.actionCallback) {
+      // pass array of panels back to actionCallback props function
+      panelData = this.state.panels.map((panel) => ({
+        panel,
+        open: activePanelArray.includes(panel)
+      }));
+      this.props.actionCallback(panelData);
+    }
   }
 
   renderChildren() {
@@ -87,6 +96,7 @@ export default class AccordionWithHeader extends Component {
 
 AccordionWithHeader.propTypes = {
   firstOpen: PropTypes.bool,
-  multipleOkay: PropTypes.bool
+  multipleOkay: PropTypes.bool,
+  actionCallback: PropTypes.func
 };
 AccordionWithHeader.defaultProps = defaultProps;

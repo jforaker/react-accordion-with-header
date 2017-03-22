@@ -14,7 +14,7 @@ const alignment = [
 ];
 
 const createMarkup = (props) => {
-  return {__html: `<h1><pre><code>&lt;AccordionWithHeader multipleOkay={${props.multipleOkay.toString()}} firstOpen={${props.firstOpen.toString()}} &#47;&gt;</pre></code></h1>`};
+  return {__html: `<h1><pre><code>&lt;AccordionWithHeader multipleOkay={${props.multipleOkay.toString()}} firstOpen={${props.firstOpen.toString()}} actionCallback={myFunction} &#47;&gt;</pre></code></h1>`};
 };
 
 const rando = () => (Math.floor(Math.random() * 9) + 1);

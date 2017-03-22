@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 import React from 'react';
-import {render} from 'react-dom';
-import {AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel} from '../../src';
+import { render } from 'react-dom';
+import { AccordionWithHeader, AccordionNode, AccordionHeader, AccordionPanel } from '../../src';
 
 const quotes = [
   'This maniac should be wearing a number, not a badge.',
@@ -25,13 +25,17 @@ const rando = () => (Math.floor(Math.random() * 5) + 1);
 
 export default class AccordionHeaderOptions extends React.Component {
 
+  actionCallback(panels) {
+    console.log('panels', panels);
+  }
+
   render() {
     return (
       <div>
         <div>
           <div dangerouslySetInnerHTML={createMarkup(this.props)}/>
         </div>
-        <AccordionWithHeader className="my-accordion">
+        <AccordionWithHeader className="my-accordion" actionCallback={this.actionCallback.bind(this)}>
           {quotes.map((quote, i) => {
             return (
               <AccordionNode key={i} className="accordion-node">

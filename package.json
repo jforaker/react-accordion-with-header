@@ -31,7 +31,9 @@
     "deploy": "git subtree push --prefix demo origin gh-pages"
   },
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "csjs": "^1.1.0",
+    "insert-css": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",

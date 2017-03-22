@@ -28,7 +28,6 @@ class Demo extends React.Component {
             </div>
             <div className="table-responsive">
               <table className="table table-bordered table-striped">
-
                 <thead>
                 <tr>
                   <th>Prop</th>
@@ -48,6 +47,12 @@ class Demo extends React.Component {
                   <th scope="row"><code>firstOpen</code></th>
                   <td>Determines if the first panel should be expanded by default</td>
                   <td>false</td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>actionCallback</code></th>
+                  <td>Callback function fired when a header is clicked and panel is opened or closed. Passes in array
+                    representing panels</td>
+                  <td>null</td>
                 </tr>
                 </tbody>
               </table>

@@ -121,7 +121,7 @@ class HeaderTpl extends React.Component {
 …
 ```
 
-### ...or as plain HTML
+### ...or pass in plain HTML as children
  
 
 ```javascript
@@ -152,6 +152,27 @@ class HeaderTpl extends React.Component {
 …
 ```
 
+### `actionCallback`
+
+
+```javascript
+…
+  actionCallback(panels) {
+    // fires any time headers are clicked and panels change state
+    // receives array of panels: [{ panel: 3, open: true }, { panel: 6, open: true }]
+    console.log('panels', panels);
+  }
+
+  render() {
+    return (
+      <AccordionWithHeader actionCallback={this.actionCallback.bind(this)}>
+        // ... stuff
+      </AccordionWithHeader>
+    );
+  }
+…
+```
+
 
 ## options / PropTypes
 
@@ -161,6 +182,7 @@ class HeaderTpl extends React.Component {
 | firstOpen | `Boolean` | Determines if the first panel should be expanded by default | `false` |
 | multipleOkay | `Boolean` | True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time. | `false` |
 | className | `String` | Custom classname applied to root item div | `null` |
+| actionCallback | `Function` | Callback function fired when a header is clicked and panel is opened or closed. Passes in array representing panels | `null` |
 
 #### AccordionNode
 | Property | Type | Description | Default |
@@ -190,7 +212,6 @@ class HeaderTpl extends React.Component {
 
 ### Roadmap
 
-- add callbacks to open/close methods
 - add tests
 
 
