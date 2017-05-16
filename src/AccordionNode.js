@@ -48,10 +48,10 @@ export default class AccordionNode extends Component {
 
 	render() {
 
-	  const { className } = this.props;
+	  const { className, style } = this.props;
 
     return (
-			<div className={classNames(className)}>
+			<div className={classNames(className)} style={{...style}}>
 				{this.renderNodeItems()}
 			</div>
 		);

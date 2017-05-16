@@ -207,6 +207,12 @@ class HeaderTpl extends React.Component {
 | template | `Element` | Component to be rendered as a template | `null` |
 | speed | `Number` | Speed in milliseconds to apply to CSS transition of open/close effect | `250` |
 
+## What about styling?
+You can styles to any component with a `style` prop or `className` prop
+
+For example: `<AccordionHeader style={{border: '1px solid'}}>`
+
+Or: `<AccordionHeader className="myCssClass">`
 
 --------------
 

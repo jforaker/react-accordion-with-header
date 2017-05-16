@@ -84,10 +84,11 @@ export default class AccordionWithHeader extends Component {
   }
 
   render() {
+    const { className, style } = this.props;
     return (
       <div
-        className={classNames(this.props.className)}
-        style={this.props.style}>
+        className={classNames(className)}
+        style={{...style}}>
         {this.renderChildren()}
       </div>
     );

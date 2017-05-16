@@ -100,9 +100,9 @@ export default class AccordionPanel extends Component {
 
   render() {
 
-    const { className, isExpanded } = this.props;
+    const { className, isExpanded, style } = this.props;
 
-    const style = {
+    const styles = {
       transition: `all ${this.props.speed || defaultProps.speed}ms ease-in-out`,
       maxHeight: this.props.isExpanded ? this.state.originalHeight : 0,
       opacity: this.props.isExpanded ? 1 : 0
@@ -111,7 +111,7 @@ export default class AccordionPanel extends Component {
     return (
       <div ref="accordionPanel"
            className={classNames(className, {'is-expanded': isExpanded})}
-           style={{...defaultStyle, ...style}}>
+           style={{...defaultStyle, ...styles, ...style}}>
         {this.renderChildren()}
       </div>
     );

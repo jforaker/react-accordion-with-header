@@ -212,7 +212,7 @@ class Demo3 extends React.Component {
           <div className="col-md-12">
             <div className="page-header">
               <h1>Example with default options</h1>
-              <p>(and no custom styles applied)</p>
+              <p>(and no custom styles applied - you can styles to any component with a 'style' prop or 'className' prop)</p>
             </div>
             <DefaultOptions />
           </div>

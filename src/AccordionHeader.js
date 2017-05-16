@@ -35,10 +35,10 @@ export default class AccordionHeader extends Component {
   render() {
 
     const {
-      titleColor, verticalAlignment, horizontalAlignment, className, isExpanded
+      style, titleColor, verticalAlignment, horizontalAlignment, className, isExpanded
     } = this.props;
 
-    let style = {
+    let styles = {
       cursor: 'pointer',
       color: titleColor || 'black',
       display: '-webkit-flex',
@@ -51,7 +51,7 @@ export default class AccordionHeader extends Component {
     return (
       <div className={classNames(className, {'is-expanded': isExpanded})}
            onClick={this.handleHeaderClick}
-           style={{...defaultStyle, ...style}}>
+           style={{...defaultStyle, ...styles, ...style}}>
         {this.renderChildren()}
       </div>
     );
