@@ -85,13 +85,26 @@
         <div id="app3"></div>
       </div>
     </div>
+    <div className="row">
+      <div className="col-md-12">
+        <div className="page-header">
+          <h1>What about styling?</h1>
+          <p>You can styles to any component with a 'style' prop or 'className' prop</p>
+          <p>For example: &lt;AccordionHeader style={{border: '1px solid'}}&gt;</p>
+          <p>Or: &lt;AccordionHeader className="myCssClass"&gt; </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><br/><br/><br/></div>
+    </div>
   </div>
 
   <script>
     if (window.location.href.includes('localhost')){
-      var script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "/bundle.js";
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = '/bundle.js';
       document.body.appendChild(script);
     }
   </script>

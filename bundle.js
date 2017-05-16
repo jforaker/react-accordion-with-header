@@ -573,7 +573,7 @@
 	              _react2.default.createElement(
 	                'p',
 	                null,
-	                '(and no custom styles applied - you can add a border with css)'
+	                '(and no custom styles applied - you can styles to any component with a \'style\' prop or \'className\' prop)'
 	              )
 	            ),
 	            _react2.default.createElement(_Default_Options2.default, null)
@@ -22212,6 +22212,8 @@
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(2);
@@ -22331,11 +22333,15 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _props = this.props,
+	          className = _props.className,
+	          style = _props.style;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        {
-	          className: (0, _classnames2.default)(this.props.className),
-	          style: this.props.style },
+	          className: (0, _classnames2.default)(className),
+	          style: _extends({}, style) },
 	        this.renderChildren()
 	      );
 	    }
@@ -22490,9 +22496,10 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _style;
+	      var _styles;
 	
 	      var _props = this.props,
+	          style = _props.style,
 	          titleColor = _props.titleColor,
 	          verticalAlignment = _props.verticalAlignment,
 	          horizontalAlignment = _props.horizontalAlignment,
@@ -22500,17 +22507,17 @@
 	          isExpanded = _props.isExpanded;
 	
 	
-	      var style = (_style = {
+	      var styles = (_styles = {
 	        cursor: 'pointer',
 	        color: titleColor || 'black',
 	        display: '-webkit-flex'
-	      }, _defineProperty(_style, 'display', 'flex'), _defineProperty(_style, 'flexDirection', 'row'), _defineProperty(_style, 'alignItems', (0, _utils.getVerticalAlignment)(verticalAlignment)), _defineProperty(_style, 'justifyContent', (0, _utils.getHorizontalAlignment)(horizontalAlignment)), _style);
+	      }, _defineProperty(_styles, 'display', 'flex'), _defineProperty(_styles, 'flexDirection', 'row'), _defineProperty(_styles, 'alignItems', (0, _utils.getVerticalAlignment)(verticalAlignment)), _defineProperty(_styles, 'justifyContent', (0, _utils.getHorizontalAlignment)(horizontalAlignment)), _styles);
 	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: (0, _classnames2.default)(className, { 'is-expanded': isExpanded }),
 	          onClick: this.handleHeaderClick,
-	          style: _extends({}, defaultStyle, style) },
+	          style: _extends({}, defaultStyle, styles, style) },
 	        this.renderChildren()
 	      );
 	    }
@@ -22717,10 +22724,11 @@
 	    value: function render() {
 	      var _props = this.props,
 	          className = _props.className,
-	          isExpanded = _props.isExpanded;
+	          isExpanded = _props.isExpanded,
+	          style = _props.style;
 	
 	
-	      var style = {
+	      var styles = {
 	        transition: 'all ' + (this.props.speed || defaultProps.speed) + 'ms ease-in-out',
 	        maxHeight: this.props.isExpanded ? this.state.originalHeight : 0,
 	        opacity: this.props.isExpanded ? 1 : 0
@@ -22730,7 +22738,7 @@
 	        'div',
 	        { ref: 'accordionPanel',
 	          className: (0, _classnames2.default)(className, { 'is-expanded': isExpanded }),
-	          style: _extends({}, defaultStyle, style) },
+	          style: _extends({}, defaultStyle, styles, style) },
 	        this.renderChildren()
 	      );
 	    }
@@ -22842,12 +22850,14 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var className = this.props.className;
+	      var _props2 = this.props,
+	          className = _props2.className,
+	          style = _props2.style;
 	
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: (0, _classnames2.default)(className) },
+	        { className: (0, _classnames2.default)(className), style: _extends({}, style) },
 	        this.renderNodeItems()
 	      );
 	    }
@@ -23060,7 +23070,7 @@
 	              { key: i },
 	              _react2.default.createElement(
 	                _src.AccordionHeader,
-	                { style: { border: '1px solid' } },
+	                null,
 	                _react2.default.createElement(
 	                  'div',
 	                  null,
