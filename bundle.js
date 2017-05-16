@@ -65,11 +65,11 @@
 	
 	var _AccordionWithHeader_Options2 = _interopRequireDefault(_AccordionWithHeader_Options);
 	
-	var _AccordionHeader_Options = __webpack_require__(204);
+	var _AccordionHeader_Options = __webpack_require__(187);
 	
 	var _AccordionHeader_Options2 = _interopRequireDefault(_AccordionHeader_Options);
 	
-	var _Default_Options = __webpack_require__(205);
+	var _Default_Options = __webpack_require__(188);
 	
 	var _Default_Options2 = _interopRequireDefault(_Default_Options);
 	
@@ -22191,7 +22191,7 @@
 	
 	var _AccordionPanel3 = _interopRequireDefault(_AccordionPanel2);
 	
-	var _AccordionNode2 = __webpack_require__(203);
+	var _AccordionNode2 = __webpack_require__(186);
 	
 	var _AccordionNode3 = _interopRequireDefault(_AccordionNode2);
 	
@@ -22581,8 +22581,6 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _templateObject = _taggedTemplateLiteral(['\n      .accordionPanel {\n        overflow: hidden; \n        padding: 0;\n      }\n    '], ['\n      .accordionPanel {\n        overflow: hidden; \n        padding: 0;\n      }\n    ']);
-	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -22595,14 +22593,6 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _csjs = __webpack_require__(186);
-	
-	var _csjs2 = _interopRequireDefault(_csjs);
-	
-	var _insertCss = __webpack_require__(202);
-	
-	var _insertCss2 = _interopRequireDefault(_insertCss);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22611,15 +22601,14 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-	
 	var defaultProps = {
 	  speed: 250
 	};
 	
-	var defaultClass = (0, _csjs2.default)(_templateObject);
-	
-	(0, _insertCss2.default)(_csjs2.default.getCss(defaultClass));
+	var defaultStyle = {
+	  overflow: 'hidden',
+	  padding: 0
+	};
 	
 	var AccordionPanel = function (_Component) {
 	  _inherits(AccordionPanel, _Component);
@@ -22740,8 +22729,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { ref: 'accordionPanel',
-	          className: (0, _classnames2.default)(className, { 'is-expanded': isExpanded }, [defaultClass.accordionPanel].join(' ')),
-	          style: _extends({}, style) },
+	          className: (0, _classnames2.default)(className, { 'is-expanded': isExpanded }),
+	          style: _extends({}, defaultStyle, style) },
 	        this.renderChildren()
 	      );
 	    }
@@ -22765,597 +22754,6 @@
 
 	'use strict';
 	
-	var csjs = __webpack_require__(187);
-	
-	module.exports = csjs();
-	module.exports.csjs = csjs;
-	module.exports.noScope = csjs({ noscope: true });
-	module.exports.getCss = __webpack_require__(200);
-
-
-/***/ },
-/* 187 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = __webpack_require__(188);
-
-
-/***/ },
-/* 188 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var extractExtends = __webpack_require__(189);
-	var composition = __webpack_require__(190);
-	var isComposition = composition.isComposition;
-	var ignoreComposition = composition.ignoreComposition;
-	var buildExports = __webpack_require__(191);
-	var scopify = __webpack_require__(192);
-	var cssKey = __webpack_require__(198);
-	var extractExports = __webpack_require__(199);
-	
-	module.exports = function csjsTemplate(opts) {
-	  opts = (typeof opts === 'undefined') ? {} : opts;
-	  var noscope = (typeof opts.noscope === 'undefined') ? false : opts.noscope;
-	
-	  return function csjsHandler(strings, values) {
-	    // Fast path to prevent arguments deopt
-	    var values = Array(arguments.length - 1);
-	    for (var i = 1; i < arguments.length; i++) {
-	      values[i - 1] = arguments[i];
-	    }
-	    var css = joiner(strings, values.map(selectorize));
-	    var ignores = ignoreComposition(values);
-	
-	    var scope = noscope ? extractExports(css) : scopify(css, ignores);
-	    var extracted = extractExtends(scope.css);
-	    var localClasses = without(scope.classes, ignores);
-	    var localKeyframes = without(scope.keyframes, ignores);
-	    var compositions = extracted.compositions;
-	
-	    var exports = buildExports(localClasses, localKeyframes, compositions);
-	
-	    return Object.defineProperty(exports, cssKey, {
-	      enumerable: false,
-	      configurable: false,
-	      writeable: false,
-	      value: extracted.css
-	    });
-	  }
-	}
-	
-	/**
-	 * Replaces class compositions with comma seperated class selectors
-	 * @param  value - the potential class composition
-	 * @return       - the original value or the selectorized class composition
-	 */
-	function selectorize(value) {
-	  return isComposition(value) ? value.selector : value;
-	}
-	
-	/**
-	 * Joins template string literals and values
-	 * @param  {array} strings - array of strings
-	 * @param  {array} values  - array of values
-	 * @return {string}        - strings and values joined
-	 */
-	function joiner(strings, values) {
-	  return strings.map(function(str, i) {
-	    return (i !== values.length) ? str + values[i] : str;
-	  }).join('');
-	}
-	
-	/**
-	 * Returns first object without keys of second
-	 * @param  {object} obj      - source object
-	 * @param  {object} unwanted - object with unwanted keys
-	 * @return {object}          - first object without unwanted keys
-	 */
-	function without(obj, unwanted) {
-	  return Object.keys(obj).reduce(function(acc, key) {
-	    if (!unwanted[key]) {
-	      acc[key] = obj[key];
-	    }
-	    return acc;
-	  }, {});
-	}
-
-
-/***/ },
-/* 189 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var makeComposition = __webpack_require__(190).makeComposition;
-	
-	var regex = /\.([^\s]+)(\s+)(extends\s+)(\.[^{]+)/g;
-	
-	module.exports = function extractExtends(css) {
-	  var found, matches = [];
-	  while (found = regex.exec(css)) {
-	    matches.unshift(found);
-	  }
-	
-	  function extractCompositions(acc, match) {
-	    var extendee = getClassName(match[1]);
-	    var keyword = match[3];
-	    var extended = match[4];
-	
-	    // remove from output css
-	    var index = match.index + match[1].length + match[2].length;
-	    var len = keyword.length + extended.length;
-	    acc.css = acc.css.slice(0, index) + " " + acc.css.slice(index + len + 1);
-	
-	    var extendedClasses = splitter(extended);
-	
-	    extendedClasses.forEach(function(className) {
-	      if (!acc.compositions[extendee]) {
-	        acc.compositions[extendee] = {};
-	      }
-	      if (!acc.compositions[className]) {
-	        acc.compositions[className] = {};
-	      }
-	      acc.compositions[extendee][className] = acc.compositions[className];
-	    });
-	    return acc;
-	  }
-	
-	  return matches.reduce(extractCompositions, {
-	    css: css,
-	    compositions: {}
-	  });
-	
-	};
-	
-	function splitter(match) {
-	  return match.split(',').map(getClassName);
-	}
-	
-	function getClassName(str) {
-	  var trimmed = str.trim();
-	  return trimmed[0] === '.' ? trimmed.substr(1) : trimmed;
-	}
-
-
-/***/ },
-/* 190 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = {
-	  makeComposition: makeComposition,
-	  isComposition: isComposition,
-	  ignoreComposition: ignoreComposition
-	};
-	
-	/**
-	 * Returns an immutable composition object containing the given class names
-	 * @param  {array} classNames - The input array of class names
-	 * @return {Composition}      - An immutable object that holds multiple
-	 *                              representations of the class composition
-	 */
-	function makeComposition(classNames, unscoped, isAnimation) {
-	  var classString = classNames.join(' ');
-	  return Object.create(Composition.prototype, {
-	    classNames: { // the original array of class names
-	      value: Object.freeze(classNames),
-	      configurable: false,
-	      writable: false,
-	      enumerable: true
-	    },
-	    unscoped: { // the original array of class names
-	      value: Object.freeze(unscoped),
-	      configurable: false,
-	      writable: false,
-	      enumerable: true
-	    },
-	    className: { // space-separated class string for use in HTML
-	      value: classString,
-	      configurable: false,
-	      writable: false,
-	      enumerable: true
-	    },
-	    selector: { // comma-separated, period-prefixed string for use in CSS
-	      value: classNames.map(function(name) {
-	        return isAnimation ? name : '.' + name;
-	      }).join(', '),
-	      configurable: false,
-	      writable: false,
-	      enumerable: true
-	    },
-	    toString: { // toString() method, returns class string for use in HTML
-	      value: function() {
-	        return classString;
-	      },
-	      configurable: false,
-	      writeable: false,
-	      enumerable: false
-	    }
-	  });
-	}
-	
-	/**
-	 * Returns whether the input value is a Composition
-	 * @param value      - value to check
-	 * @return {boolean} - whether value is a Composition or not
-	 */
-	function isComposition(value) {
-	  return value instanceof Composition;
-	}
-	
-	function ignoreComposition(values) {
-	  return values.reduce(function(acc, val) {
-	    if (isComposition(val)) {
-	      val.classNames.forEach(function(name, i) {
-	        acc[name] = val.unscoped[i];
-	      });
-	    }
-	    return acc;
-	  }, {});
-	}
-	
-	/**
-	 * Private constructor for use in `instanceof` checks
-	 */
-	function Composition() {}
-
-
-/***/ },
-/* 191 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var makeComposition = __webpack_require__(190).makeComposition;
-	
-	module.exports = function createExports(classes, keyframes, compositions) {
-	  var keyframesObj = Object.keys(keyframes).reduce(function(acc, key) {
-	    var val = keyframes[key];
-	    acc[val] = makeComposition([key], [val], true);
-	    return acc;
-	  }, {});
-	
-	  var exports = Object.keys(classes).reduce(function(acc, key) {
-	    var val = classes[key];
-	    var composition = compositions[key];
-	    var extended = composition ? getClassChain(composition) : [];
-	    var allClasses = [key].concat(extended);
-	    var unscoped = allClasses.map(function(name) {
-	      return classes[name] ? classes[name] : name;
-	    });
-	    acc[val] = makeComposition(allClasses, unscoped);
-	    return acc;
-	  }, keyframesObj);
-	
-	  return exports;
-	}
-	
-	function getClassChain(obj) {
-	  var visited = {}, acc = [];
-	
-	  function traverse(obj) {
-	    return Object.keys(obj).forEach(function(key) {
-	      if (!visited[key]) {
-	        visited[key] = true;
-	        acc.push(key);
-	        traverse(obj[key]);
-	      }
-	    });
-	  }
-	
-	  traverse(obj);
-	  return acc;
-	}
-
-
-/***/ },
-/* 192 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var fileScoper = __webpack_require__(193);
-	var replaceAnimations = __webpack_require__(196);
-	var regex = __webpack_require__(197);
-	var classRegex = regex.classRegex;
-	var keyframesRegex = regex.keyframesRegex;
-	
-	module.exports = scopify;
-	
-	function scopify(css, ignores) {
-	  var makeScopedName = fileScoper(css);
-	  var replacers = {
-	    classes: classRegex,
-	    keyframes: keyframesRegex
-	  };
-	
-	  function scopeCss(result, key) {
-	    var replacer = replacers[key];
-	    function replaceFn(fullMatch, prefix, name) {
-	      var scopedName = ignores[name] ? name : makeScopedName(name);
-	      result[key][scopedName] = name;
-	      return prefix + scopedName;
-	    }
-	    return {
-	      css: result.css.replace(replacer, replaceFn),
-	      keyframes: result.keyframes,
-	      classes: result.classes
-	    };
-	  }
-	
-	  var result = Object.keys(replacers).reduce(scopeCss, {
-	    css: css,
-	    keyframes: {},
-	    classes: {}
-	  });
-	
-	  return replaceAnimations(result);
-	}
-
-
-/***/ },
-/* 193 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var encode = __webpack_require__(194);
-	var hash = __webpack_require__(195);
-	
-	module.exports = function fileScoper(fileSrc) {
-	  var suffix = encode(hash(fileSrc));
-	
-	  return function scopedName(name) {
-	    return name + '_' + suffix;
-	  }
-	};
-
-
-/***/ },
-/* 194 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	/**
-	 * base62 encode implementation based on base62 module:
-	 * https://github.com/andrew/base62.js
-	 */
-	
-	var CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	
-	module.exports = function encode(integer) {
-	  if (integer === 0) {
-	    return '0';
-	  }
-	  var str = '';
-	  while (integer > 0) {
-	    str = CHARS[integer % 62] + str;
-	    integer = Math.floor(integer / 62);
-	  }
-	  return str;
-	};
-
-
-/***/ },
-/* 195 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	/**
-	 * djb2 string hash implementation based on string-hash module:
-	 * https://github.com/darkskyapp/string-hash
-	 */
-	
-	module.exports = function hashStr(str) {
-	  var hash = 5381;
-	  var i = str.length;
-	
-	  while (i) {
-	    hash = (hash * 33) ^ str.charCodeAt(--i)
-	  }
-	  return hash >>> 0;
-	};
-
-
-/***/ },
-/* 196 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ignoreComments = __webpack_require__(197).ignoreComments;
-	
-	module.exports = replaceAnimations;
-	
-	function replaceAnimations(result) {
-	  var animations = Object.keys(result.keyframes).reduce(function(acc, key) {
-	    acc[result.keyframes[key]] = key;
-	    return acc;
-	  }, {});
-	  var unscoped = Object.keys(animations);
-	
-	  if (unscoped.length) {
-	    var regexStr = '((?:animation|animation-name)\\s*:[^};]*)('
-	      + unscoped.join('|') + ')([;\\s])' + ignoreComments;
-	    var regex = new RegExp(regexStr, 'g');
-	
-	    var replaced = result.css.replace(regex, function(match, preamble, name, ending) {
-	      return preamble + animations[name] + ending;
-	    });
-	
-	    return {
-	      css: replaced,
-	      keyframes: result.keyframes,
-	      classes: result.classes
-	    }
-	  }
-	
-	  return result;
-	}
-
-
-/***/ },
-/* 197 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var findClasses = /(\.)(?!\d)([^\s\.,{\[>+~#:)]*)(?![^{]*})/.source;
-	var findKeyframes = /(@\S*keyframes\s*)([^{\s]*)/.source;
-	var ignoreComments = /(?!(?:[^*/]|\*[^/]|\/[^*])*\*+\/)/.source;
-	
-	var classRegex = new RegExp(findClasses + ignoreComments, 'g');
-	var keyframesRegex = new RegExp(findKeyframes + ignoreComments, 'g');
-	
-	module.exports = {
-	  classRegex: classRegex,
-	  keyframesRegex: keyframesRegex,
-	  ignoreComments: ignoreComments,
-	};
-
-
-/***/ },
-/* 198 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	/**
-	 * CSS identifiers with whitespace are invalid
-	 * Hence this key will not cause a collision
-	 */
-	
-	module.exports = ' css ';
-
-
-/***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var regex = __webpack_require__(197);
-	var classRegex = regex.classRegex;
-	var keyframesRegex = regex.keyframesRegex;
-	
-	module.exports = extractExports;
-	
-	function extractExports(css) {
-	  return {
-	    css: css,
-	    keyframes: getExport(css, keyframesRegex),
-	    classes: getExport(css, classRegex)
-	  };
-	}
-	
-	function getExport(css, regex) {
-	  var prop = {};
-	  var match;
-	  while((match = regex.exec(css)) !== null) {
-	    var name = match[2];
-	    prop[name] = name;
-	  }
-	  return prop;
-	}
-
-
-/***/ },
-/* 200 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = __webpack_require__(201);
-
-
-/***/ },
-/* 201 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var cssKey = __webpack_require__(198);
-	
-	module.exports = function getCss(csjs) {
-	  return csjs[cssKey];
-	};
-
-
-/***/ },
-/* 202 */
-/***/ function(module, exports) {
-
-	var containers = []; // will store container HTMLElement references
-	var styleElements = []; // will store {prepend: HTMLElement, append: HTMLElement}
-	
-	var usage = 'insert-css: You need to provide a CSS string. Usage: insertCss(cssString[, options]).';
-	
-	function insertCss(css, options) {
-	    options = options || {};
-	
-	    if (css === undefined) {
-	        throw new Error(usage);
-	    }
-	
-	    var position = options.prepend === true ? 'prepend' : 'append';
-	    var container = options.container !== undefined ? options.container : document.querySelector('head');
-	    var containerId = containers.indexOf(container);
-	
-	    // first time we see this container, create the necessary entries
-	    if (containerId === -1) {
-	        containerId = containers.push(container) - 1;
-	        styleElements[containerId] = {};
-	    }
-	
-	    // try to get the correponding container + position styleElement, create it otherwise
-	    var styleElement;
-	
-	    if (styleElements[containerId] !== undefined && styleElements[containerId][position] !== undefined) {
-	        styleElement = styleElements[containerId][position];
-	    } else {
-	        styleElement = styleElements[containerId][position] = createStyleElement();
-	
-	        if (position === 'prepend') {
-	            container.insertBefore(styleElement, container.childNodes[0]);
-	        } else {
-	            container.appendChild(styleElement);
-	        }
-	    }
-	
-	    // strip potential UTF-8 BOM if css was read from a file
-	    if (css.charCodeAt(0) === 0xFEFF) { css = css.substr(1, css.length); }
-	
-	    // actually add the stylesheet
-	    if (styleElement.styleSheet) {
-	        styleElement.styleSheet.cssText += css
-	    } else {
-	        styleElement.textContent += css;
-	    }
-	
-	    return styleElement;
-	};
-	
-	function createStyleElement() {
-	    var styleElement = document.createElement('style');
-	    styleElement.setAttribute('type', 'text/css');
-	    return styleElement;
-	}
-	
-	module.exports = insertCss;
-	module.exports.insertCss = insertCss;
-
-
-/***/ },
-/* 203 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -23363,8 +22761,6 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _templateObject = _taggedTemplateLiteral(['\n  .accordionNode {\n    border: 1px solid #607D8B;\n  }\n'], ['\n  .accordionNode {\n    border: 1px solid #607D8B;\n  }\n']);
 	
 	var _react = __webpack_require__(2);
 	
@@ -23374,28 +22770,14 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _csjs = __webpack_require__(186);
-	
-	var _csjs2 = _interopRequireDefault(_csjs);
-	
-	var _insertCss = __webpack_require__(202);
-	
-	var _insertCss2 = _interopRequireDefault(_insertCss);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable quotes */
 	
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* eslint-disable quotes */
-	
-	
-	var defaultClass = (0, _csjs2.default)(_templateObject);
-	
-	(0, _insertCss2.default)(_csjs2.default.getCss(defaultClass));
 	
 	var AccordionNode = function (_Component) {
 	  _inherits(AccordionNode, _Component);
@@ -23465,7 +22847,7 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: (0, _classnames2.default)(className, [defaultClass.accordionNode].join(' ')) },
+	        { className: (0, _classnames2.default)(className) },
 	        this.renderNodeItems()
 	      );
 	    }
@@ -23482,7 +22864,7 @@
 	};
 
 /***/ },
-/* 204 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23622,7 +23004,7 @@
 	exports.default = AccordionHeaderOptions;
 
 /***/ },
-/* 205 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
