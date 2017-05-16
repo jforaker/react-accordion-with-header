@@ -573,7 +573,7 @@
 	              _react2.default.createElement(
 	                'p',
 	                null,
-	                '(and no custom styles applied)'
+	                '(and no custom styles applied - you can add a border with css)'
 	              )
 	            ),
 	            _react2.default.createElement(_Default_Options2.default, null)
@@ -23019,8 +23019,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(33);
-	
 	var _src = __webpack_require__(180);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -23062,7 +23060,7 @@
 	              { key: i },
 	              _react2.default.createElement(
 	                _src.AccordionHeader,
-	                null,
+	                { style: { border: '1px solid' } },
 	                _react2.default.createElement(
 	                  'div',
 	                  null,

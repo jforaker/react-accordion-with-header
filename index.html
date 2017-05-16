@@ -87,7 +87,14 @@
     </div>
   </div>
 
-  <script src="/bundle.js"></script>
+  <script>
+    if (window.location.href.includes('localhost')){
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "/bundle.js";
+      document.body.appendChild(script);
+    }
+  </script>
 <script type="text/javascript" src="bundle.js"></script></body>
 
 </html>
