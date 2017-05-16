@@ -1,21 +1,15 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import csjs from 'csjs';
-import insertCss from 'insert-css';
 
 const defaultProps = {
   speed: 250
 };
 
-const defaultClass = csjs`
-      .accordionPanel {
-        overflow: hidden; 
-        padding: 0;
-      }
-    `;
-
-insertCss(csjs.getCss(defaultClass));
+const defaultStyle = {
+  overflow: 'hidden',
+  padding: 0
+};
 
 export default class AccordionPanel extends Component {
 
@@ -116,8 +110,8 @@ export default class AccordionPanel extends Component {
 
     return (
       <div ref="accordionPanel"
-           className={classNames(className, {'is-expanded': isExpanded}, [defaultClass.accordionPanel].join(' '))}
-           style={{...style}}>
+           className={classNames(className, {'is-expanded': isExpanded})}
+           style={{...defaultStyle, ...style}}>
         {this.renderChildren()}
       </div>
     );

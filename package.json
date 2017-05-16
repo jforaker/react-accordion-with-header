@@ -1,7 +1,7 @@
 {
   "name": "react-accordion-with-header",
   "author": "Jake Foraker <jakeforaker83@gmail.com> (https://github.com/jforaker)",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jforaker/react-accordion-with-header.git"
@@ -31,9 +31,7 @@
     "deploy": "git subtree push --prefix demo origin gh-pages"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
-    "csjs": "^1.1.0",
-    "insert-css": "^2.0.0"
+    "classnames": "^2.2.5"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",

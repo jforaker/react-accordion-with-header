@@ -1,16 +1,6 @@
 /* eslint-disable quotes */
 import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import classNames from 'classnames';
-import csjs from 'csjs';
-import insertCss from 'insert-css';
-
-const defaultClass = csjs`
-  .accordionNode {
-    border: 1px solid #607D8B;
-  }
-`;
-
-insertCss(csjs.getCss(defaultClass));
 
 export default class AccordionNode extends Component {
 
@@ -61,7 +51,7 @@ export default class AccordionNode extends Component {
 	  const { className } = this.props;
 
     return (
-			<div className={classNames(className, [defaultClass.accordionNode].join(' '))}>
+			<div className={classNames(className)}>
 				{this.renderNodeItems()}
 			</div>
 		);

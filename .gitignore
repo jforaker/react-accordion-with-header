@@ -2,6 +2,7 @@
 logs
 *.log
 npm-debug.log*
+.DS_Store
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
