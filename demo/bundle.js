@@ -218,7 +218,7 @@
 	                    _react2.default.createElement(
 	                      'td',
 	                      null,
-	                      'Callback function fired when a header is clicked and panel is opened or closed. Passes in array representing panels'
+	                      'Callback function fired when a header is clicked and panel is opened or closed. Returns an array representing panels. (check the console output in your browser)'
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
@@ -573,7 +573,7 @@
 	              _react2.default.createElement(
 	                'p',
 	                null,
-	                '(and no custom styles applied - you can styles to any component with a \'style\' prop or \'className\' prop)'
+	                '(and no custom styles applied)'
 	              )
 	            ),
 	            _react2.default.createElement(_Default_Options2.default, null)
@@ -22094,6 +22094,11 @@
 	      this.setState({ images: images });
 	    }
 	  }, {
+	    key: 'actionCallback',
+	    value: function actionCallback(panels) {
+	      console.log('panels', panels);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -22108,7 +22113,12 @@
 	        ),
 	        _react2.default.createElement(
 	          _src.AccordionWithHeader,
-	          { multipleOkay: this.props.multipleOkay, firstOpen: this.props.firstOpen, className: 'my-accordion' },
+	          {
+	            multipleOkay: this.props.multipleOkay,
+	            firstOpen: this.props.firstOpen,
+	            actionCallback: this.actionCallback.bind(this),
+	            className: 'my-accordion'
+	          },
 	          quotes.map(function (quote, i) {
 	            return _react2.default.createElement(
 	              _src.AccordionNode,
