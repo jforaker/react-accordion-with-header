@@ -55,11 +55,8 @@ The elements passed in to `<AccordionHeader />` can be **horizontally justified 
       <AccordionWithHeader>
         {[1, 2, 3, 4].map((item, i) => {
           return (
-            <AccordionNode key={i} className="foobar-node">
-              <AccordionHeader className="foobar-header"
-                               titleColor="#607D8B"
-                               horizontalAlignment="centerSpaceAround"
-                               verticalAlignment="center">
+            <AccordionNode key={i}>
+              <AccordionHeader horizontalAlignment="centerSpaceAround" verticalAlignment="center">
                 <HeaderTpl />
               </AccordionHeader>
               <AccordionPanel>
