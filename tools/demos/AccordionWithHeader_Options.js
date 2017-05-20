@@ -36,6 +36,9 @@ export default class AccordionWithHeaderOptions extends React.Component {
     this.setState({images: images})
   }
 
+  actionCallback(panels) {
+    console.log('panels', panels);
+  }
 
   render() {
 
@@ -44,11 +47,15 @@ export default class AccordionWithHeaderOptions extends React.Component {
         <div>
           <div dangerouslySetInnerHTML={createMarkup(this.props)}/>
         </div>
-        <AccordionWithHeader multipleOkay={this.props.multipleOkay} firstOpen={this.props.firstOpen} className="my-accordion">
+        <AccordionWithHeader
+          multipleOkay={this.props.multipleOkay}
+          firstOpen={this.props.firstOpen}
+          actionCallback={this.actionCallback.bind(this)}
+          className="my-accordion"
+        >
           {quotes.map((quote, i) => {
             return (
               <AccordionNode key={i} className="accordion-node">
-
                 <AccordionHeader className="accordion-header"
                                  title={null}
                                  titleColor="#607D8B"
@@ -61,16 +68,13 @@ export default class AccordionWithHeaderOptions extends React.Component {
                   <div>
                     <img src={this.state.images[i]}/>
                   </div>
-
                 </AccordionHeader>
-
                 <AccordionPanel className="my-panel" speed={350}>
                   <div style={{textAlign: 'center',padding:20}}>
                     <h2>{quote}</h2>
                     <img width={200} src={`http://www.stevensegallery.com/200/20${rando()}`}/>
                   </div>
                 </AccordionPanel>
-
               </AccordionNode>
             );
           })}

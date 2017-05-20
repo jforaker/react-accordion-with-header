@@ -50,8 +50,8 @@ class Demo extends React.Component {
                 </tr>
                 <tr>
                   <th scope="row"><code>actionCallback</code></th>
-                  <td>Callback function fired when a header is clicked and panel is opened or closed. Passes in array
-                    representing panels</td>
+                  <td>Callback function fired when a header is clicked and panel is opened or closed. Returns an array
+                    representing panels. (check the console output in your browser)</td>
                   <td>null</td>
                 </tr>
                 </tbody>
@@ -212,7 +212,7 @@ class Demo3 extends React.Component {
           <div className="col-md-12">
             <div className="page-header">
               <h1>Example with default options</h1>
-              <p>(and no custom styles applied - you can styles to any component with a 'style' prop or 'className' prop)</p>
+              <p>(and no custom styles applied)</p>
             </div>
             <DefaultOptions />
           </div>
