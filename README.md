@@ -30,11 +30,10 @@ import {
 
 ```
 
-Items can be passed in to `<AccordionHeader />` and `<AccordionPanel />` one of three ways:
+Items can be passed in to `<AccordionHeader />` and `<AccordionPanel />`:
 
-- a component passed into the `template` prop
-- a component passed into the body (in between opening and closing tags of parent components)
-- as plain html 
+- as a component passed into the `template` prop
+- as children  
 
 *NOTE: We cannot pass in a stateless component as a template at this time because of the way we use refs to calculate height... and according to react: "`Stateless function components cannot be given refs`"* 
 
@@ -44,52 +43,6 @@ The elements passed in to `<AccordionHeader />` can be **horizontally justified 
  
 - `horizontalAlignment`
 - `verticalAlignment`
-
-
-### Pass in a component as a template via `template` prop:
-
-```javascript
-
-class HeaderTpl extends React.Component {
-   render() {
-     return (
-       <header>
-         <img src={`http://www.stevensegallery.com/100/10${(Math.floor(Math.random() * 5) + 1)}`}/>
-         <img src={`http://www.stevensegallery.com/100/10${(Math.floor(Math.random() * 5) + 1)}`}/>
-       </header>
-     );
-   }
- }
- 
- class BodyTpl extends React.Component {
-   render() {
-     return (
-       <article>
-         <figcaption>...the blood bank</figcaption>
-         <img src={`http://www.stevensegallery.com/200/20${(Math.floor(Math.random() * 5) + 1)}`}/>
-       </article>
-     );
-   }
- }
- 
-...
-
-  render() {
-    return (
-      <AccordionWithHeader>
-        {[1, 2, 3, 4].map((item, i) => {
-          return (
-            <AccordionNode key={i}>
-              <AccordionHeader template={<HeaderTpl />} horizontalAlignment="centerSpaceBetween" />
-              <AccordionPanel template={<BodyTpl />} />
-            </AccordionNode>
-          );
-        })}
-      </AccordionWithHeader>
-    );
-  }
-
-```
 
 
 ### Pass in a component as children:
@@ -120,6 +73,29 @@ class HeaderTpl extends React.Component {
   }
 …
 ```
+
+
+### Pass in a component as a template via `template` prop:
+
+```javascript
+ 
+  render() {
+    return (
+      <AccordionWithHeader>
+        {[1, 2, 3, 4].map((item, i) => {
+          return (
+            <AccordionNode key={i}>
+              <AccordionHeader template={<HeaderTpl />} horizontalAlignment="centerSpaceBetween" />
+              <AccordionPanel template={<BodyTpl />} />
+            </AccordionNode>
+          );
+        })}
+      </AccordionWithHeader>
+    );
+  }
+
+```
+
 
 ### ...or pass in plain HTML as children
  
@@ -176,13 +152,14 @@ class HeaderTpl extends React.Component {
 
 ## options / PropTypes
 
+(all components accept a `className` and `style` prop)
+
 #### AccordionWithHeader
 | Property | Type | Description | Default |
 |:---|:---|:---|:---|
 | firstOpen | `Boolean` | Determines if the first panel should be expanded by default | `false` |
 | multipleOkay | `Boolean` | True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time. | `false` |
-| className | `String` | Custom classname applied to root item div | `null` |
-| actionCallback | `Function` | Callback function fired when a header is clicked and panel is opened or closed. Passes in array representing panels | `null` |
+| actionCallback | `Function` | Callback function fired when a header is clicked and panel is opened or closed. Returns an array representing panels | `null` |
 
 #### AccordionNode
 | Property | Type | Description | Default |
@@ -197,8 +174,6 @@ class HeaderTpl extends React.Component {
 | titleColor | `String` | some valid CSS color or rgb or hex | `black` |
 | horizontalAlignment | `String` | One of: 'centerSpaceBetween', 'centerSpaceAround', 'center', 'left', 'right'. Maps to corresponding flex-box CSS property | `centerSpaceAround` |
 | verticalAlignment | `String` | One of: 'top', 'center', 'bottom' | `center` |
-| className | `String` | Custom classname applied to root div | `accordion-header` |
-| style | `Object` | Inline styles applied to root div | `null` |
 | template | `Element` | Component to be rendered as a template | `null` |
 
 #### AccordionPanel
