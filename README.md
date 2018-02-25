@@ -7,7 +7,7 @@
 > "You've got 5 seconds... and 3 are up." - *Steven Seagal*
 
 
-<img src="https://d17oy1vhnax1f7.cloudfront.net/items/451P2l3x1O070C1X3J39/Screen%20Recording%202016-09-23%20at%2011.35%20PM.gif" width="600" />
+<img src="https://media.giphy.com/media/BakXonJxQzoIM/giphy.gif" width="300" />
 
 ### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header)
 
