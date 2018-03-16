@@ -1,7 +1,8 @@
 {
   "name": "react-accordion-with-header",
-  "author": "Jake Foraker <jakeforaker83@gmail.com> (https://github.com/jforaker)",
-  "version": "0.0.8",
+  "author":
+    "Jake Foraker <jakeforaker83@gmail.com> (https://github.com/jforaker)",
+  "version": "0.0.9",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jforaker/react-accordion-with-header.git"
