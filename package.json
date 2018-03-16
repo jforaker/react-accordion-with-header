@@ -31,7 +31,8 @@
     "deploy": "git subtree push --prefix demo origin gh-pages"
   },
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",

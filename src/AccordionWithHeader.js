@@ -1,5 +1,6 @@
 /* eslint-disable no-lonely-if, no-nested-ternary */
-import React, { Component, PropTypes, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const defaultProps = {
@@ -8,7 +9,6 @@ const defaultProps = {
 };
 
 export default class AccordionWithHeader extends Component {
-
   constructor(props) {
     super(props);
     this.renderChildren = this.renderChildren.bind(this);
@@ -18,31 +18,30 @@ export default class AccordionWithHeader extends Component {
     this.state = {
       panels: [],
       active: []
-    }
+    };
   }
 
   componentWillMount() {
     let panels = [];
     Children.forEach(this.props.children, child => {
-      panels.push(+child.key)
+      panels.push(+child.key);
     });
     this.setState({ panels: panels });
-    this.mountingProps(this.props)
+    this.mountingProps(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
     //this is only for the demo. TODO - think of a better way
-    this.mountingProps(nextProps)
+    this.mountingProps(nextProps);
   }
 
   mountingProps(props) {
     let active = [];
     if (props.firstOpen) active.push(0);
-    this.setState({ active: active })
+    this.setState({ active: active });
   }
 
   panelControl(panelIndex) {
-
     let activePanelArray;
     let panelData;
 
@@ -57,7 +56,7 @@ export default class AccordionWithHeader extends Component {
 
     if (this.props.actionCallback) {
       // pass array of panels back to actionCallback props function
-      panelData = this.state.panels.map((panel) => ({
+      panelData = this.state.panels.map(panel => ({
         panel,
         open: activePanelArray.includes(panel)
       }));
@@ -86,9 +85,7 @@ export default class AccordionWithHeader extends Component {
   render() {
     const { className, style } = this.props;
     return (
-      <div
-        className={classNames(className)}
-        style={{...style}}>
+      <div className={classNames(className)} style={{ ...style }}>
         {this.renderChildren()}
       </div>
     );

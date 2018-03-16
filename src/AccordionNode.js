@@ -1,9 +1,9 @@
 /* eslint-disable quotes */
-import React, { Component, PropTypes, cloneElement, Children } from 'react';
+import React, { Component, cloneElement, Children } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export default class AccordionNode extends Component {
-
   constructor(props) {
     super(props);
     this.handleSelect = this.handleSelect.bind(this);
@@ -19,22 +19,21 @@ export default class AccordionNode extends Component {
   checkExpanded(indexKey, activePanelOrPanels) {
     if (Array.isArray(activePanelOrPanels)) {
       //multipleOkay is true
-      return activePanelOrPanels.some(panel => panel === indexKey)
+      return activePanelOrPanels.some(panel => panel === indexKey);
     } else {
-      return indexKey === activePanelOrPanels
+      return indexKey === activePanelOrPanels;
     }
   }
 
-	renderNodeItems () {
-
+  renderNodeItems() {
     const { indexKey, active, children } = this.props;
 
     if (!children) {
       console.warn('AccordionNode component has no inner items!');
       return null;
-		}
+    }
 
-    return Children.map(children, (item) => {
+    return Children.map(children, item => {
       /***************************************************************
        lets render the <AccordionHeader /> and <AccordionPanel />
        ***************************************************************/
@@ -42,20 +41,19 @@ export default class AccordionNode extends Component {
         ...item.props,
         onClickHeader: () => this.handleSelect(indexKey),
         isExpanded: this.checkExpanded(indexKey, active)
-			});
-		});
-	}
+      });
+    });
+  }
 
-	render() {
-
-	  const { className, style } = this.props;
+  render() {
+    const { className, style } = this.props;
 
     return (
-			<div className={classNames(className)} style={{...style}}>
-				{this.renderNodeItems()}
-			</div>
-		);
-	}
+      <div className={classNames(className)} style={{ ...style }}>
+        {this.renderNodeItems()}
+      </div>
+    );
+  }
 }
 
 AccordionNode.propTypes = {
