@@ -5,7 +5,8 @@ import classNames from 'classnames';
 
 const defaultProps = {
   multipleOkay: false,
-  firstOpen: false
+  firstOpen: false,
+  isOpen: undefined
 };
 
 export default class AccordionWithHeader extends Component {
@@ -38,6 +39,7 @@ export default class AccordionWithHeader extends Component {
   mountingProps(props) {
     let active = [];
     if (props.firstOpen) active.push(0);
+    if (props.isOpen !== undefined) active.push(props.isOpen);
     this.setState({ active: active });
   }
 
@@ -94,6 +96,7 @@ export default class AccordionWithHeader extends Component {
 
 AccordionWithHeader.propTypes = {
   firstOpen: PropTypes.bool,
+  istOpen: PropTypes.number,
   multipleOkay: PropTypes.bool,
   actionCallback: PropTypes.func
 };

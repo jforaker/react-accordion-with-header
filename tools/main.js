@@ -12,7 +12,7 @@ class Demo extends React.Component {
 
     this.state = {
       multipleOkay: false,
-      firstOpen: true
+      firstOpen: true, isOpen: undefined
     }
   }
 
