@@ -138,7 +138,7 @@ The elements passed in to `<AccordionHeader />` can be **horizontally justified 
 
   render() {
     return (
-      <AccordionWithHeader actionCallback={this.actionCallback.bind(this)}>
+      <AccordionWithHeader actionCallback={this.actionCallback.bind(this)} isOpen={2}>
         // ... stuff
       </AccordionWithHeader>
     );
@@ -155,6 +155,7 @@ The elements passed in to `<AccordionHeader />` can be **horizontally justified 
 | Property | Type | Description | Default |
 |:---|:---|:---|:---|
 | firstOpen | `Boolean` | Determines if the first panel should be expanded by default | `false` |
+| isOpen | `Number` | Determines which panel is open on init | `undefined` |
 | multipleOkay | `Boolean` | True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time. | `false` |
 | actionCallback | `Function` | Callback function fired when a header is clicked and panel is opened or closed. Returns an array representing panels | `null` |
 
