@@ -29,7 +29,7 @@
     "bundle-demo": "webpack --config ./tools/webpack.config.demo.js",
     "bundle-lib": "webpack --config ./tools/webpack.config.dist.js",
     "deploy": "git subtree push --prefix demo origin gh-pages",
-    "postinstall": "npm run bundle-lib && mv dist/* ."
+    "postinstall": "npm run bundle-lib"
   },
   "dependencies": {
     "classnames": "^2.2.5",
