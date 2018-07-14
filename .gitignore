@@ -20,5 +20,7 @@ package
 bin
 .idea/
 
-lib
-dist
+/demo/dist
+/es
+/lib
+/umd

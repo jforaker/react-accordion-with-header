@@ -120,10 +120,11 @@ The elements passed in to `<AccordionHeader />` can be **horizontally justified 
 
 ```javascript
 …
-  actionCallback = (panels) => {
+  actionCallback = (panels, state) => {
     // fires any time headers are clicked and panels change state
     // receives array of panels: [{ panel: 3, open: true }, { panel: 6, open: true }]
-    console.log('panels', panels);
+    // and the AccordionWithHeader state
+    console.log('panels, state', panels, state);
   }
 
   render() {
@@ -142,14 +143,14 @@ The elements passed in to `<AccordionHeader />` can be **horizontally justified 
 
 #### AccordionWithHeader
 
-| Property       | Type       | Description                                                                                                          | Default     |
-| :------------- | :--------- | :------------------------------------------------------------------------------------------------------------------- | :---------- |
-| firstOpen      | `Boolean`  | Determines if the first panel should be expanded by default                                                          | `false`     |
-| isOpen         | `Number`   | Determines which panel is open on init                                                                               | `undefined` |
-| multipleOkay   | `Boolean`  | True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time. | `false`     |
-| actionCallback | `Function` | Callback function fired when a header is clicked and panel is opened or closed. Returns an array representing panels | `null`      |
-| style          | `Object`   | style object                                                                                                         | `null`      |
-| className      | `String`   | CSS classname                                                                                                        | `null`      |
+| Property               | Type       | Description                                                                                                                                            | Default |
+| :--------------------- | :--------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :------ |
+| firstOpen (deprecated) | `Boolean`  | Determines if the first panel should be expanded by default                                                                                            | `false` |
+| active                 | `Array`    | Determines which panels are open (on componentDidMount or to control externally)                                                                       | `[]`    |
+| multipleOkay           | `Boolean`  | True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time.                                   | `false` |
+| actionCallback         | `Function` | Callback function fired when a header is clicked and panel is opened or closed. Returns an array representing panels and the AccordionWithHeader state | `null`  |
+| style                  | `Object`   | style object                                                                                                                                           | `null`  |
+| className              | `String`   | CSS classname                                                                                                                                          | `null`  |
 
 #### AccordionNode
 
@@ -188,7 +189,3 @@ For example: `<AccordionHeader style={{border: '1px solid'}}>`
 Or: `<AccordionHeader className="myCssClass">`
 
 ---
-
-### Roadmap
-
-- add tests

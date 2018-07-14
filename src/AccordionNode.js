@@ -32,9 +32,7 @@ export default class AccordionNode extends PureComponent {
           // lets render the <AccordionHeader /> and <AccordionPanel />
           cloneElement(item, {
             ...item.props,
-            onClickHeader: () => {
-              onClickHeader(indexKey);
-            },
+            onClickHeader: () => onClickHeader(indexKey),
             isExpanded: this.checkExpanded(indexKey, active)
           })
         )}

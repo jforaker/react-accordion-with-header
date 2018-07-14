@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import GitHubButton from 'github-buttons/dist/react/GitHubButton';
 
 import MyAccordion from './MyAccordion';
 
 class Demo extends Component {
   state = {
     multipleOkay: false,
-    firstOpen: true,
     active: [0, 2]
   };
 
@@ -23,24 +21,60 @@ class Demo extends Component {
           <div>
             <iframe
               src="https://ghbtns.com/github-btn.html?user=jforaker&repo=react-accordion-with-header&type=star&count=true"
-              frameborder="0"
+              frameBorder="0"
               scrolling="0"
               width="170px"
               height="20px"
             />
             <iframe
               src="https://ghbtns.com/github-btn.html?user=jforaker&repo=react-accordion-with-header&type=fork&count=true"
-              frameborder="0"
+              frameBorder="0"
               scrolling="0"
               width="170px"
               height="20px"
             />
           </div>
-
           <img src="http://www.stevensegallery.com/100/100" />
           <blockquote>
             "I'm gunna to take you to the bank senator Trent, the blood bank."
           </blockquote>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <pre>
+              <code>npm install react-accordion-with-header</code>
+            </pre>
+            <pre>
+              <code>
+                import {'{'}
+                AccordionWithHeader, AccordionNode, AccordionHeader,
+                AccordionPanel
+                {'}'} from 'react-accordion-with-header';
+              </code>
+            </pre>
+            <pre>
+              <code>
+                {`render() {
+  return (
+    <AccordionWithHeader>
+      {[1, 2, 3, 4].map((item, i) => {
+        return (
+          <AccordionNode key={i}>
+            <AccordionHeader>
+              <h2>Some title!</h2>
+            </AccordionHeader>
+            <AccordionPanel>
+              <div>Interesting things</div>
+            </AccordionPanel>
+          </AccordionNode>
+        );
+      })}
+    </AccordionWithHeader>
+  );
+                  `}
+              </code>
+            </pre>
+          </div>
         </div>
         <div className="row">
           <div className="col-md-12">

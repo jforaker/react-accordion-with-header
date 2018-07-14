@@ -19,20 +19,41 @@ export default class AccordionWithHeader extends Component {
   };
 
   componentWillMount() {
-    const panels = Children.map(this.props.children, child => +child.key);
+    const { children, active, firstOpen } = this.props;
+    const panels = Children.map(children, child => +child.key);
+
+    // define the number of AccordionNode "panels" to control
     this.setState({ panels });
-    if (this.props.firstOpen) {
+
+    // allow deprecated firstOpen prop, but prefer an "active" array
+    if (firstOpen) {
       console.warn(
         `firstOpen prop will be deprecated in the future. 
             Prefer using the "active" prop like active={[0]}`
       );
-      this.setState({
-        active: [0]
-      });
+      this.setState({ active: [0] });
     }
-    if (this.props.active) {
+
+    // if this.props.active is defined, validate it is an array
+    // and that it is a valid instance of the panels array
+    if (active) {
+      const validateActive = () => {
+        if (!Array.isArray(active) || active === 0) {
+          // todo: react doesn't pass it through if this.props.active === 0
+          throw new Error('this.props.active must be an array');
+        }
+        active.forEach(active => {
+          if (!panels.includes(active)) {
+            throw new Error(
+              `Items in this.props.active array are not included in panel array!
+                Check that one or more array indexes are properly passed in.`
+            );
+          }
+        });
+      };
+      validateActive();
       this.setState(prevState => ({
-        active: Array.from(new Set([...prevState.active, ...this.props.active]))
+        active: Array.from(new Set([...prevState.active, ...active]))
       }));
     }
   }
@@ -44,6 +65,7 @@ export default class AccordionWithHeader extends Component {
     } else {
       active = !this.props.multipleOkay ? [] : this.state.active;
       active.push(this.state.panels[panelIndex]);
+      active.sort();
     }
 
     this.setState(
@@ -80,7 +102,7 @@ export default class AccordionWithHeader extends Component {
             active: this.state.active,
             indexKey: index,
             key: index,
-            onClickHeader: this.onClickHeader.bind(this, index)
+            onClickHeader: () => this.onClickHeader(index)
           })
         )}
       </div>

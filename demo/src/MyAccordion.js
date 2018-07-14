@@ -50,13 +50,11 @@ export default class MyAccordion extends React.Component {
   }
 
   actionCallback = (panels, state) => {
-    console.log('================>>>  actionCallback props, state: ', state);
+    console.log('actionCallback: panels, state: ', panels, state);
     this.props.setActionCallback(state);
   };
 
   render() {
-    console.log('this.props: DEMO', this.props);
-
     return (
       <div>
         <MarkUp {...this.props} />
