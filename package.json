@@ -8,10 +8,6 @@
   },
   "description": "React accordion component with flexbox header",
   "homepage": "https://react-accordion-with-header.now.sh/",
-  "now": {
-    "name": "react-accordion-with-header",
-    "alias": "react-accordion-with-header.now.sh"
-  },
   "license": "MIT",
   "keywords": [
     "react",
@@ -25,7 +21,6 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
-    "css",
     "es",
     "lib",
     "umd"
