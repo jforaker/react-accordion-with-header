@@ -1,19 +1,8 @@
-/* eslint-disable quotes */
 import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export default class AccordionNode extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  handleSelect = key => {
-    if (this.props.onSelect) {
-      this.props.onSelect(key);
-    }
-  };
-
   checkExpanded = (indexKey, activePanelOrPanels) => {
     if (Array.isArray(activePanelOrPanels)) {
       //multipleOkay is true
@@ -23,32 +12,32 @@ export default class AccordionNode extends PureComponent {
     }
   };
 
-  renderNodeItems() {
-    const { indexKey, active, children } = this.props;
+  render() {
+    const {
+      className,
+      style,
+      children,
+      indexKey,
+      active,
+      onClickHeader
+    } = this.props;
 
     if (!children) {
       console.warn('AccordionNode component has no inner items!');
       return null;
     }
-
-    return Children.map(children, item => {
-      /***************************************************************
-       lets render the <AccordionHeader /> and <AccordionPanel />
-       ***************************************************************/
-      return cloneElement(item, {
-        ...item.props,
-        onClickHeader: () => this.handleSelect(indexKey),
-        isExpanded: this.checkExpanded(indexKey, active)
-      });
-    });
-  }
-
-  render() {
-    const { className, style } = this.props;
-
     return (
       <div className={classNames(className)} style={{ ...style }}>
-        {this.renderNodeItems()}
+        {Children.map(children, item =>
+          // lets render the <AccordionHeader /> and <AccordionPanel />
+          cloneElement(item, {
+            ...item.props,
+            onClickHeader: () => {
+              onClickHeader(indexKey);
+            },
+            isExpanded: this.checkExpanded(indexKey, active)
+          })
+        )}
       </div>
     );
   }

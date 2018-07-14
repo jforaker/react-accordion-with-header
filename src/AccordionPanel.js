@@ -1,6 +1,5 @@
 import React, { PureComponent, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 const defaultProps = {
@@ -13,30 +12,23 @@ const defaultStyle = {
 };
 
 export default class AccordionPanel extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.renderChildren = this.renderChildren.bind(this);
-    this.preloadImages = this.preloadImages.bind(this);
-    this.calcHeight = this.calcHeight.bind(this);
-
-    this.state = {
-      originalHeight: 0
-    };
-  }
+  state = {
+    originalHeight: 0
+  };
 
   componentDidMount() {
     const bodyNode = this.accordionPanelRef;
     const images = bodyNode.querySelectorAll('img');
 
     if (images.length > 0) {
-      this.preloadImages(bodyNode, images);
+      this.preloadImages(images);
     } else {
       this.calcHeight();
     }
   }
 
   // Wait for images to load before calculating height of element
-  preloadImages(node, images = []) {
+  preloadImages = (images = []) => {
     var imagesLoaded = 0;
     var imgLoaded = () => {
       imagesLoaded++;
@@ -49,9 +41,9 @@ export default class AccordionPanel extends PureComponent {
       img.src = images[i].src;
       img.onload = img.onerror = imgLoaded;
     }
-  }
+  };
 
-  calcHeight() {
+  calcHeight = () => {
     if (this.props.template) {
       const { clientHeight } = this.refs[`item-${this.props.indexKey}`];
       this.setState({
@@ -70,9 +62,9 @@ export default class AccordionPanel extends PureComponent {
     this.setState({
       originalHeight: totalHeight
     });
-  }
+  };
 
-  renderChildren() {
+  renderChildren = () => {
     if (!this.props.template && !this.props.children) {
       throw new Error('AccordionPanel must have at least one child!');
     }
@@ -94,7 +86,7 @@ export default class AccordionPanel extends PureComponent {
         ref: `item-${child.props.key}`
       });
     });
-  }
+  };
 
   render() {
     const { className, isExpanded, style } = this.props;
