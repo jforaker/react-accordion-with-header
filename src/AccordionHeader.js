@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { getHorizontalAlignment, getVerticalAlignment } from './utils';
 
-const defaultStyle = {
-  padding: 10
-};
-
-export default class AccordionHeader extends Component {
+export default class AccordionHeader extends PureComponent {
   constructor(props) {
     super(props);
     this.renderChildren = this.renderChildren.bind(this);
@@ -60,9 +56,9 @@ export default class AccordionHeader extends Component {
 
     return (
       <div
-        className={classNames(className, { 'is-expanded': isExpanded })}
+        className={classNames(className, { 'header-is-expanded': isExpanded })}
         onClick={this.handleHeaderClick}
-        style={{ ...defaultStyle, ...styles, ...style }}
+        style={{ ...styles, ...style }}
       >
         {this.renderChildren()}
       </div>
@@ -72,6 +68,7 @@ export default class AccordionHeader extends Component {
 
 AccordionHeader.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   verticalAlignment: PropTypes.oneOf(['top', 'center', 'bottom']),
   horizontalAlignment: PropTypes.oneOf([
     'centerSpaceBetween',
@@ -87,5 +84,10 @@ AccordionHeader.propTypes = {
 AccordionHeader.defaultProps = {
   horizontalAlignment: 'centerSpaceAround',
   verticalAlignment: 'center',
-  titleColor: 'black'
+  titleColor: 'black',
+  style: {
+    padding: 10,
+    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)',
+    borderRadius: 3
+  }
 };

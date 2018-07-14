@@ -1,4 +1,4 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { PureComponent, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
@@ -12,7 +12,7 @@ const defaultStyle = {
   padding: 0
 };
 
-export default class AccordionPanel extends Component {
+export default class AccordionPanel extends PureComponent {
   constructor(props) {
     super(props);
     this.renderChildren = this.renderChildren.bind(this);
@@ -25,7 +25,7 @@ export default class AccordionPanel extends Component {
   }
 
   componentDidMount() {
-    const bodyNode = ReactDOM.findDOMNode(this.refs.accordionPanel);
+    const bodyNode = this.accordionPanelRef;
     const images = bodyNode.querySelectorAll('img');
 
     if (images.length > 0) {
@@ -107,7 +107,7 @@ export default class AccordionPanel extends Component {
 
     return (
       <div
-        ref="accordionPanel"
+        ref={inst => (this.accordionPanelRef = inst)}
         className={classNames(className, { 'is-expanded': isExpanded })}
         style={{ ...defaultStyle, ...styles, ...style }}
       >
@@ -119,6 +119,7 @@ export default class AccordionPanel extends Component {
 
 AccordionPanel.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   speed: PropTypes.number
 };
 AccordionPanel.defaultProps = defaultProps;

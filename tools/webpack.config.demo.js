@@ -4,16 +4,12 @@
 
 'use strict';
 
-var path = require('path');
-var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
 
-  entry: [
-    __dirname + '/main.js'
-  ],
+  entry: [__dirname + '/main.js'],
 
   module: {
     loaders: [
@@ -25,23 +21,13 @@ module.exports = {
           presets: ['react']
         }
       },
-      {test: /\.css$/, loaders: ['style', 'css']},
-      {
-        test: /\.scss$/,
-        loaders: [
-          'style',
-          'css',
-          'autoprefixer?browsers=last 2 version',
-          'sass?outputStyle=expanded&includePaths[]=' +
-          (path.resolve(__dirname, './src'))
-        ]
-      }
+      { test: /\.css$/, loaders: ['style', 'css'] }
     ]
   },
 
   output: {
     filename: 'bundle.js',
-    path: './demo'
+    path: './dist'
   },
 
   resolve: {
@@ -56,6 +42,6 @@ module.exports = {
   ],
 
   devServer: {
-    contentBase: './demo'
+    contentBase: './dist'
   }
 };

@@ -6,67 +6,91 @@ import classNames from 'classnames';
 const defaultProps = {
   multipleOkay: false,
   firstOpen: false,
-  isOpen: undefined
+  isOpen: undefined,
+  style: {
+    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
+    borderRadius: 3
+  }
 };
 
 export default class AccordionWithHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.renderChildren = this.renderChildren.bind(this);
-    this.panelControl = this.panelControl.bind(this);
-    this.mountingProps = this.mountingProps.bind(this);
-
-    this.state = {
-      panels: [],
-      active: []
-    };
-  }
+  state = {
+    panels: [],
+    active: []
+  };
 
   componentWillMount() {
     let panels = [];
     Children.forEach(this.props.children, child => {
       panels.push(+child.key);
     });
-    this.setState({ panels: panels });
-    this.mountingProps(this.props);
+    this.setState({ panels });
+    this.initOrChange(this.props, true);
   }
 
   componentWillReceiveProps(nextProps) {
-    //this is only for the demo. TODO - think of a better way
-    this.mountingProps(nextProps);
+    // this.initOrChange(nextProps);
+    this.panelControl(undefined, nextProps);
   }
 
-  mountingProps(props) {
-    let active = [];
-    if (props.firstOpen) active.push(0);
-    if (props.isOpen !== undefined) active.push(props.isOpen);
-    this.setState({ active: active });
-  }
-
-  panelControl(panelIndex) {
-    let activePanelArray;
-    let panelData;
-
-    if (this.state.active.indexOf(panelIndex) !== -1) {
-      activePanelArray = this.state.active.filter(item => item !== panelIndex);
+  initOrChange = (nextProps, isMount) => {
+    if (nextProps.firstOpen) {
+      //  && firstOpen !== nextProps.firstOpen
+      this.setState(prevState => ({
+        active: [...prevState.active, 0]
+      }));
     } else {
-      activePanelArray = !this.props.multipleOkay ? [] : this.state.active;
-      activePanelArray.push(this.state.panels[panelIndex]);
+      this.setState(prevState => ({
+        active: [...prevState.active.filter(panel => panel !== 0)]
+      }));
     }
 
-    this.setState({ active: activePanelArray });
+    if (nextProps.isOpen !== undefined) {
+      // this.panelControl(nextProps.isOpen);
+      this.setState(prevState => ({
+        active: [
+          ...prevState.active.filter(p => p !== nextProps.isOpen),
+          nextProps.isOpen
+        ]
+      }));
+    } else if (nextProps.isOpen !== undefined && this.props.isOpen) {
+      //this.panelControl(this.props.isOpen);
+      this.setState(prevState => ({
+        active: [...prevState.active.filter(p => p !== this.props.isOpen)]
+      }));
+    }
+  };
+
+  panelControl = (panelIndex, props) => {
+    console.log('props: ', props);
+    console.log('panelIndex: ', panelIndex);
+
+    const current = this.state;
+    console.log('current: ', current);
+
+    let active;
+    let panelData;
+    console.log('this.state.active: ', this.state.active);
+    if (this.state.active.indexOf(panelIndex) !== -1) {
+      active = this.state.active.filter(item => item !== panelIndex);
+    } else {
+      active = !this.props.multipleOkay ? [] : this.state.active;
+      active.push(this.state.panels[panelIndex]);
+    }
+
+    this.setState({ active });
 
     if (this.props.actionCallback) {
       // pass array of panels back to actionCallback props function
       panelData = this.state.panels.map(panel => ({
         panel,
-        open: activePanelArray.includes(panel)
+        open: active.includes(panel)
       }));
       this.props.actionCallback(panelData);
     }
-  }
+  };
 
-  renderChildren() {
+  renderChildren = () => {
     if (!this.props.children) {
       throw new Error('AccordionWithHeader must have children!');
     }
@@ -82,7 +106,7 @@ export default class AccordionWithHeader extends Component {
         onSelect: this.panelControl.bind(this, index)
       });
     });
-  }
+  };
 
   render() {
     const { className, style } = this.props;
@@ -95,8 +119,10 @@ export default class AccordionWithHeader extends Component {
 }
 
 AccordionWithHeader.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
   firstOpen: PropTypes.bool,
-  istOpen: PropTypes.number,
+  isOpen: PropTypes.number,
   multipleOkay: PropTypes.bool,
   actionCallback: PropTypes.func
 };

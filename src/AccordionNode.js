@@ -1,29 +1,27 @@
 /* eslint-disable quotes */
-import React, { Component, cloneElement, Children } from 'react';
+import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class AccordionNode extends Component {
+export default class AccordionNode extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.checkExpanded = this.checkExpanded.bind(this);
   }
 
-  handleSelect(key) {
+  handleSelect = key => {
     if (this.props.onSelect) {
       this.props.onSelect(key);
     }
-  }
+  };
 
-  checkExpanded(indexKey, activePanelOrPanels) {
+  checkExpanded = (indexKey, activePanelOrPanels) => {
     if (Array.isArray(activePanelOrPanels)) {
       //multipleOkay is true
       return activePanelOrPanels.some(panel => panel === indexKey);
     } else {
       return indexKey === activePanelOrPanels;
     }
-  }
+  };
 
   renderNodeItems() {
     const { indexKey, active, children } = this.props;
@@ -57,5 +55,6 @@ export default class AccordionNode extends Component {
 }
 
 AccordionNode.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  style: PropTypes.object
 };
