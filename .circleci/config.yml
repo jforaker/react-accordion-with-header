@@ -1,0 +1,75 @@
+version: 2
+
+references:
+
+  # Workspaces are used to pass data between different jobs 
+
+  workspace_root: &workspace_root
+    ~/app
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+  build_container: &build_container
+    docker:
+      - image: circleci/node:8.11-browsers
+    working_directory: *workspace_root
+
+  install_steps: &install_steps
+    steps:
+      - checkout
+      - run:
+          name: Install NPM Dependencies
+          command: npm install
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .
+
+  test_steps: &test_steps
+    steps:
+      - checkout
+      - *attach_workspace
+      - run:
+          name: Run Tests
+          command: npm run test
+
+  build_steps: &build_steps
+    steps:
+      - checkout
+      - *attach_workspace
+      - run:
+          name: Build Application
+          command: npm run build
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .
+
+jobs:
+
+  install:
+    <<: *build_container
+    <<: *install_steps
+
+  test:
+    <<: *build_container
+    <<: *test_steps
+
+  build:
+    <<: *build_container
+    <<: *build_steps
+
+
+workflows:
+  version: 2
+  main_workflow:
+    jobs:
+      - install
+      - build:
+          requires:
+            - install
+      - test:
+          requires:
+            - build

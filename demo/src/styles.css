@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css?family=Hind:300,400');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Hind', sans-serif;
+  background: #ffffff;
+  color: #0b5e73;
+}
+
+h1 {
+  margin: 20px 0 20px 0;
+}
+
+h3 {
+  margin-bottom: 0px;
+}
+
+#h {
+  background-image: linear-gradient(-90deg, #ffffff, #a8ffe2);
+}
+
+.steve {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.steve img {
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.accordion {
+  transition: all 0.25s ease;
+  background-color: #0b5e73;
+}
+
+.accordion > div {
+  color: #de947f;
+}
+
+.accordion:hover {
+  background-color: #0b5e73;
+  color: #de947f;
+  background-image: linear-gradient(-90deg, #abf8b2, #ccc2ff);
+}
+
+.accordion:hover > div {
+  color: #4d5974;
+}
+
+.accordion .item {
+  min-width: 100px;
+}
+
+.content {
+  padding: 35px;
+  background: #de947f;
+}
+
+.content p {
+  color: #0b5e73;
+}
+
+.closed .vertical {
+  transition: all 0.5s ease-in-out;
+  transform: rotate(-90deg);
+}
+.closed .horizontal {
+  transition: all 0.5s ease-in-out;
+  transform: rotate(-90deg);
+  opacity: 1;
+}
+
+.opened {
+  opacity: 1;
+}
+.opened .vertical {
+  transition: all 0.5s ease-in-out;
+  transform: rotate(90deg);
+}
+.opened .horizontal {
+  transition: all 0.5s ease-in-out;
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+.circle-plus {
+  width: 4em;
+  font-size: 1em;
+}
+
+.circle-plus .circle {
+  position: relative;
+  width: 2.55em;
+  height: 2.5em;
+}
+
+.circle-plus .circle .horizontal {
+  position: absolute;
+  background-color: #de947f;
+  width: 30px;
+  height: 5px;
+  left: 50%;
+  margin-left: -15px;
+  top: 50%;
+  margin-top: -2.5px;
+}
+
+.circle-plus .circle .vertical {
+  position: absolute;
+  background-color: #de947f;
+  width: 5px;
+  height: 30px;
+  left: 50%;
+  margin-left: -2.5px;
+  top: 50%;
+  margin-top: -15px;
+}
+
+.block {
+  margin: 20px 0 40px 0;
+}
+
+.box {
+  border: 1px solid #ddd;
+  margin: 0 2px 0 2px;
+  padding: 5px;
+}
+
+.demo {
+  margin-bottom: 100px;
+}

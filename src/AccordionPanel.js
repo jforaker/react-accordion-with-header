@@ -1,6 +1,5 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { PureComponent, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 const defaultProps = {
@@ -12,67 +11,56 @@ const defaultStyle = {
   padding: 0
 };
 
-export default class AccordionPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.renderChildren = this.renderChildren.bind(this);
-    this.preloadImages = this.preloadImages.bind(this);
-    this.calcHeight = this.calcHeight.bind(this);
-
-    this.state = {
-      originalHeight: 0
-    };
-  }
+export default class AccordionPanel extends PureComponent {
+  state = {
+    panelHeight: 0
+  };
 
   componentDidMount() {
-    const bodyNode = ReactDOM.findDOMNode(this.refs.accordionPanel);
+    const bodyNode = this.accordionPanelRef;
+    if (!bodyNode) return; // tests only?
     const images = bodyNode.querySelectorAll('img');
 
     if (images.length > 0) {
-      this.preloadImages(bodyNode, images);
+      this.preloadImages(images);
     } else {
       this.calcHeight();
     }
   }
 
   // Wait for images to load before calculating height of element
-  preloadImages(node, images = []) {
-    var imagesLoaded = 0;
-    var imgLoaded = () => {
+  preloadImages = (images = []) => {
+    let imagesLoaded = 0;
+    const imgLoaded = data => {
       imagesLoaded++;
       if (imagesLoaded === images.length) this.calcHeight();
     };
-
-    for (let i = 0; i < images.length; i += 1) {
-      //recurse over images
+    images.forEach(element => {
       let img = new Image();
-      img.src = images[i].src;
+      img.src = element.src;
       img.onload = img.onerror = imgLoaded;
-    }
-  }
+    });
+  };
 
-  calcHeight() {
-    if (this.props.template) {
-      const { clientHeight } = this.refs[`item-${this.props.indexKey}`];
-      this.setState({
-        originalHeight: clientHeight
-      });
+  calcHeight = () => {
+    if (this.componentRef) {
+      const { clientHeight: panelHeight } = this.componentRef.current;
+      this.setState({ panelHeight });
       return;
     }
 
-    let totalHeight = Children.map(this.props.children, child => {
-      return this.refs[`item-${child.props.key}`];
-    }).reduce(
+    let panelHeight = Children.map(
+      this.props.children,
+      (child, i) => this.refs[`item-${child.props.key}`]
+    ).reduce(
       (previousValue, child) => previousValue + child.clientHeight,
-      this.state.originalHeight
+      this.state.panelHeight
     );
 
-    this.setState({
-      originalHeight: totalHeight
-    });
-  }
+    this.setState({ panelHeight });
+  };
 
-  renderChildren() {
+  renderChildren = () => {
     if (!this.props.template && !this.props.children) {
       throw new Error('AccordionPanel must have at least one child!');
     }
@@ -82,11 +70,29 @@ export default class AccordionPanel extends Component {
      this way we know how high to expand the panel
      ***************************************************************/
 
-    if (this.props.template) {
-      /* templates are special in that we cannot iterate over them with React.Children.map */
-      return cloneElement(this.props.template, {
-        ref: `item-${this.props.indexKey}`
+    const wrapComponent = components => {
+      return Children.map(components, (child, index) => {
+        const WrappedComponent = React.forwardRef((props, ref) => {
+          this.componentRef = ref;
+          return <div ref={ref}>{child}</div>;
+        });
+        const ref = React.createRef();
+        return <WrappedComponent ref={ref} />;
       });
+    };
+
+    if (this.props.template) {
+      // for template prop that contains a class component
+      console.warn(
+        `The template prop will be deprecated in the future. 
+          Prefer passing in your component directly as children: https://reactjs.org/docs/composition-vs-inheritance.html`
+      );
+      return wrapComponent(cloneElement(this.props.template));
+    }
+
+    if (typeof this.props.children.type === 'function') {
+      // for children that are class components
+      return wrapComponent(this.props.children);
     }
 
     return Children.map(this.props.children, child => {
@@ -94,22 +100,22 @@ export default class AccordionPanel extends Component {
         ref: `item-${child.props.key}`
       });
     });
-  }
+  };
 
   render() {
-    const { className, isExpanded, style } = this.props;
+    const { className, isExpanded, style, speed } = this.props;
 
     const styles = {
-      transition: `all ${this.props.speed || defaultProps.speed}ms ease-in-out`,
-      maxHeight: this.props.isExpanded ? this.state.originalHeight : 0,
-      opacity: this.props.isExpanded ? 1 : 0
+      transition: `all ${speed || defaultProps.speed}ms ease-in-out`,
+      maxHeight: isExpanded ? this.state.panelHeight : 0,
+      opacity: isExpanded ? 1 : 0
     };
 
     return (
       <div
-        ref="accordionPanel"
+        ref={inst => (this.accordionPanelRef = inst)}
         className={classNames(className, { 'is-expanded': isExpanded })}
-        style={{ ...defaultStyle, ...styles, ...style }}
+        style={{ ...style, ...defaultStyle, ...styles }}
       >
         {this.renderChildren()}
       </div>
@@ -119,6 +125,8 @@ export default class AccordionPanel extends Component {
 
 AccordionPanel.propTypes = {
   className: PropTypes.string,
-  speed: PropTypes.number
+  style: PropTypes.object,
+  speed: PropTypes.number,
+  isExpanded: PropTypes.bool
 };
 AccordionPanel.defaultProps = defaultProps;

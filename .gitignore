@@ -20,4 +20,8 @@ package
 bin
 .idea/
 
-lib
+/demo/dist
+/es
+/lib
+/umd
+.vscode/

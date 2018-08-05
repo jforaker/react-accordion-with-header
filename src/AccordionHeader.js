@@ -1,25 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { getHorizontalAlignment, getVerticalAlignment } from './utils';
 
-const defaultStyle = {
-  padding: 10
-};
-
-export default class AccordionHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.renderChildren = this.renderChildren.bind(this);
-    this.handleHeaderClick = this.handleHeaderClick.bind(this);
-  }
-
-  handleHeaderClick(index) {
-    this.props.onClickHeader(index);
-    //handled in props.onClickHeader() of AccordionNode > props.onSelect() of AccordionWithHeader
-  }
-
-  renderChildren() {
+export default class AccordionHeader extends PureComponent {
+  renderChildren = () => {
+    if (!this.props.template && !this.props.children && !this.props.title) {
+      throw new Error(
+        'AccordionHeader must have a title or template or at least one child!'
+      );
+    }
     if (this.props.title) {
       return (
         <div>
@@ -27,16 +17,11 @@ export default class AccordionHeader extends Component {
         </div>
       );
     }
-    if (!this.props.template && !this.props.children && !this.props.title) {
-      throw new Error(
-        'AccordionHeader must have a title or template or at least one child!'
-      );
-    }
     if (this.props.template) {
       return this.props.template;
     }
     return this.props.children;
-  }
+  };
 
   render() {
     const {
@@ -45,7 +30,8 @@ export default class AccordionHeader extends Component {
       verticalAlignment,
       horizontalAlignment,
       className,
-      isExpanded
+      isExpanded,
+      onClickHeader
     } = this.props;
 
     let styles = {
@@ -60,9 +46,9 @@ export default class AccordionHeader extends Component {
 
     return (
       <div
-        className={classNames(className, { 'is-expanded': isExpanded })}
-        onClick={this.handleHeaderClick}
-        style={{ ...defaultStyle, ...styles, ...style }}
+        className={classNames(className, { 'header-is-expanded': isExpanded })}
+        onClick={onClickHeader}
+        style={{ ...style, ...styles }}
       >
         {this.renderChildren()}
       </div>
@@ -72,8 +58,13 @@ export default class AccordionHeader extends Component {
 
 AccordionHeader.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   verticalAlignment: PropTypes.oneOf(['top', 'center', 'bottom']),
   horizontalAlignment: PropTypes.oneOf([
+    'spaceAround',
+    'spaceBetween',
+    'spaceEvenly',
+    'stretch',
     'centerSpaceBetween',
     'centerSpaceAround',
     'center',
@@ -82,10 +73,16 @@ AccordionHeader.propTypes = {
   ]),
   title: PropTypes.string,
   titleColor: PropTypes.string,
-  template: PropTypes.element
+  template: PropTypes.element,
+  onClickHeader: PropTypes.func
 };
 AccordionHeader.defaultProps = {
   horizontalAlignment: 'centerSpaceAround',
   verticalAlignment: 'center',
-  titleColor: 'black'
+  titleColor: 'black',
+  style: {
+    padding: 10,
+    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)',
+    borderRadius: 3
+  }
 };

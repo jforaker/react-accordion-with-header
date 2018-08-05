@@ -1,61 +1,44 @@
-/* eslint-disable quotes */
-import React, { Component, cloneElement, Children } from 'react';
+import React, { PureComponent, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class AccordionNode extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.checkExpanded = this.checkExpanded.bind(this);
-  }
-
-  handleSelect(key) {
-    if (this.props.onSelect) {
-      this.props.onSelect(key);
-    }
-  }
-
-  checkExpanded(indexKey, activePanelOrPanels) {
-    if (Array.isArray(activePanelOrPanels)) {
-      //multipleOkay is true
-      return activePanelOrPanels.some(panel => panel === indexKey);
-    } else {
-      return indexKey === activePanelOrPanels;
-    }
-  }
-
-  renderNodeItems() {
-    const { indexKey, active, children } = this.props;
+export default class AccordionNode extends PureComponent {
+  render() {
+    const {
+      indexKey,
+      className,
+      style,
+      children,
+      isExpanded,
+      onClickHeader
+    } = this.props;
 
     if (!children) {
       console.warn('AccordionNode component has no inner items!');
       return null;
     }
-
-    return Children.map(children, item => {
-      /***************************************************************
-       lets render the <AccordionHeader /> and <AccordionPanel />
-       ***************************************************************/
-      return cloneElement(item, {
-        ...item.props,
-        onClickHeader: () => this.handleSelect(indexKey),
-        isExpanded: this.checkExpanded(indexKey, active)
-      });
-    });
-  }
-
-  render() {
-    const { className, style } = this.props;
-
     return (
       <div className={classNames(className)} style={{ ...style }}>
-        {this.renderNodeItems()}
+        {Children.map(children, item => {
+          return (
+            // lets render the <AccordionHeader /> and <AccordionPanel />
+            cloneElement(item, {
+              indexKey,
+              isExpanded,
+              onClickHeader,
+              ...item.props
+            })
+          );
+        })}
       </div>
     );
   }
 }
 
 AccordionNode.propTypes = {
-  className: PropTypes.string
+  children: PropTypes.node.isRequired,
+  isExpanded: PropTypes.bool,
+  onClickHeader: PropTypes.func,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
