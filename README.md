@@ -43,8 +43,20 @@ The elements passed in to `<AccordionHeader />` can be **horizontally justified 
 (or plain html of course)
 
 ```javascript
+// note: due to the warning "Stateless function components cannot be given refs. Attempts to access this ref will fail."
+// the components passed into <AccordionPanel> must be class components
+// this allows to measure the height of the element via refs
 const HeaderTpl = () => <h1>My Header</h1>;
-const BodyTpl = () => <div>My Body</div>;
+class BodyTpl extends React.Component {
+  render() {
+    return (
+        <p>
+          Sed non congue mi. Ut dignissim pellentesque efficitur. Sed volutpat
+          mollis risus, in pulvinar dolor dapibus at.
+        </p>
+    );
+  }
+}
 
 class MyAccordion extends React.Component {
   render() {
@@ -68,27 +80,6 @@ class MyAccordion extends React.Component {
 }
 
 …
-```
-
-### Pass in a component as a template via `template` prop (deprecated):
-
-```javascript
-  // note: due to the warning "Stateless function components cannot be given refs. Attempts to access this ref will fail."
-  // the components in the `template` prop below should be class components
-  render() {
-    return (
-      <AccordionWithHeader>
-        {[1, 2, 3, 4].map((item, i) => {
-          return (
-            <AccordionNode key={i}>
-              <AccordionHeader template={<HeaderTpl />} horizontalAlignment="centerSpaceBetween" />
-              <AccordionPanel template={<BodyTpl />} />
-            </AccordionNode>
-          );
-        })}
-      </AccordionWithHeader>
-    );
-  }
 ```
 
 ### `actionCallback`
