@@ -4,7 +4,11 @@ export const getHorizontalAlignment = str => {
     right: 'flex-end',
     center: 'center',
     centerSpaceAround: 'space-around',
+    spaceAround: 'space-around', // dupe
     centerSpaceBetween: 'space-between',
+    spaceBetween: 'space-between', // dupe
+    spaceEvenly: 'space-evenly',
+    stretch: 'stretch',
     default: 'flex-start'
   };
   return align[str] || align['default'];

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const defaultProps = {
+  className: 'react-accordion-with-header',
   multipleOkay: false,
   firstOpen: false,
-  active: [],
   style: {
     boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
     borderRadius: 3
@@ -15,31 +15,33 @@ const defaultProps = {
 export default class AccordionWithHeader extends Component {
   state = {
     panels: [],
+    active: [],
     ...this.props
   };
 
-  componentWillMount() {
+  componentDidMount() {
+    let panels;
     const { children, active, firstOpen } = this.props;
-    const panels = Children.map(children, child => +child.key);
+
+    if (!children) {
+      throw new Error('AccordionWithHeader must have children!');
+    }
+
+    panels = Children.map(children, child => +child.key);
 
     // define the number of AccordionNode "panels" to control
     this.setState({ panels });
 
-    // allow deprecated firstOpen prop, but prefer an "active" array
+    // allow firstOpen prop, but prefer an "active" array
     if (firstOpen) {
-      console.warn(
-        `firstOpen prop will be deprecated in the future. 
-            Prefer using the "active" prop like active={[0]}`
-      );
       this.setState({ active: [0] });
     }
 
     // if this.props.active is defined, validate it is an array
     // and that it is a valid instance of the panels array
-    if (active) {
+    if (typeof active !== 'undefined') {
       const validateActive = () => {
-        if (!Array.isArray(active) || active === 0) {
-          // todo: react doesn't pass it through if this.props.active === 0
+        if (typeof active === 'number' || !Array.isArray(active)) {
           throw new Error('this.props.active must be an array');
         }
         active.forEach(active => {
@@ -89,22 +91,31 @@ export default class AccordionWithHeader extends Component {
     );
   };
 
-  render() {
-    const { className, style, children } = this.props;
-    if (!children) {
-      throw new Error('AccordionWithHeader must have children!');
+  checkExpanded = (indexKey, activePanelOrPanelsProps) => {
+    if (Array.isArray(activePanelOrPanelsProps)) {
+      //multipleOkay is true
+      return activePanelOrPanelsProps.some(panel => panel === indexKey);
+    } else {
+      return indexKey === activePanelOrPanelsProps;
     }
+  };
+
+  render() {
+    const { className, style, children, active } = this.props;
+    const internalControl = !active;
+    const panelsToCheck = internalControl ? this.state.active : active;
+
     return (
       <div className={classNames(className)} style={{ ...style }}>
-        {Children.map(children, (item, index) =>
+        {Children.map(children, (item, index) => {
           // lets render the <AccordionNode /> and its kids
-          cloneElement(item, {
-            active: this.state.active,
-            indexKey: index,
+          return cloneElement(item, {
+            indexKey: index, // needed for child ref if template prop is used
             key: index,
-            onClickHeader: () => this.onClickHeader(index)
-          })
-        )}
+            onClickHeader: () => this.onClickHeader(index),
+            isExpanded: this.checkExpanded(index, panelsToCheck)
+          });
+        })}
       </div>
     );
   }

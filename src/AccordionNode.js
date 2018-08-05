@@ -3,22 +3,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export default class AccordionNode extends PureComponent {
-  checkExpanded = (indexKey, activePanelOrPanels) => {
-    if (Array.isArray(activePanelOrPanels)) {
-      //multipleOkay is true
-      return activePanelOrPanels.some(panel => panel === indexKey);
-    } else {
-      return indexKey === activePanelOrPanels;
-    }
-  };
-
   render() {
     const {
+      indexKey,
       className,
       style,
       children,
-      indexKey,
-      active,
+      isExpanded,
       onClickHeader
     } = this.props;
 
@@ -28,20 +19,26 @@ export default class AccordionNode extends PureComponent {
     }
     return (
       <div className={classNames(className)} style={{ ...style }}>
-        {Children.map(children, item =>
-          // lets render the <AccordionHeader /> and <AccordionPanel />
-          cloneElement(item, {
-            ...item.props,
-            onClickHeader: () => onClickHeader(indexKey),
-            isExpanded: this.checkExpanded(indexKey, active)
-          })
-        )}
+        {Children.map(children, item => {
+          return (
+            // lets render the <AccordionHeader /> and <AccordionPanel />
+            cloneElement(item, {
+              indexKey,
+              isExpanded,
+              onClickHeader,
+              ...item.props
+            })
+          );
+        })}
       </div>
     );
   }
 }
 
 AccordionNode.propTypes = {
+  children: PropTypes.node.isRequired,
+  isExpanded: PropTypes.bool,
+  onClickHeader: PropTypes.func,
   className: PropTypes.string,
   style: PropTypes.object
 };

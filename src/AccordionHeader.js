@@ -5,16 +5,16 @@ import { getHorizontalAlignment, getVerticalAlignment } from './utils';
 
 export default class AccordionHeader extends PureComponent {
   renderChildren = () => {
+    if (!this.props.template && !this.props.children && !this.props.title) {
+      throw new Error(
+        'AccordionHeader must have a title or template or at least one child!'
+      );
+    }
     if (this.props.title) {
       return (
         <div>
           <h1>{this.props.title}</h1>
         </div>
-      );
-    }
-    if (!this.props.template && !this.props.children && !this.props.title) {
-      throw new Error(
-        'AccordionHeader must have a title or template or at least one child!'
       );
     }
     if (this.props.template) {
@@ -47,8 +47,8 @@ export default class AccordionHeader extends PureComponent {
     return (
       <div
         className={classNames(className, { 'header-is-expanded': isExpanded })}
-        onClick={index => onClickHeader(index)}
-        style={{ ...styles, ...style }}
+        onClick={onClickHeader}
+        style={{ ...style, ...styles }}
       >
         {this.renderChildren()}
       </div>
@@ -61,6 +61,10 @@ AccordionHeader.propTypes = {
   style: PropTypes.object,
   verticalAlignment: PropTypes.oneOf(['top', 'center', 'bottom']),
   horizontalAlignment: PropTypes.oneOf([
+    'spaceAround',
+    'spaceBetween',
+    'spaceEvenly',
+    'stretch',
     'centerSpaceBetween',
     'centerSpaceAround',
     'center',

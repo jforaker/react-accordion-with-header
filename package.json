@@ -31,7 +31,7 @@
     "deploy-demo": "now demo/dist --public && now alias",
     "build": "nwb build-react-component && cp now.json demo/dist",
     "clean": "nwb clean-module && nwb clean-demo",
-    "start": "nwb serve-react-demo",
+    "start": "nwb serve-react-demo --copy-files",
     "test": "jest"
   },
   "dependencies": {
@@ -56,6 +56,7 @@
     "nwb": "0.21.x",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-skycons": "^0.7.0",
     "react-test-renderer": "^16.4.1",
     "regenerator-runtime": "^0.12.0"
   },

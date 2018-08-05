@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AccordionWithHeader /> renders correctly 1`] = `
+<div
+  className="react-accordion-with-header"
+  style={
+    Object {
+      "borderRadius": 3,
+      "boxShadow": "0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)",
+    }
+  }
+>
+  <div
+    className=""
+    style={Object {}}
+  >
+    <div
+      className="header-is-expanded"
+      onClick={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderRadius": 3,
+          "boxShadow": "0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)",
+          "color": "black",
+          "cursor": "pointer",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-around",
+          "padding": 10,
+        }
+      }
+    >
+      <h2>
+        Some title!
+      </h2>
+    </div>
+    <div
+      className="is-expanded"
+      style={
+        Object {
+          "maxHeight": 0,
+          "opacity": 1,
+          "overflow": "hidden",
+          "padding": 0,
+          "transition": "all 250ms ease-in-out",
+        }
+      }
+    >
+      <section>
+        Interesting things...
+      </section>
+    </div>
+  </div>
+  <div
+    className=""
+    style={Object {}}
+  >
+    <div
+      className=""
+      onClick={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderRadius": 3,
+          "boxShadow": "0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)",
+          "color": "black",
+          "cursor": "pointer",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-around",
+          "padding": 10,
+        }
+      }
+    >
+      <h2>
+        Some title!
+      </h2>
+    </div>
+    <div
+      className=""
+      style={
+        Object {
+          "maxHeight": 0,
+          "opacity": 0,
+          "overflow": "hidden",
+          "padding": 0,
+          "transition": "all 250ms ease-in-out",
+        }
+      }
+    >
+      <section>
+        Interesting things...
+      </section>
+    </div>
+  </div>
+  <div
+    className=""
+    style={Object {}}
+  >
+    <div
+      className=""
+      onClick={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderRadius": 3,
+          "boxShadow": "0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)",
+          "color": "black",
+          "cursor": "pointer",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-around",
+          "padding": 10,
+        }
+      }
+    >
+      <h2>
+        Some title!
+      </h2>
+    </div>
+    <div
+      className=""
+      style={
+        Object {
+          "maxHeight": 0,
+          "opacity": 0,
+          "overflow": "hidden",
+          "padding": 0,
+          "transition": "all 250ms ease-in-out",
+        }
+      }
+    >
+      <section>
+        Interesting things...
+      </section>
+    </div>
+  </div>
+  <div
+    className=""
+    style={Object {}}
+  >
+    <div
+      className=""
+      onClick={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderRadius": 3,
+          "boxShadow": "0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)",
+          "color": "black",
+          "cursor": "pointer",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-around",
+          "padding": 10,
+        }
+      }
+    >
+      <h2>
+        Some title!
+      </h2>
+    </div>
+    <div
+      className=""
+      style={
+        Object {
+          "maxHeight": 0,
+          "opacity": 0,
+          "overflow": "hidden",
+          "padding": 0,
+          "transition": "all 250ms ease-in-out",
+        }
+      }
+    >
+      <section>
+        Interesting things...
+      </section>
+    </div>
+  </div>
+</div>
+`;
