@@ -46,15 +46,9 @@ The elements passed in to `<AccordionHeader />` can be **horizontally justified 
 // note: due to the warning "Stateless function components cannot be given refs. Attempts to access this ref will fail."
 // the components passed into <AccordionPanel> must be class components
 // this allows to measure the height of the element via refs
-const HeaderTpl = () => <h1>My Header</h1>;
 class BodyTpl extends React.Component {
   render() {
-    return (
-        <p>
-          Sed non congue mi. Ut dignissim pellentesque efficitur. Sed volutpat
-          mollis risus, in pulvinar dolor dapibus at.
-        </p>
-    );
+    return <div>Look at this {this.props.item}</div>;
   }
 }
 
@@ -65,11 +59,15 @@ class MyAccordion extends React.Component {
         {[1, 2, 3, 4].map((item, i) => {
           return (
             <AccordionNode key={i}>
-              <AccordionHeader horizontalAlignment="centerSpaceAround" verticalAlignment="center">
-                <HeaderTpl />
+              <AccordionHeader
+                horizontalAlignment="centerSpaceAround"
+                verticalAlignment="center"
+              >
+                <div>This is the header</div>
+                <div>It has flexbox layout</div>
               </AccordionHeader>
               <AccordionPanel>
-                <BodyTpl />
+                <BodyTpl item={item} />
               </AccordionPanel>
             </AccordionNode>
           );
