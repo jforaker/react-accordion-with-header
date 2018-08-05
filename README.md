@@ -8,7 +8,7 @@
 
 <img src="https://media.giphy.com/media/BakXonJxQzoIM/giphy.gif" width="300" />
 
-### [Check out the demo NOW](https://jforaker.github.io/react-accordion-with-header)
+### [Check out the demo NOW](https://react-accordion-with-header.now.sh/)
 
 #### Install via NPM:
 
