@@ -60,6 +60,17 @@ export default class AccordionWithHeader extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const hasNewChildren =  this.props.children.length > this.state.children.length;
+    if (hasNewChildren) {
+      // redefine the number of AccordionNode "panels" to control
+      let panels;
+      const { children } = this.props;
+      panels = Children.map(children, child => +child.key);
+      this.setState({ ...this.props, panels });
+    }
+  }
+
   onClickHeader = panelIndex => {
     let active;
     if (this.state.active.includes(panelIndex)) {
