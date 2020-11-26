@@ -60,6 +60,15 @@ export default class AccordionWithHeader extends Component {
     }
   }
 
+  componentDidUpdate(prevProps){
+    // Only needs to render if children have been dynamically aded/removed
+    if(prevProps.children.length != this.props.children.length ){
+      const { children } = this.props;
+      const panels = Children.map(children, child => +child.key);
+      this.setState({panels})
+    }
+  }
+
   onClickHeader = panelIndex => {
     let active;
     if (this.state.active.includes(panelIndex)) {
