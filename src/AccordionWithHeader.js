@@ -1,22 +1,22 @@
-import React, { Component, Children, cloneElement } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import React, { Component, Children, cloneElement } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 const defaultProps = {
-  className: 'react-accordion-with-header',
+  className: "react-accordion-with-header",
   multipleOkay: false,
   firstOpen: false,
   style: {
-    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
-    borderRadius: 3
-  }
+    boxShadow: "0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)",
+    borderRadius: 3,
+  },
 };
 
 export default class AccordionWithHeader extends Component {
   state = {
     panels: [],
     active: [],
-    ...this.props
+    ...this.props,
   };
 
   componentDidMount() {
@@ -24,10 +24,10 @@ export default class AccordionWithHeader extends Component {
     const { children, active, firstOpen } = this.props;
 
     if (!children) {
-      throw new Error('AccordionWithHeader must have children!');
+      throw new Error("AccordionWithHeader must have children!");
     }
 
-    panels = Children.map(children, child => +child.key);
+    panels = Children.map(children, (child) => +child.key);
 
     // define the number of AccordionNode "panels" to control
     this.setState({ panels });
@@ -39,12 +39,12 @@ export default class AccordionWithHeader extends Component {
 
     // if this.props.active is defined, validate it is an array
     // and that it is a valid instance of the panels array
-    if (typeof active !== 'undefined') {
+    if (typeof active !== "undefined") {
       const validateActive = () => {
-        if (typeof active === 'number' || !Array.isArray(active)) {
-          throw new Error('this.props.active must be an array');
+        if (typeof active === "number" || !Array.isArray(active)) {
+          throw new Error("this.props.active must be an array");
         }
-        active.forEach(active => {
+        active.forEach((active) => {
           if (!panels.includes(active)) {
             throw new Error(
               `Items in this.props.active array are not included in panel array!
@@ -54,25 +54,25 @@ export default class AccordionWithHeader extends Component {
         });
       };
       validateActive();
-      this.setState(prevState => ({
-        active: Array.from(new Set([...prevState.active, ...active]))
+      this.setState((prevState) => ({
+        active: Array.from(new Set([...prevState.active, ...active])),
       }));
     }
   }
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps) {
     // Only needs to render if children have been dynamically aded/removed
-    if(prevProps.children.length != this.props.children.length ){
+    if (prevProps.children.length != this.props.children.length) {
       const { children } = this.props;
-      const panels = Children.map(children, child => +child.key);
-      this.setState({panels})
+      const panels = Children.map(children, (child) => +child.key);
+      this.setState({ panels });
     }
   }
 
-  onClickHeader = panelIndex => {
+  onClickHeader = (panelIndex) => {
     let active;
     if (this.state.active.includes(panelIndex)) {
-      active = this.state.active.filter(item => item !== panelIndex);
+      active = this.state.active.filter((item) => item !== panelIndex);
     } else {
       active = !this.props.multipleOkay ? [] : this.state.active;
       active.push(this.state.panels[panelIndex]);
@@ -80,19 +80,19 @@ export default class AccordionWithHeader extends Component {
     }
 
     this.setState(
-      prevState => ({
+      (prevState) => ({
         active,
         multipleOkay:
           prevState.multipleOkay !== this.props.multipleOkay
             ? this.props.multipleOkay
-            : prevState.multipleOkay
+            : prevState.multipleOkay,
       }),
       () => {
         if (this.props.actionCallback) {
           // pass array of panels and accordion state back to actionCallback props function
-          let panelData = this.state.panels.map(panel => ({
+          let panelData = this.state.panels.map((panel) => ({
             panel,
-            open: active.includes(panel)
+            open: active.includes(panel),
           }));
           this.props.actionCallback(panelData, ...this.state);
         }
@@ -103,7 +103,7 @@ export default class AccordionWithHeader extends Component {
   checkExpanded = (indexKey, activePanelOrPanelsProps) => {
     if (Array.isArray(activePanelOrPanelsProps)) {
       //multipleOkay is true
-      return activePanelOrPanelsProps.some(panel => panel === indexKey);
+      return activePanelOrPanelsProps.some((panel) => panel === indexKey);
     } else {
       return indexKey === activePanelOrPanelsProps;
     }
@@ -122,7 +122,7 @@ export default class AccordionWithHeader extends Component {
             indexKey: index, // needed for child ref if template prop is used
             key: index,
             onClickHeader: () => this.onClickHeader(index),
-            isExpanded: this.checkExpanded(index, panelsToCheck)
+            isExpanded: this.checkExpanded(index, panelsToCheck),
           });
         })}
       </div>
@@ -136,6 +136,6 @@ AccordionWithHeader.propTypes = {
   firstOpen: PropTypes.bool,
   multipleOkay: PropTypes.bool,
   active: PropTypes.array,
-  actionCallback: PropTypes.func
+  actionCallback: PropTypes.func,
 };
 AccordionWithHeader.defaultProps = defaultProps;
