@@ -4,6 +4,9 @@
 
 [![NPM](https://nodei.co/npm/react-accordion-with-header.png?downloads=true)](https://nodei.co/npm/react-accordion-with-header?downloads=true)
 
+[![jforaker](https://circleci.com/gh/jforaker/react-accordion-with-header.svg?style=svg)](<LINK>)
+
+
 > "You've got 5 seconds... and 3 are up." - _Steven Seagal_
 
 <img src="https://media.giphy.com/media/BakXonJxQzoIM/giphy.gif" width="300" />
