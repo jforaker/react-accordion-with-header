@@ -5,8 +5,8 @@ module.exports = {
     umd: {
       global: 'ReactAccordionWithHeader',
       externals: {
-        react: 'React'
-      }
-    }
-  }
+        react: 'React',
+      },
+    },
+  },
 };

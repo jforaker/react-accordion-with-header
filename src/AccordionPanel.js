@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const defaultProps = {
-  speed: 250
+  speed: 250,
 };
 
 const defaultStyle = {
   overflow: 'hidden',
-  padding: 0
+  padding: 0,
 };
 
 export default class AccordionPanel extends PureComponent {
   state = {
-    panelHeight: 0
+    panelHeight: 0,
   };
 
   componentDidMount() {
@@ -31,11 +31,11 @@ export default class AccordionPanel extends PureComponent {
   // Wait for images to load before calculating height of element
   preloadImages = (images = []) => {
     let imagesLoaded = 0;
-    const imgLoaded = data => {
+    const imgLoaded = (data) => {
       imagesLoaded++;
       if (imagesLoaded === images.length) this.calcHeight();
     };
-    images.forEach(element => {
+    images.forEach((element) => {
       let img = new Image();
       img.src = element.src;
       img.onload = img.onerror = imgLoaded;
@@ -70,7 +70,7 @@ export default class AccordionPanel extends PureComponent {
      this way we know how high to expand the panel
      ***************************************************************/
 
-    const wrapComponent = components => {
+    const wrapComponent = (components) => {
       return Children.map(components, (child, index) => {
         const WrappedComponent = React.forwardRef((props, ref) => {
           this.componentRef = ref;
@@ -95,9 +95,9 @@ export default class AccordionPanel extends PureComponent {
       return wrapComponent(this.props.children);
     }
 
-    return Children.map(this.props.children, child => {
+    return Children.map(this.props.children, (child) => {
       return cloneElement(child, {
-        ref: `item-${child.props.key}`
+        ref: `item-${child.props.key}`,
       });
     });
   };
@@ -108,12 +108,12 @@ export default class AccordionPanel extends PureComponent {
     const styles = {
       transition: `all ${speed || defaultProps.speed}ms ease-in-out`,
       maxHeight: isExpanded ? this.state.panelHeight : 0,
-      opacity: isExpanded ? 1 : 0
+      opacity: isExpanded ? 1 : 0,
     };
 
     return (
       <div
-        ref={inst => (this.accordionPanelRef = inst)}
+        ref={(inst) => (this.accordionPanelRef = inst)}
         className={classNames(className, { 'is-expanded': isExpanded })}
         style={{ ...style, ...defaultStyle, ...styles }}
       >
@@ -127,6 +127,6 @@ AccordionPanel.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   speed: PropTypes.number,
-  isExpanded: PropTypes.bool
+  isExpanded: PropTypes.bool,
 };
 AccordionPanel.defaultProps = defaultProps;

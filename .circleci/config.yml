@@ -1,11 +1,9 @@
 version: 2
 
 references:
+  # Workspaces are used to pass data between different jobs
 
-  # Workspaces are used to pass data between different jobs 
-
-  workspace_root: &workspace_root
-    ~/app
+  workspace_root: &workspace_root ~/app
 
   attach_workspace: &attach_workspace
     attach_workspace:
@@ -48,7 +46,6 @@ references:
             - .
 
 jobs:
-
   install:
     <<: *build_container
     <<: *install_steps
@@ -60,7 +57,6 @@ jobs:
   build:
     <<: *build_container
     <<: *build_steps
-
 
 workflows:
   version: 2

@@ -1,13 +1,13 @@
-import React, { Component, Children, cloneElement } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React, { Component, Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 const defaultProps = {
-  className: "react-accordion-with-header",
+  className: 'react-accordion-with-header',
   multipleOkay: false,
   firstOpen: false,
   style: {
-    boxShadow: "0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)",
+    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
     borderRadius: 3,
   },
 };
@@ -24,7 +24,7 @@ export default class AccordionWithHeader extends Component {
     const { children, active, firstOpen } = this.props;
 
     if (!children) {
-      throw new Error("AccordionWithHeader must have children!");
+      throw new Error('AccordionWithHeader must have children!');
     }
 
     panels = Children.map(children, (child) => +child.key);
@@ -39,10 +39,10 @@ export default class AccordionWithHeader extends Component {
 
     // if this.props.active is defined, validate it is an array
     // and that it is a valid instance of the panels array
-    if (typeof active !== "undefined") {
+    if (typeof active !== 'undefined') {
       const validateActive = () => {
-        if (typeof active === "number" || !Array.isArray(active)) {
-          throw new Error("this.props.active must be an array");
+        if (typeof active === 'number' || !Array.isArray(active)) {
+          throw new Error('this.props.active must be an array');
         }
         active.forEach((active) => {
           if (!panels.includes(active)) {

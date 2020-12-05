@@ -9,12 +9,12 @@ import {
   AccordionWithHeader,
   AccordionHeader,
   AccordionPanel,
-  AccordionNode
+  AccordionNode,
 } from '../src';
 
 const data = [1, 2, 3, 4];
 
-let Component = props => (
+let Component = (props) => (
   <AccordionWithHeader {...props}>
     {data.map((item, i) => {
       return (
@@ -54,40 +54,28 @@ describe('<AccordionWithHeader />', () => {
   it('renders an AccordionNode with `.header-is-expanded` element because active={[0]} prop is truthy', () => {
     const wrapper = mount(<Component active={[0]} />);
     expect(
-      wrapper
-        .find(AccordionNode)
-        .first()
-        .find('.header-is-expanded')
+      wrapper.find(AccordionNode).first().find('.header-is-expanded')
     ).toHaveLength(1);
   });
 
   it('renders an AccordionPanel with `.is-expanded` element because active={[0]} prop is truthy', () => {
     const wrapper = mount(<Component active={[0]} />);
     expect(
-      wrapper
-        .find(AccordionPanel)
-        .first()
-        .find('.is-expanded')
+      wrapper.find(AccordionPanel).first().find('.is-expanded')
     ).toHaveLength(1);
   });
 
   it('renders an AccordionNode with `.header-is-expanded` element because firstOpen prop is falsy', () => {
     const wrapper = mount(<Component firstOpen={false} />);
     expect(
-      wrapper
-        .find(AccordionNode)
-        .first()
-        .find('.header-is-expanded')
+      wrapper.find(AccordionNode).first().find('.header-is-expanded')
     ).toHaveLength(0);
   });
 
   it('renders an AccordionPanel with `.is-expanded` element because  firstOpen prop is falsy', () => {
     const wrapper = mount(<Component firstOpen={false} />);
     expect(
-      wrapper
-        .find(AccordionPanel)
-        .first()
-        .find('.is-expanded')
+      wrapper.find(AccordionPanel).first().find('.is-expanded')
     ).toHaveLength(0);
   });
 

@@ -1,4 +1,4 @@
-export const getHorizontalAlignment = str => {
+export const getHorizontalAlignment = (str) => {
   const align = {
     left: 'flex-start',
     right: 'flex-end',
@@ -9,17 +9,17 @@ export const getHorizontalAlignment = str => {
     spaceBetween: 'space-between', // dupe
     spaceEvenly: 'space-evenly',
     stretch: 'stretch',
-    default: 'flex-start'
+    default: 'flex-start',
   };
   return align[str] || align['default'];
 };
 
-export const getVerticalAlignment = str => {
+export const getVerticalAlignment = (str) => {
   const align = {
     bottom: 'flex-end',
     top: 'flex-start',
     center: 'center',
-    default: 'center'
+    default: 'center',
   };
   return align[str] || align['default'];
 };

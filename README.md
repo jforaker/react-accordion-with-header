@@ -4,8 +4,7 @@
 
 [![NPM](https://nodei.co/npm/react-accordion-with-header.png?downloads=true)](https://nodei.co/npm/react-accordion-with-header?downloads=true)
 
-[![jforaker](https://circleci.com/gh/jforaker/react-accordion-with-header.svg?style=svg)](<LINK>)
-
+[![jforaker](https://circleci.com/gh/jforaker/react-accordion-with-header.svg?style=svg)](LINK)
 
 > "You've got 5 seconds... and 3 are up." - _Steven Seagal_
 
@@ -26,7 +25,7 @@ import {
   AccordionWithHeader,
   AccordionNode,
   AccordionHeader,
-  AccordionPanel
+  AccordionPanel,
 } from 'react-accordion-with-header';
 ```
 

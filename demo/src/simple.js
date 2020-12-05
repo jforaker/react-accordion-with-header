@@ -4,21 +4,21 @@ import {
   AccordionWithHeader,
   AccordionNode,
   AccordionHeader,
-  AccordionPanel
+  AccordionPanel,
 } from '../../src';
 
 import './styles.css';
 
-export const HeaderTpl = () => <h3 style={{ color: '#0b5e73' }}>My Header</h3>;
-export class BodyTpl extends React.Component {
+export const Header = ({ item }) => (
+  <h3 style={{ color: '#0b5e73' }}>My Header #{item + 1}</h3>
+);
+
+export class Body extends React.Component {
   render() {
     return (
-      <div>
-        <h3>Praesent eget dignissim leo, at sodales dui.</h3>
-        <p>
-          Sed non congue mi. Ut dignissim pellentesque efficitur. Sed volutpat
-          mollis risus, in pulvinar dolor dapibus at.
-        </p>
+      <div style={{ padding: 10 }}>
+        <h4>This is some interesting content</h4>
+        <p>And this is an interesting description of said content.</p>
       </div>
     );
   }
@@ -32,10 +32,10 @@ export default () => (
         return (
           <AccordionNode key={i}>
             <AccordionHeader>
-              <HeaderTpl />
+              <Header item={i} />
             </AccordionHeader>
             <AccordionPanel>
-              <BodyTpl />
+              <Body />
             </AccordionPanel>
           </AccordionNode>
         );

@@ -4,7 +4,7 @@ import {
   AccordionWithHeader,
   AccordionNode,
   AccordionHeader,
-  AccordionPanel
+  AccordionPanel,
 } from '../../src';
 
 import './styles.css';
@@ -12,7 +12,7 @@ import './styles.css';
 const quotes = [
   'This maniac should be wearing a number, not a badge.',
   'So, what are you, like some special forces guy?',
-  'The jury decided. I presided.'
+  'The jury decided. I presided.',
 ];
 
 const alignment = [
@@ -20,7 +20,7 @@ const alignment = [
   'centerSpaceAround',
   'center',
   'left',
-  'right'
+  'right',
 ];
 
 const verticalAlignment = ['top', 'center', 'bottom'];
@@ -30,19 +30,19 @@ const MarkUp = ({ multipleOkay, active }) => {
     __html: `<pre><code>&lt;AccordionWithHeader 
     multipleOkay={${multipleOkay && multipleOkay.toString()}} 
     active={[${active ? active.toString() : ''}]} 
-    actionCallback={(panels, state) => console.log(panels, state)} &#47;&gt;</pre></code>`
+    actionCallback={(panels, state) => console.log(panels, state)} &#47;&gt;</pre></code>`,
   };
   return <div dangerouslySetInnerHTML={html} />;
 };
 
 export default class Controlled extends React.Component {
   state = {
-    images: []
+    images: [],
   };
 
-  componentWillMount() {
+  componentDidMount() {
     let images = [1, 2, 3].map(
-      i => `http://www.stevensegallery.com/200/20${i}`
+      (i) => `http://www.stevensegallery.com/200/20${i}`
     );
     this.setState({ images });
   }
@@ -53,10 +53,10 @@ export default class Controlled extends React.Component {
         <h1>Controlled</h1>
         <p>
           In this exampe, the &lt;AccordionWithHeader &#47;&gt; recieves an
-          array in the active prop
+          array as the active prop
         </p>
         <button className="btn btn-info" onClick={() => this.props.toggle()}>
-          toggle active: {`[ ${this.props.active.toString()} ]`}
+          toggle random active: {`[ ${this.props.active.toString()} ]`}
         </button>
         <br />
         <br />
@@ -65,7 +65,6 @@ export default class Controlled extends React.Component {
         <AccordionWithHeader
           {...this.props}
           actionCallback={(panels, state) => {
-            console.log('actionCallback panels, state: ', panels, state);
             this.props.handleActionCallback(panels, state);
           }}
         >

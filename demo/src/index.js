@@ -9,14 +9,14 @@ const preStyle = { background: '#e9ecef', padding: 10 };
 class Demo extends Component {
   state = {
     multipleOkay: true,
-    active: [0]
+    active: [0],
   };
 
   toggle = () => {
     this.setState({
       active: Array.from({ length: Math.round(Math.random() * 3) }).map(
         (_, i) => i
-      )
+      ),
     });
   };
 
@@ -48,7 +48,7 @@ class Demo extends Component {
             <div className="steve">
               <img src="http://www.stevensegallery.com/100/100" />
               <blockquote>
-                "I'm gunna to take you to the bank senator Trent, the blood
+                "I'm gonna to take you to the bank senator Trent, the blood
                 bank."
               </blockquote>
             </div>
@@ -103,6 +103,9 @@ class Demo extends Component {
                 {...this.state}
                 toggle={this.toggle}
                 handleActionCallback={(panels, state) => {
+                  console.table(panels, ['panel', 'open']);
+                  console.log('state: ', state);
+
                   this.setState({ ...state });
                 }}
               />
