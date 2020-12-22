@@ -2,7 +2,7 @@
 
 exports[`<AccordionWithHeader /> renders correctly 1`] = `
 <div
-  className="react-accordion-with-header"
+  className="accordion-with-header-root"
   style={
     Object {
       "borderRadius": 3,
@@ -11,18 +11,18 @@ exports[`<AccordionWithHeader /> renders correctly 1`] = `
   }
 >
   <div
-    className=""
+    className="accordion-node"
     style={Object {}}
   >
     <div
-      className="header-is-expanded"
+      className="accordion-header"
       onClick={[Function]}
       style={
         Object {
           "alignItems": "center",
           "borderRadius": 3,
-          "boxShadow": "0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)",
-          "color": "black",
+          "boxShadow": "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 1px 1px 0px 0px",
+          "color": "inherit",
           "cursor": "pointer",
           "display": "flex",
           "flexDirection": "row",
@@ -36,51 +36,11 @@ exports[`<AccordionWithHeader /> renders correctly 1`] = `
       </h2>
     </div>
     <div
-      className="is-expanded"
+      className="accordion-panel"
       style={
         Object {
-          "maxHeight": 0,
-          "opacity": 1,
-          "overflow": "hidden",
-          "padding": 0,
-          "transition": "all 250ms ease-in-out",
-        }
-      }
-    >
-      <section>
-        Interesting things...
-      </section>
-    </div>
-  </div>
-  <div
-    className=""
-    style={Object {}}
-  >
-    <div
-      className=""
-      onClick={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
           "borderRadius": 3,
-          "boxShadow": "0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)",
-          "color": "black",
-          "cursor": "pointer",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-around",
-          "padding": 10,
-        }
-      }
-    >
-      <h2>
-        Some title!
-      </h2>
-    </div>
-    <div
-      className=""
-      style={
-        Object {
+          "boxShadow": "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 1px 1px 0px 0px",
           "maxHeight": 0,
           "opacity": 0,
           "overflow": "hidden",
@@ -89,24 +49,28 @@ exports[`<AccordionWithHeader /> renders correctly 1`] = `
         }
       }
     >
-      <section>
-        Interesting things...
-      </section>
+      <div
+        className="acc-ref-0"
+      >
+        <section>
+          Interesting things...
+        </section>
+      </div>
     </div>
   </div>
   <div
-    className=""
+    className="accordion-node"
     style={Object {}}
   >
     <div
-      className=""
+      className="accordion-header"
       onClick={[Function]}
       style={
         Object {
           "alignItems": "center",
           "borderRadius": 3,
-          "boxShadow": "0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)",
-          "color": "black",
+          "boxShadow": "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 1px 1px 0px 0px",
+          "color": "inherit",
           "cursor": "pointer",
           "display": "flex",
           "flexDirection": "row",
@@ -120,9 +84,11 @@ exports[`<AccordionWithHeader /> renders correctly 1`] = `
       </h2>
     </div>
     <div
-      className=""
+      className="accordion-panel"
       style={
         Object {
+          "borderRadius": 3,
+          "boxShadow": "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 1px 1px 0px 0px",
           "maxHeight": 0,
           "opacity": 0,
           "overflow": "hidden",
@@ -131,24 +97,28 @@ exports[`<AccordionWithHeader /> renders correctly 1`] = `
         }
       }
     >
-      <section>
-        Interesting things...
-      </section>
+      <div
+        className="acc-ref-0"
+      >
+        <section>
+          Interesting things...
+        </section>
+      </div>
     </div>
   </div>
   <div
-    className=""
+    className="accordion-node"
     style={Object {}}
   >
     <div
-      className=""
+      className="accordion-header"
       onClick={[Function]}
       style={
         Object {
           "alignItems": "center",
           "borderRadius": 3,
-          "boxShadow": "0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)",
-          "color": "black",
+          "boxShadow": "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 1px 1px 0px 0px",
+          "color": "inherit",
           "cursor": "pointer",
           "display": "flex",
           "flexDirection": "row",
@@ -162,9 +132,11 @@ exports[`<AccordionWithHeader /> renders correctly 1`] = `
       </h2>
     </div>
     <div
-      className=""
+      className="accordion-panel"
       style={
         Object {
+          "borderRadius": 3,
+          "boxShadow": "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 1px 1px 0px 0px",
           "maxHeight": 0,
           "opacity": 0,
           "overflow": "hidden",
@@ -173,9 +145,61 @@ exports[`<AccordionWithHeader /> renders correctly 1`] = `
         }
       }
     >
-      <section>
-        Interesting things...
-      </section>
+      <div
+        className="acc-ref-0"
+      >
+        <section>
+          Interesting things...
+        </section>
+      </div>
+    </div>
+  </div>
+  <div
+    className="accordion-node"
+    style={Object {}}
+  >
+    <div
+      className="accordion-header"
+      onClick={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderRadius": 3,
+          "boxShadow": "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 1px 1px 0px 0px",
+          "color": "inherit",
+          "cursor": "pointer",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-around",
+          "padding": 10,
+        }
+      }
+    >
+      <h2>
+        Some title!
+      </h2>
+    </div>
+    <div
+      className="accordion-panel"
+      style={
+        Object {
+          "borderRadius": 3,
+          "boxShadow": "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 1px 1px 0px 0px",
+          "maxHeight": 0,
+          "opacity": 0,
+          "overflow": "hidden",
+          "padding": 0,
+          "transition": "all 250ms ease-in-out",
+        }
+      }
+    >
+      <div
+        className="acc-ref-0"
+      >
+        <section>
+          Interesting things...
+        </section>
+      </div>
     </div>
   </div>
 </div>

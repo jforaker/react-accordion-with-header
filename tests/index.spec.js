@@ -51,32 +51,32 @@ describe('<AccordionWithHeader />', () => {
     expect(wrapper.find('h2').length).toEqual(1);
   });
 
-  it('renders an AccordionNode with `.header-is-expanded` element because active={[0]} prop is truthy', () => {
+  it('renders an AccordionNode with `.is-open` element because active={[0]} prop is truthy', () => {
     const wrapper = mount(<Component active={[0]} />);
-    expect(
-      wrapper.find(AccordionNode).first().find('.header-is-expanded')
-    ).toHaveLength(1);
+    expect(wrapper.find(AccordionNode).first().find('.is-open')).toHaveLength(
+      1
+    );
   });
 
-  it('renders an AccordionPanel with `.is-expanded` element because active={[0]} prop is truthy', () => {
+  it('renders an AccordionPanel with `.is-open` element because active={[0]} prop is truthy', () => {
     const wrapper = mount(<Component active={[0]} />);
-    expect(
-      wrapper.find(AccordionPanel).first().find('.is-expanded')
-    ).toHaveLength(1);
+    expect(wrapper.find(AccordionPanel).first().find('.is-open')).toHaveLength(
+      1
+    );
   });
 
-  it('renders an AccordionNode with `.header-is-expanded` element because firstOpen prop is falsy', () => {
+  it('does not render an AccordionNode with `.is-open` element because firstOpen prop is falsy', () => {
     const wrapper = mount(<Component firstOpen={false} />);
-    expect(
-      wrapper.find(AccordionNode).first().find('.header-is-expanded')
-    ).toHaveLength(0);
+    expect(wrapper.find(AccordionNode).first().find('.is-open')).toHaveLength(
+      0
+    );
   });
 
-  it('renders an AccordionPanel with `.is-expanded` element because  firstOpen prop is falsy', () => {
+  it('does not render an AccordionPanel with `.is-open` element because firstOpen prop is falsy', () => {
     const wrapper = mount(<Component firstOpen={false} />);
-    expect(
-      wrapper.find(AccordionPanel).first().find('.is-expanded')
-    ).toHaveLength(0);
+    expect(wrapper.find(AccordionPanel).first().find('.is-open')).toHaveLength(
+      0
+    );
   });
 
   it('<AccordionNode /> does not render a children if none are passed in', () => {
@@ -84,15 +84,13 @@ describe('<AccordionWithHeader />', () => {
     expect(wrapper.children()).toHaveLength(0);
   });
 
-  it('renders 2 AccordionPanel with `.is-expanded` element because active={[0, 1]} prop', () => {
+  it('renders 2 AccordionPanels with `.is-open` element because active={[0, 1]} prop', () => {
     const wrapper = mount(<Component active={[0, 1]} />);
-    expect(wrapper.find(AccordionPanel).find('.is-expanded')).toHaveLength(2);
+    expect(wrapper.find(AccordionPanel).find('.is-open')).toHaveLength(2);
   });
 
-  it('renders an AccordionNode with `.header-is-expanded` element because active={[0, 1]} prop', () => {
+  it('renders an AccordionNode with `.is-open` element because active={[0, 1]} prop', () => {
     const wrapper = mount(<Component active={[0, 1]} />);
-    expect(
-      wrapper.find(AccordionNode).find('.header-is-expanded')
-    ).toHaveLength(2);
+    expect(wrapper.find(AccordionNode).find('.is-open')).toHaveLength(2);
   });
 });
