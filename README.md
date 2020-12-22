@@ -63,19 +63,18 @@ const MyAccordion = () => (
 
 ```javascript
 …
-  onChange = (state) => {
+  const onChange = (state) => {
     // called any time the panels change state, either by clicking or using in a controlled situation
     // receives array of active panels by index, for example: [1, 3]
     console.log('state', state);
   }
 
-  render() {
-    return (
-      <AccordionWithHeader onChange={onChange}>
-        // ... stuff
-      </AccordionWithHeader>
-    );
-  }
+  return (
+    <AccordionWithHeader onChange={onChange}>
+      // ... stuff
+    </AccordionWithHeader>
+  );
+
 …
 ```
 
