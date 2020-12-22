@@ -10,12 +10,12 @@
 
 <img src="https://media.giphy.com/media/BakXonJxQzoIM/giphy.gif" width="300" />
 
-### [Check out the demo NOW](https://react-accordion-with-header.now.sh/)
+### [Check out the demo NOW](https://react-accordion-with-header.vercel.app/)
 
-#### Install via NPM:
+#### Install via yarn:
 
 ```
-npm install react-accordion-with-header
+yarn add react-accordion-with-header
 ```
 
 #### Import the modules:
@@ -29,68 +29,44 @@ import {
 } from 'react-accordion-with-header';
 ```
 
-Items can be passed in to `<AccordionHeader />` and `<AccordionPanel />`:
-
-- as children (preferred)
-- as a component passed into the `template` prop (deprecated)
-
-The elements passed in to `<AccordionHeader />` can be **horizontally justified and vertically aligned** via their respective props
-:tada: :boom: :beers:
+The elements passed in to `<AccordionHeader />` can be **horizontally justified and vertically aligned** via their respective props.
 
 - `horizontalAlignment`
 - `verticalAlignment`
 
-### Pass in a component as a child to `AccordionHeader` and `AccordionPanel`:
-
-(or plain html of course)
+##### Use composition to pass components or whatever you wish to `AccordionHeader` and `AccordionPanel`:
 
 ```javascript
-// note: due to the warning "Stateless function components cannot be given refs. Attempts to access this ref will fail."
-// the components passed into <AccordionPanel> must be class components
-// this allows to measure the height of the element via refs
-class BodyTpl extends React.Component {
-  render() {
-    return <div>Look at this {this.props.item}</div>;
-  }
-}
-
-class MyAccordion extends React.Component {
-  render() {
-    return (
-      <AccordionWithHeader>
-        {[1, 2, 3, 4].map((item, i) => {
-          return (
-            <AccordionNode key={i}>
-              <AccordionHeader
-                horizontalAlignment="centerSpaceAround"
-                verticalAlignment="center"
-              >
-                <div>This is the header</div>
-                <div>It has flexbox layout</div>
-              </AccordionHeader>
-              <AccordionPanel>
-                <BodyTpl item={item} />
-              </AccordionPanel>
-            </AccordionNode>
-          );
-        })}
-      </AccordionWithHeader>
-    );
-  }
-}
-
-…
+const MyAccordion = () => (
+  <AccordionWithHeader>
+    {[1, 2, 3, 4].map((item, i) => {
+      return (
+        <AccordionNode key={i}>
+          <AccordionHeader
+            horizontalAlignment="centerSpaceAround"
+            verticalAlignment="center"
+          >
+            <span>This is the header 🎉</span>
+            <span>It has flexbox layout 🚀</span>
+          </AccordionHeader>
+          <AccordionPanel>
+            <div>Look at this great {item}</div>
+          </AccordionPanel>
+        </AccordionNode>
+      );
+    })}
+  </AccordionWithHeader>
+);
 ```
 
 ### `onChange`
 
 ```javascript
 …
-  onChange = (panels, state) => {
-    // fires any time headers are clicked and panels change state
-    // receives array of panels: [{ panel: 3, open: true }, { panel: 6, open: true }]
-    // and the AccordionWithHeader state
-    console.log('panels, state', panels, state);
+  onChange = (state) => {
+    // called any time the panels change state, either by clicking or using in a controlled situation
+    // receives array of active panels by index, for example: [1, 3]
+    console.log('state', state);
   }
 
   render() {
@@ -103,16 +79,44 @@ class MyAccordion extends React.Component {
 …
 ```
 
-## Props
+---
 
-(all components accept a `className` and `style` prop per usual convention)
+### CSS and styling
+
+The `<AccordionHeader />` and `<AccordionPanel />` will add an `is-open` class when the corresponding panel is open. This opens up the door for creative styling options. See demo.
+
+The minimal built in styles can be easily overriden by adding a `style` prop or `className` prop to any of the components.
+
+For example: `<AccordionHeader style={{ border: '1px solid' }}>`
+
+Or: `<AccordionHeader className="myClass">`
+
+---
+
+### `useAccordionState()`
+
+For some advanced use cases, you may tap the accordion context with `useAccordionState()`
+
+```javascript
+import { useAccordionState } from 'react-accordion-with-header';
+
+const MyComponentWithContext = () => {
+  const [state] = useAccordionState();
+  console.log('state: ', state);
+  return <div></div>;
+};
+```
+
+Note you will receive an error if `<MyComponentWithContext />` is not a child of `<AccordionWithHeader />`
+
+## Props
 
 ### `<AccordionWithHeader />`
 
 | Property       | Type       | Description                                                                                                                                            | Default |
 | :------------- | :--------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :------ |
 | firstOpen      | `Boolean`  | Determines if the first panel should be expanded on init                                                                                               | `false` |
-| active         | `Array`    | Determines which panels are open (on componentDidMount or to control externally)                                                                       | `[]`    |
+| active         | `Array`    | Determines which panels are open on mount, or to which panels to open by controlling the component. See demo.                                          | `[]`    |
 | multipleOkay   | `Boolean`  | True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time.                                   | `false` |
 | onChange       | `Function` | Callback function fired when a header is clicked and panel is opened or closed. Returns an array representing panels and the AccordionWithHeader state | `none`  |
 | actionCallback | `Function` | _Deprecated_ in favor of `onChange`                                                                                                                    | `none`  |
@@ -146,13 +150,5 @@ class MyAccordion extends React.Component {
 | speed     | `Number`  | Speed in milliseconds to apply to CSS transition of open/close effect | `250`   |
 | style     | `Object`  | style object                                                          | `none`  |
 | className | `String`  | CSS classname                                                         | `none`  |
-
-## What about styling?
-
-You can styles to any component with a `style` prop or `className` prop
-
-For example: `<AccordionHeader style={{border: '1px solid'}}>`
-
-Or: `<AccordionHeader className="myCssClass">`
 
 ---

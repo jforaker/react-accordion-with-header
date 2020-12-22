@@ -1,13 +1,13 @@
 {
   "name": "react-accordion-with-header",
   "author": "Jake Foraker <jakeforaker83@gmail.com> (https://github.com/jforaker)",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jforaker/react-accordion-with-header.git"
   },
   "description": "React accordion component with flexbox header",
-  "homepage": "https://react-accordion-with-header.now.sh/",
+  "homepage": "https://react-accordion-with-header.vercel.app/",
   "license": "MIT",
   "keywords": [
     "react",

@@ -97,7 +97,7 @@ const ContextDemo = () => {
       />
       <p>
         Note you will receive an error if {`<MyComponentWithContext />`} is not
-        used inside {'<AccordionWithHeader />'}
+        a child of {'<AccordionWithHeader />'}
       </p>
       <hr className="my-1" />
     </div>
