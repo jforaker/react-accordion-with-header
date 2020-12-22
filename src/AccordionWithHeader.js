@@ -1,106 +1,78 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Children, cloneElement, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-const defaultProps = {
-  className: 'react-accordion-with-header',
-  multipleOkay: false,
-  firstOpen: false,
-  style: {
-    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
-    borderRadius: 3,
-  },
-};
+import {
+  useAccordionState,
+  AccordionWithHeaderProvider,
+} from './accordion-with-header-context';
+import { validateActive } from './utils';
 
-export default class AccordionWithHeader extends Component {
-  state = {
-    panels: [],
-    active: [],
-    ...this.props,
-  };
+export function AccordionWithHeaderConsumer(props) {
+  const [active, setActive] = useAccordionState();
 
-  componentDidMount() {
-    let panels;
-    const { children, active, firstOpen } = this.props;
+  useEffect(() => {
+    // mount
+    const { children, firstOpen, active } = props;
 
     if (!children) {
       throw new Error('AccordionWithHeader must have children!');
     }
 
-    panels = Children.map(children, (child) => +child.key);
+    validateActive(
+      active,
+      children.map((_, i) => i),
+      firstOpen
+    ); // internal check to validate correct usages
 
-    // define the number of AccordionNode "panels" to control
-    this.setState({ panels });
-
-    // allow firstOpen prop, but prefer an "active" array
     if (firstOpen) {
-      this.setState({ active: [0] });
-    }
-
-    // if this.props.active is defined, validate it is an array
-    // and that it is a valid instance of the panels array
-    if (typeof active !== 'undefined') {
-      const validateActive = () => {
-        if (typeof active === 'number' || !Array.isArray(active)) {
-          throw new Error('this.props.active must be an array');
-        }
-        active.forEach((active) => {
-          if (!panels.includes(active)) {
-            throw new Error(
-              `Items in this.props.active array are not included in panel array!
-                Check that one or more array indexes are properly passed in.`
-            );
-          }
-        });
-      };
-      validateActive();
-      this.setState((prevState) => ({
-        active: Array.from(new Set([...prevState.active, ...active])),
-      }));
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    // Only needs to render if children have been dynamically aded/removed
-    if (prevProps.children.length != this.props.children.length) {
-      const { children } = this.props;
-      const panels = Children.map(children, (child) => +child.key);
-      this.setState({ panels });
-    }
-  }
-
-  onClickHeader = (panelIndex) => {
-    let active;
-    if (this.state.active.includes(panelIndex)) {
-      active = this.state.active.filter((item) => item !== panelIndex);
-    } else {
-      active = !this.props.multipleOkay ? [] : this.state.active;
-      active.push(this.state.panels[panelIndex]);
-      active.sort();
-    }
-
-    this.setState(
-      (prevState) => ({
-        active,
-        multipleOkay:
-          prevState.multipleOkay !== this.props.multipleOkay
-            ? this.props.multipleOkay
-            : prevState.multipleOkay,
-      }),
-      () => {
-        if (this.props.actionCallback) {
-          // pass array of panels and accordion state back to actionCallback props function
-          let panelData = this.state.panels.map((panel) => ({
-            panel,
-            open: active.includes(panel),
-          }));
-          this.props.actionCallback(panelData, ...this.state);
-        }
+      setActive([0]); // internal
+      if (props.onChange) {
+        props.onChange([0]); // send to external
       }
+    }
+  }, []);
+
+  useEffect(() => {
+    // updates, controlled etc
+    setActive(props.active);
+  }, [props.active]);
+
+  useEffect(() => {
+    // Only needs to render if children have been dynamically aded/removed
+    validateActive(
+      active,
+      props.children.map((_, i) => i)
     );
+  }, [props.children.length]);
+
+  const onClickHeader = (panelIndex) => {
+    const baseNewActive = props.multipleOkay ? active : [];
+    const filtered = (arr) => arr.filter((p) => p !== panelIndex).sort();
+    let newActive;
+
+    if (active.includes(panelIndex)) {
+      // panel was open, just filter it out of the active array
+      newActive = filtered(baseNewActive);
+      setActive(newActive);
+    } else {
+      // panel was not open, add it to active array along with previously open panels
+      newActive = [...filtered(baseNewActive), panelIndex];
+      setActive(newActive);
+    }
+
+    if (props.onChange) {
+      // pass array of active panels back to onChange props function
+      props.onChange(newActive);
+    }
+    if (props.actionCallback && !props.onChange) {
+      console.warn(
+        `The actionCallback prop will be deprecated in a future. Prefer "onChange" instead.`
+      );
+      props.actionCallback(newActive);
+    }
   };
 
-  checkExpanded = (indexKey, activePanelOrPanelsProps) => {
+  const checkExpanded = (indexKey, activePanelOrPanelsProps) => {
     if (Array.isArray(activePanelOrPanelsProps)) {
       //multipleOkay is true
       return activePanelOrPanelsProps.some((panel) => panel === indexKey);
@@ -109,33 +81,52 @@ export default class AccordionWithHeader extends Component {
     }
   };
 
-  render() {
-    const { className, style, children, active } = this.props;
-    const internalControl = !active;
-    const panelsToCheck = internalControl ? this.state.active : active;
+  const { className, style, children } = props;
+  const cx = `${className} accordion-with-header-root`.trim();
 
-    return (
-      <div className={classNames(className)} style={{ ...style }}>
-        {Children.map(children, (item, index) => {
-          // lets render the <AccordionNode /> and its kids
-          return cloneElement(item, {
-            indexKey: index, // needed for child ref if template prop is used
-            key: index,
-            onClickHeader: () => this.onClickHeader(index),
-            isExpanded: this.checkExpanded(index, panelsToCheck),
-          });
-        })}
-      </div>
-    );
-  }
+  return (
+    <div className={cx} style={{ ...style }}>
+      {Children.map(children, (item, index) => {
+        // lets render the <AccordionNode /> and its kids
+        return cloneElement(item, {
+          indexKey: index, // needed for child ref if template prop is used
+          key: index,
+          onClickHeader: () => onClickHeader(index),
+          isExpanded: checkExpanded(index, active),
+        });
+      })}
+    </div>
+  );
 }
 
-AccordionWithHeader.propTypes = {
+export default function AccordionWithHeader(props) {
+  return (
+    <AccordionWithHeaderProvider>
+      <AccordionWithHeaderConsumer {...props}>
+        {props.children}
+      </AccordionWithHeaderConsumer>
+    </AccordionWithHeaderProvider>
+  );
+}
+
+AccordionWithHeader.propTypes /* remove-proptypes */ = {
   className: PropTypes.string,
   style: PropTypes.object,
   firstOpen: PropTypes.bool,
   multipleOkay: PropTypes.bool,
   active: PropTypes.array,
-  actionCallback: PropTypes.func,
+  actionCallback: PropTypes.func, // deprecate
+  onChange: PropTypes.func,
 };
-AccordionWithHeader.defaultProps = defaultProps;
+
+AccordionWithHeader.defaultProps = {
+  active: [],
+  panels: [],
+  className: '',
+  multipleOkay: false,
+  firstOpen: false,
+  style: {
+    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
+    borderRadius: 3,
+  },
+};

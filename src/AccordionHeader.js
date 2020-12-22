@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { getHorizontalAlignment, getVerticalAlignment } from './utils';
+import { useAccordionState } from './accordion-with-header-context';
 
 export default function AccordionHeader(props) {
   const {
@@ -16,6 +16,8 @@ export default function AccordionHeader(props) {
     children,
     title,
   } = props;
+
+  // const [active] = useAccordionState();
 
   const renderChildren = () => {
     if (!template && !children && !title) {
@@ -38,7 +40,7 @@ export default function AccordionHeader(props) {
 
   let styles = {
     cursor: 'pointer',
-    color: titleColor || 'black',
+    color: titleColor,
     display: '-webkit-flex',
     display: 'flex',
     flexDirection: 'row',
@@ -46,18 +48,18 @@ export default function AccordionHeader(props) {
     justifyContent: getHorizontalAlignment(horizontalAlignment),
   };
 
+  const cx = `${className} accordion-header ${
+    isExpanded ? 'is-open' : ''
+  }`.trim();
+
   return (
-    <div
-      className={classNames(className, { 'header-is-expanded': isExpanded })}
-      onClick={onClickHeader}
-      style={{ ...style, ...styles }}
-    >
+    <div className={cx} onClick={onClickHeader} style={{ ...style, ...styles }}>
       {renderChildren()}
     </div>
   );
 }
 
-AccordionHeader.propTypes = {
+AccordionHeader.propTypes /* remove-proptypes */ = {
   className: PropTypes.string,
   style: PropTypes.object,
   verticalAlignment: PropTypes.oneOf(['top', 'center', 'bottom']),
@@ -80,13 +82,14 @@ AccordionHeader.propTypes = {
 };
 
 AccordionHeader.defaultProps = {
-  className: 'null',
+  className: '',
   horizontalAlignment: 'centerSpaceAround',
   verticalAlignment: 'center',
-  titleColor: 'black',
+  titleColor: 'inherit',
   style: {
     padding: 10,
-    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 1px 1px 3px 0 rgba(63,63,68,.15)',
+    boxShadow:
+      'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.05) 1px 1px 0px 0px',
     borderRadius: 3,
   },
 };

@@ -7,7 +7,7 @@ import {
   AccordionPanel,
 } from '../../src';
 
-import './styles.css';
+import { Code } from './components';
 
 const quotes = [
   'This maniac should be wearing a number, not a badge.',
@@ -25,48 +25,75 @@ const alignment = [
 
 const verticalAlignment = ['top', 'center', 'bottom'];
 
-const MarkUp = ({ multipleOkay, active }) => {
-  let html = {
-    __html: `<pre><code>&lt;AccordionWithHeader 
-    multipleOkay={${multipleOkay && multipleOkay.toString()}} 
+const MarkUp = ({ active }) => (
+  <Code
+    code={`
+  <AccordionWithHeader 
+    multipleOkay={true} 
     active={[${active ? active.toString() : ''}]} 
-    actionCallback={(panels, state) => console.log(panels, state)} &#47;&gt;</pre></code>`,
-  };
-  return <div dangerouslySetInnerHTML={html} />;
-};
+    onChange={(panels) => console.log(panels)}
+  >
+    //... panels etc
+  </AccordionWithHeader>
+`}
+  />
+);
 
-export default class Controlled extends React.Component {
-  state = {
-    images: [],
-  };
+const images = [1, 2, 3].map(
+  (i) => `http://www.stevensegallery.com/200/20${i}`
+);
 
-  componentDidMount() {
-    let images = [1, 2, 3].map(
-      (i) => `http://www.stevensegallery.com/200/20${i}`
-    );
-    this.setState({ images });
-  }
+export default function Controlled(props) {
+  return (
+    <div className="block controlled">
+      <h3>
+        <em>Controlled</em>
+      </h3>
+      <p>
+        In this exampe, the &lt;AccordionWithHeader &#47;&gt; recieves a dynamic
+        array as the active prop
+      </p>
 
-  render() {
-    return (
       <div className="block">
-        <h1>Controlled</h1>
-        <p>
-          In this exampe, the &lt;AccordionWithHeader &#47;&gt; recieves an
-          array as the active prop
-        </p>
-        <button className="btn btn-info" onClick={() => this.props.toggle()}>
-          toggle random active: {`[ ${this.props.active.toString()} ]`}
-        </button>
-        <br />
-        <br />
+        <div className="row">
+          <div className="col-md-12 col-lg-6">
+            <MarkUp {...props} />
+          </div>
+          <div className="col-md-12 col-lg-6">
+            <div className="btn-container">
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => props.toggleRandom()}
+              >
+                toggle random
+              </button>
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => props.toggle(0)}
+              >
+                toggle first
+              </button>
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => props.toggle(1)}
+              >
+                toggle second
+              </button>
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => props.toggle(2)}
+              >
+                toggle third
+              </button>
+            </div>
+          </div>
+        </div>
 
-        <MarkUp {...this.props} />
         <AccordionWithHeader
-          {...this.props}
-          actionCallback={(panels, state) => {
-            this.props.handleActionCallback(panels, state);
-          }}
+          className="steves-panel"
+          active={props.active}
+          multipleOkay={true}
+          onChange={props.handleOnChange}
         >
           {quotes.map((quote, i) => {
             return (
@@ -75,21 +102,25 @@ export default class Controlled extends React.Component {
                   horizontalAlignment={alignment[i]}
                   verticalAlignment={verticalAlignment[i]}
                 >
-                  <img src={this.state.images[i]} width="70" />
-                  <h6 className="box">
+                  <img src={images[i]} width="70" />
+                  <div className="box only-large">
                     <code>horizontalAlignment="{alignment[i]}"</code>
-                  </h6>
-                  <h6 className="box">
+                  </div>
+                  <div className="box only-large">
+                    <code>verticalAlignment="{verticalAlignment[i]}"</code>
+                  </div>
+                  <div className="only-small">
                     <code>
-                      verticalAlignment="{verticalAlignment[i] || 'center'}"
+                      horizontalAlignment="{alignment[i]}"
+                      <br />
+                      verticalAlignment="{verticalAlignment[i]}"
                     </code>
-                  </h6>
-                  <img src={this.state.images[i]} width="70" />
+                  </div>
                 </AccordionHeader>
-                <AccordionPanel className="my-panel" speed={350}>
-                  <div style={{ textAlign: 'center', padding: 20 }}>
+                <AccordionPanel speed={250}>
+                  <div className="my-panel">
                     <h5>{quote}</h5>
-                    <img width={150} src={this.state.images[i]} />
+                    <img width={150} src={images[i]} alt="steve" />
                   </div>
                 </AccordionPanel>
               </AccordionNode>
@@ -97,6 +128,8 @@ export default class Controlled extends React.Component {
           })}
         </AccordionWithHeader>
       </div>
-    );
-  }
+
+      <hr className="my-4" />
+    </div>
+  );
 }

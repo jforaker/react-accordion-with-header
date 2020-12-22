@@ -1,50 +1,120 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Fragment, useState } from 'react';
+import { render, hydrate } from 'react-dom';
+import 'bootswatch/dist/solar/bootstrap.min.css';
+import './styles.css';
 
 import Container from './container';
+import { Code } from './components';
 
-const preStyle = { background: '#e9ecef', padding: 10 };
+const Jumbotron = () => (
+  <div className="jumbotron">
+    <div className="container page-header">
+      <div className="row">
+        <div className="col-sm-12">
+          <h1>react-accordion-with-header</h1>
+          <p className="lead">
+            React accordion component with customizable flexbox based header
+          </p>
+          <div>
+            <iframe
+              src="https://ghbtns.com/github-btn.html?user=jforaker&repo=react-accordion-with-header&type=star&count=true"
+              frameBorder="0"
+              scrolling="0"
+              width="100px"
+              height="50px"
+            />
+            <iframe
+              src="https://ghbtns.com/github-btn.html?user=jforaker&repo=react-accordion-with-header&type=fork&count=true"
+              frameBorder="0"
+              scrolling="0"
+              width="100px"
+              height="50px"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
-class Demo extends Component {
-  state = {
-    multipleOkay: true,
-    active: [0],
+const Install = () => (
+  <div className="container">
+    <div className="row">
+      <div className="col-md-12">
+        <h2>Install</h2>
+        <Code
+          language="bash"
+          code={`
+  yarn add react-accordion-with-header
+`}
+        />
+        <h5>Import</h5>
+        <Code
+          code={`
+  import {
+    AccordionWithHeader,
+    AccordionNode, 
+    AccordionHeader,
+    AccordionPanel
+  } from 'react-accordion-with-header';
+`}
+        />
+        <h5>Use</h5>
+        <Code
+          code={`
+  return (
+    <AccordionWithHeader>
+      {[1, 2, 3, 4].map((item, i) => {
+        return (
+          <AccordionNode key={i}>
+            <AccordionHeader>
+              <span>🚀</span>
+              <span>🔥</span>
+            </AccordionHeader>
+            <AccordionPanel>
+              <p>Interesting things</p>
+            </AccordionPanel>
+          </AccordionNode>
+        );
+      })}
+    </AccordionWithHeader>
+  );
+`}
+        />
+      </div>
+      <hr className="my-2" />
+    </div>
+  </div>
+);
+
+const Demo = () => {
+  const [active, setActive] = useState([0]);
+
+  const toggle = (value) => {
+    if (active.includes(value)) {
+      // panel was open, just filter it out of the active array
+      setActive(active.filter((item) => item !== value).sort());
+    } else {
+      // panel was not open, add it to active array along with previously open panels
+      setActive([...active.filter((item) => item !== value), value].sort());
+    }
   };
 
-  toggle = () => {
-    this.setState({
-      active: Array.from({ length: Math.round(Math.random() * 3) }).map(
-        (_, i) => i
-      ),
-    });
+  const toggleRandom = () => {
+    const rand = Array.from({ length: Math.round(Math.random() * 3) }).map(
+      (_, i) => i
+    );
+    setActive(rand);
   };
 
-  render() {
-    return (
-      <div>
-        <div id="h" className="jumbotron">
-          <div className="container">
-            <h1>react-accordion-with-header</h1>
-            <h2>
-              React accordion component with customizable flexbox based header
-            </h2>
-            <div>
-              <iframe
-                src="https://ghbtns.com/github-btn.html?user=jforaker&repo=react-accordion-with-header&type=star&count=true"
-                frameBorder="0"
-                scrolling="0"
-                width="100px"
-                height="50px"
-              />
-              <iframe
-                src="https://ghbtns.com/github-btn.html?user=jforaker&repo=react-accordion-with-header&type=fork&count=true"
-                frameBorder="0"
-                scrolling="0"
-                width="100px"
-                height="50px"
-              />
-            </div>
+  return (
+    <Fragment>
+      <Jumbotron />
+      <Install />
+
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
             <div className="steve">
               <img src="http://www.stevensegallery.com/100/100" />
               <blockquote>
@@ -52,69 +122,35 @@ class Demo extends Component {
                 bank."
               </blockquote>
             </div>
-          </div>
-        </div>
-
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1>Install</h1>
-              <pre style={preStyle}>
-                <code>npm install react-accordion-with-header</code>
-              </pre>
-              <pre style={preStyle}>
-                <code>
-                  {`import {
-  AccordionWithHeader,
-  AccordionNode, 
-  AccordionHeader,
-  AccordionPanel
-} from 'react-accordion-with-header';
-`}
-                </code>
-              </pre>
-              <pre style={preStyle}>
-                <code>
-                  {`render() {
-  return (
-    <AccordionWithHeader>
-      {[1, 2, 3, 4].map((item, i) => {
-        return (
-          <AccordionNode key={i}>
-            <AccordionHeader>
-              <h2>Some title!</h2>
-            </AccordionHeader>
-            <AccordionPanel>
-              <div>Interesting things</div>
-            </AccordionPanel>
-          </AccordionNode>
-        );
-      })}
-    </AccordionWithHeader>
-  );
-                  `}
-                </code>
-              </pre>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
-              <Container
-                {...this.state}
-                toggle={this.toggle}
-                handleActionCallback={(panels, state) => {
-                  console.table(panels, ['panel', 'open']);
-                  console.log('state: ', state);
-
-                  this.setState({ ...state });
-                }}
-              />
-            </div>
+            <hr className="my-4" />
           </div>
         </div>
       </div>
-    );
-  }
-}
 
-render(<Demo />, document.querySelector('#demo'));
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <h1>Example usages:</h1>
+            <Container
+              active={active}
+              toggle={toggle}
+              toggleRandom={toggleRandom}
+              handleOnChange={(panels) => {
+                console.log('active panels from onChange: ', panels);
+                setActive(panels);
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </Fragment>
+  );
+};
+
+const rootElement = document.querySelector('#demo');
+
+if (rootElement.hasChildNodes()) {
+  hydrate(<Demo />, rootElement);
+} else {
+  render(<Demo />, rootElement);
+}

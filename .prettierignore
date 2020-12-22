@@ -2,4 +2,4 @@ es
 lib
 umd
 node_modules
-demo
+demo/dist

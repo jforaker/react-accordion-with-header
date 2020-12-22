@@ -82,11 +82,11 @@ class MyAccordion extends React.Component {
 …
 ```
 
-### `actionCallback`
+### `onChange`
 
 ```javascript
 …
-  actionCallback = (panels, state) => {
+  onChange = (panels, state) => {
     // fires any time headers are clicked and panels change state
     // receives array of panels: [{ panel: 3, open: true }, { panel: 6, open: true }]
     // and the AccordionWithHeader state
@@ -95,7 +95,7 @@ class MyAccordion extends React.Component {
 
   render() {
     return (
-      <AccordionWithHeader actionCallback={this.actionCallback}>
+      <AccordionWithHeader onChange={onChange}>
         // ... stuff
       </AccordionWithHeader>
     );
@@ -114,7 +114,8 @@ class MyAccordion extends React.Component {
 | firstOpen      | `Boolean`  | Determines if the first panel should be expanded on init                                                                                               | `false` |
 | active         | `Array`    | Determines which panels are open (on componentDidMount or to control externally)                                                                       | `[]`    |
 | multipleOkay   | `Boolean`  | True allows multiple panels to be expanded at the same time. False allows only one panel to be expanded at any time.                                   | `false` |
-| actionCallback | `Function` | Callback function fired when a header is clicked and panel is opened or closed. Returns an array representing panels and the AccordionWithHeader state | `none`  |
+| onChange       | `Function` | Callback function fired when a header is clicked and panel is opened or closed. Returns an array representing panels and the AccordionWithHeader state | `none`  |
+| actionCallback | `Function` | _Deprecated_ in favor of `onChange`                                                                                                                    | `none`  |
 | style          | `Object`   | style object                                                                                                                                           | `none`  |
 | className      | `String`   | CSS classname                                                                                                                                          | `none`  |
 
