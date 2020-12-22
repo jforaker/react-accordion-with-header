@@ -7,7 +7,7 @@
     "url": "git+https://github.com/jforaker/react-accordion-with-header.git"
   },
   "description": "React accordion component with flexbox header",
-  "homepage": "https://react-accordion-with-header.vercel.app/",
+  "homepage": "https://react-accordion.xyz",
   "license": "MIT",
   "keywords": [
     "react",
