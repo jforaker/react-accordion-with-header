@@ -10,7 +10,7 @@
 
 <img src="https://media.giphy.com/media/BakXonJxQzoIM/giphy.gif" width="300" />
 
-### [Check out the demo NOW](https://react-accordion-with-header.vercel.app/)
+### [Check out the demo NOW](https://react-accordion.xyz/)
 
 #### Install via yarn:
 

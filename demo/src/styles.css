@@ -82,8 +82,15 @@ body {
   }
 }
 
+.steve-hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
 .steve {
-  margin-top: 25px;
   display: flex;
   flex-direction: row;
   align-items: center;

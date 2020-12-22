@@ -79,10 +79,10 @@ const AddPanelsDemo = () => {
 const ContextDemo = () => {
   return (
     <div className="block real-world">
-      <h2>useAccordionState</h2>
+      <h2>useAccordionState()</h2>
       <p>
-        For advanced usage, you may subscribe to the context emitted from{' '}
-        {'<AccordionWithHeader />'}
+        For some advanced use cases, you may tap the accordion context with
+        `useAccordionState()`
       </p>
       <Code
         code={`
@@ -107,8 +107,10 @@ const ContextDemo = () => {
 const RealWorldDemo = () => {
   return (
     <div className="block real-world">
-      <h2>Real World demo</h2>
-      <p className="lead">with responsive styling</p>
+      <h2>Real world demo</h2>
+      <p className="lead">
+        Or something that represents it 😄... with responsive styling
+      </p>
       <AccordionWithHeader className="my-acc-demo">
         {data.map(({ id, title, topic, readtime, image, text, likes }) => {
           return (

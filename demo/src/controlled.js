@@ -46,14 +46,33 @@ const images = [1, 2, 3].map(
 export default function Controlled(props) {
   return (
     <div className="block controlled">
+      <div className="container">
+        <div className="row">
+          <div className="steve-hero col-md-6">
+            <p className="lead">
+              Our Component needs a hero. This is where you'll find him.
+            </p>
+          </div>
+          <div className="col-md-6">
+            <div className="steve">
+              <img src="http://www.stevensegallery.com/100/100" />
+              <blockquote>
+                "I'm gonna to take you to the bank senator Trent, the blood
+                bank."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <hr className="my-4" />
+      </div>
+
       <h3>
         <em>Controlled</em>
       </h3>
       <p>
-        In this exampe, the &lt;AccordionWithHeader &#47;&gt; recieves a dynamic
-        array as the active prop
+        In this example, the &lt;AccordionWithHeader &#47;&gt; recieves a
+        dynamic array as the active prop
       </p>
-
       <div className="block">
         <div className="row">
           <div className="col-md-12 col-lg-6">
