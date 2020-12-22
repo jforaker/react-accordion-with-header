@@ -89,6 +89,10 @@
     }
   },
   "reactSnap": {
-    "source": "demo/dist"
+    "source": "demo/dist",
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
   }
 }
