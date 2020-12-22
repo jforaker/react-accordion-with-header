@@ -111,22 +111,6 @@ const Demo = () => {
     <Fragment>
       <Jumbotron />
       <Install />
-
-      {/* <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-             <div className="steve">
-              <img src="http://www.stevensegallery.com/100/100" />
-              <blockquote>
-                "I'm gonna to take you to the bank senator Trent, the blood
-                bank."
-              </blockquote>
-            </div> 
-            <hr className="my-4" />
-          </div>
-        </div>
-      </div> */}
-
       <div className="container">
         <div className="row">
           <div className="col-md-12">
