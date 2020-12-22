@@ -108,6 +108,8 @@ const MyComponentWithContext = () => {
 
 Note you will receive an error if `<MyComponentWithContext />` is not a child of `<AccordionWithHeader />`
 
+---
+
 ## Props
 
 ### `<AccordionWithHeader />`
